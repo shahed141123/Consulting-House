@@ -21,7 +21,8 @@
     @yield('content')
 
     <!-- cta area start -->
-    <section class="cta pt-60 pt-md-45 pb-60" style="background-image: url('{{ asset('frontend/img/bg/bg_cta.jpg') }}');" data-overlay="9">
+    <section class="cta pt-60 pt-md-45 pb-60" style="background-image: url('{{ asset('frontend/img/bg/bg_cta.jpg') }}');"
+        data-overlay="9">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-xl-5 col-lg-5 mb-md-20 text-center text-lg-left">
@@ -31,7 +32,8 @@
                 <div class="col-xl-7 col-lg-7 text-center text-lg-right z-5">
                     <form action="#" class="newsform d-flex flex-column flex-sm-row z-5 wow fadeInRight">
                         <input class="form-control input-border mr-20" placeholder="Enter your email" type="email">
-                        <a href="#" class="btn btn-square">subscribe
+                        <a href="#" class="btn btn-square d-flex">
+                            subscribe
                             <i class="fas fa-long-arrow-alt-right ml-15"></i>
                         </a>
                     </form>

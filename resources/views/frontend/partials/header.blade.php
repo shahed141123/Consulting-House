@@ -4,7 +4,8 @@
             <div class="col-lg-4 col-md-4">
                 <div class="container">
                     <div class="row">
-                        <select class="select2-image rounded-0 form-control form-control-sm w-50 custom-select">
+                        <select class="select2-image rounded-0 form-control form-control-sm w-50 custom-select"
+                            data-placeholder="Country..">
                             <option></option>
                             @foreach ($data['countries'] as $country)
                                 <option value="{{ $country->short_name }}"
@@ -22,17 +23,24 @@
                         <div class='social-links'>
                             <div class='social-btn flex-center' id="twitter">
                                 <i class="fa-brands fa-facebook-f" style="font-size: 18px;"></i>
-                                <span><a href="http://facebook.com">Facebook</a></span>
+                                <span><a
+                                        href="{{ isset($data['site']->facebook_url) ? $data['site']->facebook_url : '' }}">Facebook</a></span>
                             </div>
 
                             <div class='social-btn flex-center' id="whatsapp_header">
                                 <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i>
-                                <span><a href="https://wa.me/">1258464554554</a></span>
+                                <span><a
+                                        href="https://wa.me/{{ isset($data['site']->whatsapp_number) ? $data['site']->whatsapp_number : '' }}">{{ isset($data['site']->whatsapp_number) ? $data['site']->whatsapp_number : 'No Number' }}</a></span>
                             </div>
 
                             <div class='social-btn flex-center' id="email_header">
                                 <i class="fa-regular fa-envelope" style="font-size: 20px;"></i>
-                                <span><a href="mailto:">info@example.com</a></span>
+                                <span>
+                                    <a
+                                        href="mailto:{{ isset($data['site']->contact_email) ? $data['site']->contact_email : '' }}">
+                                        {{ isset($data['site']->contact_email) ? $data['site']->contact_email : '' }}
+                                    </a>
+                                </span>
                             </div>
                         </div>
 
@@ -49,9 +57,117 @@
                                 style="font-family:proxima_novaregular; padding-top: 2px !important; padding-bottom: 2px !important;">
                                 <i class="fa-solid fa-envelope" style="color: #186191;"></i>
                             </a>
-                            <ul class="dropdown-menu p-2 message-dropdown">
 
-                                <li>No Messages to Show</li>
+                            <ul class="dropdown-menu wmin-lg-400 p-0 message-dropdown" data-bs-popper="static">
+                                <div class="d-flex align-items-center p-3">
+                                    <h6 class="mb-0">Messages</h6>
+                                    <div class="ms-auto">
+                                        <a href="#" class="text-body">
+                                            <i class="ph-plus-circle"></i>
+                                        </a>
+                                        <a href="#search_messages" class="collapsed text-body ms-2"
+                                            data-bs-toggle="collapse">
+                                            <i class="ph-magnifying-glass"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="collapse" id="search_messages">
+                                    <div class="px-3 mb-2">
+                                        <div class="form-control-feedback form-control-feedback-start">
+                                            <input type="text" class="form-control" placeholder="Search messages">
+                                            <div class="form-control-feedback-icon">
+                                                <i class="ph-magnifying-glass"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-menu-scrollable pb-2">
+                                    <a href="#" class="dropdown-item align-items-start text-wrap py-2">
+                                        <div class="status-indicator-container me-3">
+                                            <img src="http://127.0.0.1:8000/admin/assets/images/demo/users/face10.jpg "
+                                                class="rounded-pill" alt="" width="40" height="40">
+                                            <span class="status-indicator bg-warning"></span>
+                                        </div>
+
+                                        <div class="flex-1">
+                                            <span class="fw-semibold">James Alexander</span>
+                                            <span class="text-muted float-end fs-sm">04:58</span>
+                                            <div class="text-muted">who knows, maybe that would be the best thing for
+                                                me...
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="dropdown-item align-items-start text-wrap py-2">
+                                        <div class="status-indicator-container me-3">
+                                            <img src="http://127.0.0.1:8000/admin/assets/images/demo/users/face3.jpg "
+                                                class="w-40px h-40px rounded-pill" alt="" width="40" height="40">
+                                            <span class="status-indicator bg-success"></span>
+                                        </div>
+
+                                        <div class="flex-1">
+                                            <span class="fw-semibold">Margo Baker</span>
+                                            <span class="text-muted float-end fs-sm">12:16</span>
+                                            <div class="text-muted">That was something he was unable to do because...
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="dropdown-item align-items-start text-wrap py-2">
+                                        <div class="status-indicator-container me-3">
+                                            <img src="http://127.0.0.1:8000/admin/assets/images/demo/users/face24.jpg "
+                                                class="w-40px h-40px rounded-pill" alt="" width="40" height="40">
+                                            <span class="status-indicator bg-success"></span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <span class="fw-semibold">Jeremy Victorino</span>
+                                            <span class="text-muted float-end fs-sm">22:48</span>
+                                            <div class="text-muted">But that would be extremely strained and
+                                                suspicious...</div>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="dropdown-item align-items-start text-wrap py-2">
+                                        <div class="status-indicator-container me-3">
+                                            <img src="http://127.0.0.1:8000/admin/assets/images/demo/users/face4.jpg "
+                                                class="w-40px h-40px rounded-pill" alt="" width="40" height="40">
+                                            <span class="status-indicator bg-grey"></span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <span class="fw-semibold">Beatrix Diaz</span>
+                                            <span class="text-muted float-end fs-sm">Tue</span>
+                                            <div class="text-muted">What a strenuous career it is that I've chosen...
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="dropdown-item align-items-start text-wrap py-2">
+                                        <div class="status-indicator-container me-3">
+                                            <img src="http://127.0.0.1:8000/admin/assets/images/demo/users/face25.jpg "
+                                                class="w-40px h-40px rounded-pill" alt="" width="40" height="40">
+                                            <span class="status-indicator bg-danger"></span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <span class="fw-semibold">Richard Vango</span>
+                                            <span class="text-muted float-end fs-sm">Mon</span>
+                                            <div class="text-muted">Other travelling salesmen live a life of luxury...
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex border-top py-2 px-3">
+                                    <a href="#" class="text-body">
+                                        <i class="ph-checks me-1"></i>
+                                        Dismiss all
+                                    </a>
+                                    <a href="{{route('chat')}}" class="text-body ms-auto">
+                                        View all
+                                        <i class="ph-arrow-circle-right ms-1"></i>
+                                    </a>
+                                </div>
                             </ul>
                         </div>
                         <div class="dropdown show d-none d-md-flex ps-3 pt-00 pb-00 align-items-center">

@@ -52,15 +52,15 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->softDeletes();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('child_category_id')->references('id')->on('child_categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('warehouse_id')->references('id')->on('ware_houses')->onUpdate('set null');
-            $table->foreign('pickup_point_id')->references('id')->on('pick_up_points')->onUpdate('set null');
-            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onUpdate('cascade');
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onUpdate('cascade');
+            // $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('child_category_id')->references('id')->on('child_categories')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('warehouse_id')->references('id')->on('ware_houses')->onUpdate('set null');
+            // $table->foreign('pickup_point_id')->references('id')->on('pick_up_points')->onUpdate('set null');
+            // $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('supplier_id')->references('id')->on('suppliers')->onUpdate('cascade');
+            // $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onUpdate('cascade');
             $table->timestamps();
         });
     }

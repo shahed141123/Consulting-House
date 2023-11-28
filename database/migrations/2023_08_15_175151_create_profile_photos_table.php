@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('profile_photos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email', 255)->unique()->nullable();
-            $table->string('phone', 20);
-            $table->string('web_url')->nullable();
-            $table->string('address')->nullable();
+            $table->unsignedBigInteger('profile_id')->nullable();
+            $table->string('image')->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('profile_photos');
     }
 };

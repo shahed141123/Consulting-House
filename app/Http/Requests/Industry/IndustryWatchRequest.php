@@ -23,27 +23,17 @@ class IndustryWatchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'nullable|exists:users,id',
+            // 'user_id' => 'nullable|exists:admins,id',
             'category_id' => 'nullable|exists:industry_watch_categories,id',
             'sector_id' => 'nullable|exists:industry_sectors,id',
             'industry_id' => 'nullable|exists:industries,id',
-            'profile_type_id' => 'nullable|json',
             'featured' => 'nullable|in:0,1',
             'badge' => 'nullable|string',
             'title' => 'required|string',
             'header' => 'nullable|string',
-            'tags' => 'nullable|json',
             'content' => 'required|string',
             'short_description' => 'nullable|string',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:5120',
-            'published_at' => 'nullable|date',
-            'author_name' => 'nullable|string',
-            'views' => 'integer|min:0',
-            'status' => 'required|in:draft,published',
-            'meta_tags' => 'nullable|json',
-            'author_email' => 'nullable|email',
-            'word_count' => 'nullable|integer|min:0',
-            'reading_time' => 'nullable|integer|min:0',
         ];
     }
 
