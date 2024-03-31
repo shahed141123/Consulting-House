@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active')->nullable();
             $table->string('link')->nullable();
             $table->foreign('parent_id')->references('id')->on('industry_sectors')->onUpdate('cascade');
             $table->unsignedBigInteger('created_by')->nullable();

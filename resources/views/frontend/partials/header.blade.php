@@ -4,7 +4,8 @@
             <div class="col-lg-4 col-md-4">
                 <div class="container">
                     <div class="row">
-                        <select class="select2-image rounded-0 form-control form-control-sm w-50 custom-select">
+                        <select class="select2-image rounded-0 form-control form-control-sm w-25 custom-select"
+                            data-placeholder="Country..">
                             <option></option>
                             @foreach ($data['countries'] as $country)
                                 <option value="{{ $country->short_name }}"
@@ -22,24 +23,36 @@
                         <div class='social-links'>
                             <div class='social-btn flex-center' id="twitter">
                                 <i class="fa-brands fa-facebook-f" style="font-size: 18px;"></i>
-                                <span><a href="http://facebook.com">Facebook</a></span>
+                                <span><a
+                                        href="{{ isset($data['site']->facebook_url) ? $data['site']->facebook_url : '' }}">Facebook</a></span>
                             </div>
 
                             <div class='social-btn flex-center' id="whatsapp_header">
                                 <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i>
-                                <span><a href="https://wa.me/">1258464554554</a></span>
+                                <span><a
+                                        href="https://wa.me/{{ isset($data['site']->whatsapp_number) ? $data['site']->whatsapp_number : '' }}">{{ isset($data['site']->whatsapp_number)
+                                            ? $data['site']->whatsapp_number
+                                            : 'No
+                                                                                                                        Number' }}</a></span>
                             </div>
 
                             <div class='social-btn flex-center' id="email_header">
                                 <i class="fa-regular fa-envelope" style="font-size: 20px;"></i>
-                                <span><a href="mailto:">info@example.com</a></span>
+                                <span>
+                                    <a
+                                        href="mailto:{{ isset($data['site']->contact_email) ? $data['site']->contact_email : '' }}">
+                                        {{ isset($data['site']->contact_email) ? $data['site']->contact_email : '' }}
+                                    </a>
+                                </span>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
+            {{-- Message Area Start --}}
             <div class="col-lg-4 col-md-4">
+
                 <div class="icon-links icon-links-top d-flex align-items-center">
 
                     @if (Auth::check())
@@ -49,54 +62,428 @@
                                 style="font-family:proxima_novaregular; padding-top: 2px !important; padding-bottom: 2px !important;">
                                 <i class="fa-solid fa-envelope" style="color: #186191;"></i>
                             </a>
-                            <ul class="dropdown-menu p-2 message-dropdown">
+                            {{-- Message Area --}}
+                            <ul class="dropdown-menu wmin-lg-400 p-0 message-dropdown bg-white border"
+                                data-bs-popper="static">
+                                <div class="d-flex align-items-center px-1">
+                                    <span class="text-small">Messages</span>
 
-                                <li>No Messages to Show</li>
+                                    <div class="ms-auto">
+                                        <a href="#" class="mb-0 text-small">Setting</a>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-menu-scrollable m-0">
+                                    <a href="#" class="">
+                                        <div class="container pt-1 pb-1 message-area"
+                                            style="background-color: #eee;
+                                        height: 20rem;
+                                        overflow: auto;
+                                    ">
+                                            <div class="row border p-2 mt-1 bg-white"
+                                                style="border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                                <div class="col-sm-2 p-0">
+                                                    <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                        alt=""
+                                                        style="border-radius: 4px; width: 50px; height: 45px;">
+                                                </div>
+
+                                                <div class="col-sm-10">
+                                                    <div class="text-small">
+                                                        <p class="" style="font-size: 10px;">
+                                                            <i class="fa-solid fa-circle text-gray"></i>
+                                                            <span>New Business recommendation: </span>
+                                                            <span class="fw-bold text-black"
+                                                                style="font-size: 10px;">Newly
+                                                                Established Residential
+                                                                <span><i
+                                                                        class="fa-solid fa-check text-success ms-4"></i></span>
+                                                                <br>
+                                                                Real Estate Construction Company Investment Opportunity
+                                                                in Dhaka, Bangladesh</span> <br>
+                                                            <span class="text-primary">
+                                                                Residential real estate construction company with 1
+                                                                project in hand seeks investment.
+                                                            </span>
+                                                            <span class="text-gray">
+                                                                Financial Investment: AFN 4.2 billion
+                                                            </span><br>
+                                                        </p>
+                                                        <small class="text-gray mt-2">
+                                                            2 days, 17 hours ago
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border p-2 mt-1 bg-white"
+                                                style="border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                                <div class="col-sm-2 p-0">
+                                                    <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                        alt=""
+                                                        style="border-radius: 4px; width: 50px; height: 45px;">
+                                                </div>
+
+                                                <div class="col-sm-10">
+                                                    <div class="text-small">
+                                                        <p class="" style="font-size: 10px;">
+                                                            <i class="fa-solid fa-circle text-gray"></i>
+                                                            <span>New Business recommendation: </span>
+                                                            <span class="fw-bold text-black"
+                                                                style="font-size: 10px;">Newly
+                                                                Established Residential
+                                                                <span><i
+                                                                        class="fa-solid fa-check text-success ms-4"></i></span>
+                                                                <br>
+                                                                Real Estate Construction Company Investment Opportunity
+                                                                in Dhaka, Bangladesh</span> <br>
+                                                            <span class="text-primary">
+                                                                Residential real estate construction company with 1
+                                                                project in hand seeks investment.
+                                                            </span>
+                                                            <span class="text-gray">
+                                                                Financial Investment: AFN 4.2 billion
+                                                            </span><br>
+                                                        </p>
+                                                        <small class="text-gray mt-2">
+                                                            2 days, 17 hours ago
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex border-top text-small">
+                                    <a href="#" class="text-body">
+                                        <i class="ph-checks me-1"></i>
+                                        See All
+                                    </a>
+                                    <a href="{{ route('chat') }}" class="text-body ms-auto">
+                                        Close
+                                        <i class="ph-arrow-circle-right ms-1"></i>
+                                    </a>
+                                </div>
                             </ul>
+                            {{-- Message Area End --}}
                         </div>
+                        {{-- Notification Area --}}
                         <div class="dropdown show d-none d-md-flex ps-3 pt-00 pb-00 align-items-center">
                             <a href="{{ route('register') }}" class="dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="font-family:proxima_novaregular; padding-top: 2px !important; padding-bottom: 2px !important;">
                                 <i class="fa-solid fa-bell" style="color: #186191;"></i>
                             </a>
-                            <ul class="dropdown-menu p-2 notification-dropdown">
+                            <ul class="dropdown-menu wmin-lg-400 p-0 message-dropdown bg-white border"
+                                data-bs-popper="static">
+                                <div class="d-flex align-items-center px-1">
+                                    <span class="text-small">Notification</span>
 
-                                @foreach ($data['profile_types'] as $profile_types)
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('add.profile', $profile_types->slug) }}">Add
-                                            {{ $profile_types->name }}</a></li>
-                                @endforeach
+                                    <div class="ms-auto">
+                                        <a href="#" class="mb-0 text-small">Setting</a>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-menu-scrollable m-0">
+                                    <a href="#" class="">
+                                        <div class="container pt-1 pb-1 message-area"
+                                            style="background-color: #eee; height: 20rem;  overflow: auto;">
+                                            <div class="row border p-2 mt-1 bg-white"
+                                                style="border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                                <div class="col-sm-2 p-0">
+                                                    <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                        alt=""
+                                                        style="border-radius: 4px; width: 50px; height: 45px;">
+                                                </div>
+
+                                                <div class="col-sm-10">
+                                                    <div class="text-small">
+                                                        <p class="" style="font-size: 10px;">
+                                                            <i class="fa-solid fa-circle text-gray"></i>
+                                                            <span>New Business recommendation: </span>
+                                                            <span class="fw-bold text-black"
+                                                                style="font-size: 10px;">Newly
+                                                                Established Residential
+                                                                <span><i
+                                                                        class="fa-solid fa-check text-success ms-4"></i></span>
+                                                                <br>
+                                                                Real Estate Construction Company Investment Opportunity
+                                                                in Dhaka, Bangladesh</span> <br>
+                                                            <span class="text-primary">
+                                                                Residential real estate construction company with 1
+                                                                project in hand seeks investment.
+                                                            </span>
+                                                            <span class="text-gray">
+                                                                Financial Investment: AFN 4.2 billion
+                                                            </span><br>
+                                                        </p>
+                                                        <small class="text-gray mt-2">
+                                                            2 days, 17 hours ago
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border p-2 mt-1 bg-white"
+                                                style="border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                                <div class="col-sm-2 p-0">
+                                                    <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                        alt=""
+                                                        style="border-radius: 4px; width: 50px; height: 45px;">
+                                                </div>
+
+                                                <div class="col-sm-10">
+                                                    <div class="text-small">
+                                                        <p class="" style="font-size: 10px;">
+                                                            <i class="fa-solid fa-circle text-gray"></i>
+                                                            <span>New Business recommendation: </span>
+                                                            <span class="fw-bold text-black"
+                                                                style="font-size: 10px;">Newly
+                                                                Established Residential
+                                                                <span><i
+                                                                        class="fa-solid fa-check text-success ms-4"></i></span>
+                                                                <br>
+                                                                Real Estate Construction Company Investment Opportunity
+                                                                in Dhaka, Bangladesh</span> <br>
+                                                            <span class="text-primary">
+                                                                Residential real estate construction company with 1
+                                                                project in hand seeks investment.
+                                                            </span>
+                                                            <span class="text-gray">
+                                                                Financial Investment: AFN 4.2 billion
+                                                            </span><br>
+                                                        </p>
+                                                        <small class="text-gray mt-2">
+                                                            2 days, 17 hours ago
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex border-top text-small">
+                                    <a href="#" class="text-body">
+                                        <i class="ph-checks me-1"></i>
+                                        See All
+                                    </a>
+                                    <a href="{{ route('chat') }}" class="text-body ms-auto">
+                                        Close
+                                        <i class="ph-arrow-circle-right ms-1"></i>
+                                    </a>
+                                </div>
                             </ul>
                         </div>
+                        {{-- Notification Area End --}}
+                        {{-- My Profiles Start --}}
                         <div class="dropdown show d-none d-md-flex ps-3 pt-00 pb-00 align-items-center">
                             <a href="{{ route('register') }}" class="btn-site-1 login-modal-link dropdown-toggle"
                                 data-bs-toggle="dropdown" aria-expanded="false"
                                 style="background-color: #186191; color: white; font-family:proxima_novaregular; padding-top: 2px !important; padding-bottom: 2px !important;">
                                 My Profiles
                             </a>
-                            <ul class="dropdown-menu p-2">
-                                <div class="heading stack-toggle border" style="font-size: 12px;">
-                                    <div class="icon-container pull-right">
-                                        <i class="ti-angle-right"></i>
-                                    </div>
-                                    <i class="fa-solid fa-plus text-white shadow-sm ms-2"
-                                        style="background-color: #5BB75B;"></i>&nbsp; Add New Profile
+                            <ul class="dropdown-menu wmin-lg-400 p-0 message-dropdown bg-white border"
+                                data-bs-popper="static">
+                                <div class="d-flex align-items-center px-1 border-bottom">
+                                    <span class="text-one"><i
+                                            class="fa-solid fa-triangle-exclamation text-warning ms-1"></i> Incomplete
+                                        Profiles</span>
                                 </div>
-                                @foreach ($data['profile_types'] as $profile_types)
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('add.profile', $profile_types->slug) }}">Add
-                                            {{ $profile_types->name }}</a></li>
-                                @endforeach
+
+                                <div class="dropdown-menu-scrollable m-0 container p-1 message-area"
+                                    style="height: 8rem; overflow: auto;">
+                                    <div class="row bg-white gx-1 d-flex align-items-center mt-1"
+                                        style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                        <div class="col-sm-2 p-0">
+                                            <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                alt="" style="width: 50px; height: 45px;">
+                                        </div>
+
+                                        <div class="col-sm-10  p-0">
+                                            <div class="text-small pt-1">
+                                                <p class="p-0 m-0" style="font-size: 10px;">
+                                                    Dev One
+                                                </p>
+                                                <p class="p-0 m-0" style="font-size: 10px;">
+                                                <div class="d-flex justify-between">
+                                                    <div class="me-5 fw-bold">NA</div>
+                                                    <a class="ms-1" href="#">Intros</a> ·
+                                                    <a class="ms-1" href="#">Edit</a> ·
+                                                    <a class="ms-1" href="#">Matching Businesses</a>
+                                                </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row bg-white gx-1 d-flex align-items-center mt-1"
+                                        style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                        <div class="col-sm-2 p-0">
+                                            <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                alt="" style="width: 50px; height: 45px;">
+                                        </div>
+
+                                        <div class="col-sm-10  p-0">
+                                            <div class="text-small pt-1">
+                                                <p class="p-0 m-0" style="font-size: 10px;">
+                                                    Dewin Bravo
+                                                </p>
+                                                <p class="p-0 m-0" style="font-size: 10px;">
+                                                <div class="d-flex justify-between">
+                                                    <div class="me-5 fw-bold">NA</div>
+                                                    <a class="ms-1" href="#">Intros</a> ·
+                                                    <a class="ms-1" href="#">Edit</a> ·
+                                                    <a class="ms-1" href="#">Matching Businesses</a>
+                                                </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row bg-white gx-1 d-flex align-items-center mt-1"
+                                        style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                        <div class="col-sm-2 p-0">
+                                            <img src="https://www.smergers.com/static/images/businessimage.jpeg"
+                                                alt="" style="width: 50px; height: 45px;">
+                                        </div>
+
+                                        <div class="col-sm-10  p-0">
+                                            <div class="text-small pt-1">
+                                                <p class="p-0 m-0" style="font-size: 10px;">
+                                                    Dewin Bravo
+                                                </p>
+                                                <p class="p-0 m-0" style="font-size: 10px;">
+                                                <div class="d-flex justify-between">
+                                                    <div class="me-5 fw-bold">NA</div>
+                                                    <a class="ms-1" href="#">Intros</a> ·
+                                                    <a class="ms-1" href="#">Edit</a> ·
+                                                    <a class="ms-1" href="#">Matching Businesses</a>
+                                                </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center px-1 border-bottom">
+                                    <span class="text-one"><i
+                                            class="fa-solid fa-square-plus text-success ms-1 me-2"></i>Add
+                                        New Profile</span>
+                                </div>
+                                <div class="dropdown-menu-scrollable m-0 container p-0">
+                                    <ul>
+                                        @foreach ($data['profile_types'] as $profile_type)
+                                            <li class="p-1 px-2 add-new-area"><a href="{{route('add.profile',$profile_type->slug)}}" class="text-one">Add
+                                                    {{ $profile_type->name }}
+                                                    Profile</a>
+                                            </li>
+                                        @endforeach
+                                        <li class="p-1 px-2 add-new-area"><a href="{{route('add.consultant')}}" class="text-one">
+                                            Add Consultant Profile
+                                        </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex border-top text-small">
+                                    <a href="#" class="text-body">
+                                        <i class="ph-checks me-1"></i>
+                                        See All
+                                    </a>
+                                    <a href="{{ route('chat') }}" class="text-body ms-auto">
+                                        Close
+                                        <i class="ph-arrow-circle-right ms-1"></i>
+                                    </a>
+                                </div>
                             </ul>
                         </div>
+                        {{-- My Profiles End --}}
+                        {{-- Accounts Area Start --}}
+                        <div class="dropdown show d-none d-md-flex ps-3 pt-00 pb-00 align-items-center">
+                            <a href="{{ route('register') }}" class="" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <div class="profile-image" id="header-round-image"
+                                    style="background-image:url('{{ !empty($data['user']->image) ? asset('storage/' . $data['user']->image) : asset('admin/assets/images/no_image.jpg') }}')"
+                                    profile-picture-container="">
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu m-1 message-dropdown bg-white border" data-bs-popper="static"
+                                style="width: 310px;">
+                                <div class="d-flex align-items-center">
+                                    <div class="profile-photo" id="header-dropdown-image">
+                                        <img src="{{ !empty($data['user']->image) ? asset('storage/' . $data['user']->image) : asset('admin/assets/images/no_image.jpg') }}"
+                                            alt="">
+                                    </div>
+                                    <div class="profile-content mb-2">
+                                        <div class="name">
+                                            {{ $data['user']->name }}
+                                        </div>
+                                        <div class="email my-1">{{ $data['user']->email }}</div>
+                                        <a href="{{ route('dashboard') }}"
+                                            class="btn-site-1 w-75 mx-auto login-modal-link dropdown-toggle">My
+                                            Dashboard</a>
+                                    </div>
+                                </div>
+                                <ul class="profile-links">
+                                    <li class="p-links">
+                                        <a href="{{ route('activity.info', ['id' => 'invoice']) }}">
+                                            <div class="link-icon">
+                                                <i class="fa-solid fa-credit-card"></i>
+                                            </div>
+                                            <div class="link-text">Invoices</div>
+                                        </a>
+                                    </li>
+                                    <li class="p-links">
+                                        <a href="/dashboard/history/">
+                                            <div class="link-icon">
+                                                <i class="fa-regular fa-bookmark"></i>
+                                            </div>
+                                            <div class="link-text">Bookmarks and History</div>
+                                        </a>
+                                    </li>
+                                    <li class="p-links">
+                                        <a href="{{ route('activity.info', ['id' => 'message']) }}">
+                                            <div class="link-icon">
+                                                <i class="fa-regular fa-envelope"></i>
+                                            </div>
+                                            <div class="link-text">Inbox</div>
+                                        </a>
+                                    </li>
+                                    <li class="p-links">
+                                        <a href="{{ route('activity.info', ['id' => 'notifications']) }}">
+                                            <div class="link-icon">
+                                                <i class="fa-regular fa-bell"></i>
+                                            </div>
+                                            <div class="link-text">Notifications</div>
+                                        </a>
+                                    </li>
+                                    <li class="p-links">
+                                        <a href="/dashboard/settings/">
+                                            <div class="link-icon">
+                                                <i class="fa-solid fa-gear"></i>
+                                            </div>
+                                            <div class="link-text">Settings</div>
+                                        </a>
+                                    </li>
+                                    <li class="p-links">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a href="javascript:void(0);" title="Logout"
+                                                onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                                <div class="link-icon">
+                                                    <i class="fa-solid fa-power-off"></i>
+                                                </div>
+                                                <div class="link-text">Logout</div>
+                                            </a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                        {{-- Accounts Area End --}}
                     @else
                         <div class="dropdown show d-none d-md-flex ps-3 pt-00 pb-00 align-items-center">
                             <a class="dropdown-toggle" href="javascript:void(0);" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 + Add Profile
                             </a>
-
                             <ul class="dropdown-menu p-0">
                                 <div class="heading stack-toggle border p-2 bg-white" style="font-size: 12px;">
                                     <div class="icon-container pull-right">
@@ -128,9 +515,12 @@
 
                 </div>
             </div>
+            {{-- Message Area End --}}
         </div>
     </div>
 </section>
+
+
 
 <div class="container d-lg-none d-md-none">
     <div class="row py-2 d-flex align-items-center">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use App\Models\FrontendMenu;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Menu\FrontendMenuRequest;
 
 class FrontendMenuController extends Controller
@@ -33,23 +34,45 @@ class FrontendMenuController extends Controller
     public function store(FrontendMenuRequest $request)
     {
 
-        $slug = Str::slug($request->name);
-        $count = FrontendMenu::where('slug', $slug)->count();
-        if ($count > 0) {
-            $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'  => 'required',
+                'order' => 'required|unique: frontend_menus',
+                'url'   => 'required|confirmed',
+            ],
+            [
+                'unique' => 'This order has already been taken for another menu.',
+                'required' => 'This :attribute must be required.',
+            ],
+        );
+
+        if ($validator->passes()) {
+            $slug = Str::slug($request->name);
+            $count = FrontendMenu::where('slug', $slug)->count();
+            if ($count > 0) {
+                $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
+            }
+            $data['slug'] = $slug;
+            FrontendMenu::create([
+                'parent_id' => $request->parent_id,
+                'name'      => $request->name,
+                'slug'      => $data['slug'],
+                'url'       => $request->url,
+                'order'     => $request->order,
+                'status'    => $request->status,
+                'icon'      => $request->icon,
+                'target'    => $request->target,
+            ]);
+            toastr()->success('Data has been saved successfully!');
+        } else {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                toastr()->error($message, 'Failed', ['timeOut' => 30000]);
+            }
         }
-        $data['slug'] = $slug;
-        FrontendMenu::create([
-            'parent_id' => $request->parent_id,
-            'name'      => $request->name,
-            'slug'      => $data['slug'],
-            'url'       => $request->url,
-            'order'     => $request->order,
-            'status'    => $request->status,
-            'icon'      => $request->icon,
-            'target'    => $request->target,
-        ]);
-        toastr()->success('Data has been saved successfully!');
+
+
         return redirect()->back()->withInput();
     }
 
@@ -74,20 +97,39 @@ class FrontendMenuController extends Controller
      */
     public function update(FrontendMenuRequest $request, string $id)
     {
+
         $fontendmenu = FrontendMenu::findOrFail($id);
 
-        $fontendmenu->update([
-            'parent_id' => $request->parent_id,
-            'name'      => $request->name,
-            'url'       => $request->url,
-            'order'     => $request->order,
-            'status'    => $request->status,
-            'icon'      => $request->icon,
-            'target'    => $request->target,
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'  => 'required',
+                'order' => 'required|unique: frontend_menus',
+                'url'   => 'required|confirmed',
+            ],
+            [
+                'unique' => 'This order has already been taken for another menu.',
+                'required' => 'This :attribute must be required.',
+            ],
+        );
+        if ($validator->passes()) {
+            $fontendmenu->update([
+                'parent_id' => $request->parent_id,
+                'name'      => $request->name,
+                'url'       => $request->url,
+                'order'     => $request->order,
+                'status'    => $request->status,
+                'icon'      => $request->icon,
+                'target'    => $request->target,
+            ]);
 
-        toastr()->success('Data has been Updated successfully!');
-
+            toastr()->success('Data has been Updated successfully!');
+        } else {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                toastr()->error($message, 'Failed', ['timeOut' => 30000]);
+            }
+        }
         return redirect()->back()->withInput();
     }
 

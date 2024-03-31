@@ -49,27 +49,27 @@
                             <thead>
                                 <tr class="bg-secondary border-secondary text-white">
                                     <th width="5%">#</th>
-                                    <th width="25%">Idustry Name</th>
-                                    <th width="25%">Badge</th>
-                                    <th width="40%">Title</th>
+                                    <th width="35%">Idustry Name</th>
+                                    <th width="35%">Badge</th>
+                                    <th width="20%">Author Name</th>
                                     <th class="text-center" width="5%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($industryWatches as $industryWatch)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>
-                                            Lorem, ipsum dolor sit
+                                            {{$industryWatch->title}}
                                         </td>
                                         <td>
-                                            Badge
+                                            {{$industryWatch->badge}}
                                         </td>
-                                        <td>asdasd</td>
+                                        <td>{{$industryWatch->author_name}}</td>
                                         <td>
                                             <div class="d-inline-flex">
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#industry_edit" class="text-primary">
+                                                <a href="{{route('admin.industry-watch.edit',$industryWatch->id)}}"
+                                                    class="text-primary">
                                                     <i class="ph-pen"></i>
                                                 </a>
                                                 <a href="#" class="text-danger mx-2 delete">

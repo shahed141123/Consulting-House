@@ -20,7 +20,7 @@ class ClientTypeSeeder extends Seeder
         DB::table('client_types')->insert([
 
             [
-                'profile_type_id'     => ProfileType::inRandomOrder()->first()->id,
+                'profile_type_id'     => '1',
                 'category_id'         => null,
                 'name'                => 'Business Owner / Director',
                 'slug'                => Str::slug('Business Owner / Director'),
@@ -29,7 +29,7 @@ class ClientTypeSeeder extends Seeder
 
 
             [
-                'profile_type_id'     => ProfileType::inRandomOrder()->first()->id,
+                'profile_type_id'     => '1',
                 'category_id'         => null,
                 'name'                => 'Management Member',
                 'slug'                => Str::slug('Management Member'),
@@ -38,7 +38,7 @@ class ClientTypeSeeder extends Seeder
             ],
 
             [
-                'profile_type_id'     => ProfileType::inRandomOrder()->first()->id,
+                'profile_type_id'     => '1',
                 'category_id'         => null,
                 'name'                => 'Advisor / Business Broker',
                 'slug'                => Str::slug('Advisor / Business Broker'),
@@ -47,7 +47,7 @@ class ClientTypeSeeder extends Seeder
             ],
 
             [
-                'profile_type_id'     => ProfileType::inRandomOrder()->first()->id,
+                'profile_type_id'     => '2',
                 'category_id'         => null,
                 'name'                => 'Individual Investor / Buyer',
                 'slug'                => Str::slug('Individual Investor / Buyer'),
@@ -55,7 +55,7 @@ class ClientTypeSeeder extends Seeder
 
             ],
             [
-                'profile_type_id'     => ProfileType::inRandomOrder()->first()->id,
+                'profile_type_id'     => '2',
                 'category_id'         => ClientTypeCategory::inRandomOrder()->first()->id,
                 'name'                => 'Accounting Firm',
                 'slug'                => Str::slug('Accounting Firm'),
@@ -63,7 +63,7 @@ class ClientTypeSeeder extends Seeder
 
             ],
             [
-                'profile_type_id'     => ProfileType::inRandomOrder()->first()->id,
+                'profile_type_id'     => '2',
                 'category_id'         => ClientTypeCategory::inRandomOrder()->first()->id,
                 'name'                => 'Venture Capital Firm',
                 'slug'                => Str::slug('Venture Capital Firm'),

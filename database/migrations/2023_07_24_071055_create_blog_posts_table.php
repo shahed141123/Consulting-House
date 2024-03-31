@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('industry_id')->nullable();
             $table->string('profile_type_id')->nullable();
             $table->enum('featured', ['0', '1'])->default('0')->nullable();
@@ -29,6 +29,8 @@ return new class extends Migration
             $table->timestamp('published_at')->nullable();
             $table->unsignedInteger('views')->default(0);
             $table->boolean('is_published')->default(false);
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            
             $table->json('meta_tags')->nullable();
             $table->string('source')->nullable();
             $table->string('source_url')->nullable();

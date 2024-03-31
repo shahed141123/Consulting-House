@@ -39,7 +39,13 @@
                         <a href="{{ route('admin.dashboard') }}" class="breadcrumb-item">Home</a>
                         <a href="{{ route('admin.industry-watch.index') }}" class="breadcrumb-item">Industry Management</a>
                         <a href="{{ route('admin.industry-watch.index') }}" class="breadcrumb-item">Industry Watch</a>
-                        <span class="breadcrumb-item active">Add</span>
+                        <span class="breadcrumb-item active">
+                            @if (isset($industryWatch))
+                                Edit
+                            @else
+                                Add
+                            @endif
+                        </span>
                     </div>
 
                     <a href="#breadcrumb_elements"
@@ -67,7 +73,13 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-12 d-flex justify-content-center">
-                            <h4 class="text-white p-0 m-0 fw-bold admin_adedit_title">Industry Watch Add</h4>
+                            <h4 class="text-white p-0 m-0 fw-bold admin_adedit_title">
+                                @if (isset($industryWatch))
+                                    Industry Watch Edit
+                                @else
+                                    Industry Watch Add
+                                @endif
+                            </h4>
                         </div>
 
                     </div>
@@ -96,9 +108,22 @@
                             </ul>
                         </div>
                         <div class="col-lg-10">
-                            <form id="myForm" method="post" action="{{ route('admin.industry-watch.store') }}"
+                            <form id="myForm" method="post"
+                                @if (isset($industryWatch)) action="{{ route('admin.industry-watch.update', $industryWatch->id) }}"
+                                @else
+                                    action="{{ route('admin.industry-watch.store') }}" @endif
                                 enctype="multipart/form-data">
                                 @csrf
+                                @isset($industryWatch)
+                                    @method('PUT')
+                                    @php
+                                        $categoryIds = isset($industryWatch->category_id) ? json_decode($industryWatch->category_id, true) : [];
+                                        $profile_typeIds = isset($industryWatch->profile_type_id) ? json_decode($industryWatch->profile_type_id, true) : [];
+                                        $sectorIds = isset($industryWatch->sector_id) ? json_decode($industryWatch->sector_id, true) : [];
+                                        $industryIds = isset($industryWatch->industry_id) ? json_decode($industryWatch->industry_id, true) : [];
+                                    @endphp
+                                @endisset
+
                                 <div class="tab-content bg-white p-2 mt-0 pt-0" id="myTabContent">
                                     {{-- Basic Info Tab Content --}}
                                     <div class="tab-pane fade show active" id="basic_info" role="tabpanel"
@@ -109,14 +134,16 @@
                                         <h6 class="mb-0 text-info">Basic Information</h6>
                                         <div class="row mb-3 gx-1 border border-secondary bg-light p-2">
                                             <div class="col-lg-3 mb-2">
-                                                <label class="form-label">Related Category <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="category_id" class="form-control-sm multiselect btn btn-sm"
+                                                <label class="form-label">Related Category</label>
+                                                <select name="category_id[]" class="form-control-sm multiselect btn btn-sm"
                                                     id="select6" multiple="multiple" data-include-select-all-option="true"
                                                     data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
                                                     @foreach ($categories as $categorie)
-                                                        <option value="{{ $categorie->id }}">{{ $categorie->name }}
+                                                        <option value="{{ $categorie->id }}" @isset($industryWatch)
+                                                            {{ is_array($categoryIds) && in_array($categorie->id, $categoryIds) ? 'selected' : '' }}
+                                                            @endisset>
+                                                            {{ $categorie->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -131,9 +158,10 @@
                                                     multiple="multiple" data-include-select-all-option="true"
                                                     data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
-
                                                     @foreach ($profile_types as $profile_type)
-                                                        <option value="{{ $profile_type->id }}">
+                                                        <option value="{{ $profile_type->id }}" @isset($industryWatch)
+                                                            {{ is_array($profile_typeIds) && in_array($profile_type->id, $profile_typeIds) ? 'selected' : '' }}
+                                                            @endisset>
                                                             {{ $profile_type->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -142,13 +170,14 @@
                                             <div class="col-lg-3 mb-2">
                                                 <label class="form-label">Related Sector <span
                                                         class="text-danger">*</span></label>
-                                                <select name="sector_id" class="form-control-sm multiselect btn btn-sm"
+                                                <select name="sector_id[]" class="form-control-sm multiselect btn btn-sm"
                                                     id="select6" multiple="multiple"
                                                     data-include-select-all-option="true" data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
-
                                                     @foreach ($sectors as $sector)
-                                                        <option value="{{ $sector->id }}">{{ $sector->name }}
+                                                        <option value="{{ $sector->id }}" @isset($industryWatch)
+                                                            {{ is_array($sectorIds) && in_array($sector->id, $sectorIds) ? 'selected' : '' }}
+                                                            @endisset>{{ $sector->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -156,12 +185,14 @@
                                             <div class="col-lg-3 mb-2">
                                                 <label class="form-label">Related Industry <span
                                                         class="text-danger">*</span></label>
-                                                <select name="industry_id" class="form-control-sm multiselect btn btn-sm"
+                                                <select name="industry_id[]" class="form-control-sm multiselect btn btn-sm"
                                                     id="select6" multiple="multiple"
                                                     data-include-select-all-option="true" data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
                                                     @foreach ($industries as $industrie)
-                                                        <option value="{{ $industrie->id }}">{{ $industrie->name }}
+                                                        <option value="{{ $industrie->id }}" @isset($industryWatch)
+                                                            {{ is_array($industryIds) && in_array($industrie->id, $industryIds) ? 'selected' : '' }}
+                                                            @endisset>{{ $industrie->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -169,24 +200,27 @@
                                             <div class="col-lg-3 mb-2">
                                                 <label class="ms-1" for="author_name">Author Name</label>
                                                 <input class="form-control form-control-sm mt-1" type="text"
+                                                    @if (isset($industryWatch)) value="{{ $industryWatch->author_name }}"
+                                                        @else value="{{ old('author_name') }}" @endif
                                                     name="author_name" id="author_name" maxlength="100">
                                             </div>
                                             <div class="col-lg-1 mb-2">
                                                 <label class="form-check-label" for="sc_r_secondary">Featured</label> <br>
                                                 <input type="checkbox" name="featured" value="1"
                                                     class="form-check-input form-check-input-secondary mt-2 ms-3"
-                                                    id="sc_r_secondary">
+                                                    id="sc_r_secondary"
+                                                    @if (isset($industryWatch)) @checked($industryWatch->featured == '1') @endif>
                                             </div>
                                             <div class="col-lg-3 mb-2">
                                                 <label class="ms-1" for="badge">Badge</label>
                                                 <input class="form-control form-control-sm mt-1" type="text"
-                                                    name="badge" id="badge" placeholder="Enter Youre Badge"
+                                                    name="badge" id="badge" placeholder="Enter Badge"
                                                     maxlength="100">
                                             </div>
                                             <div class="col-lg-5 mb-2">
                                                 <label class="ms-1" for="title">Title</label>
                                                 <input class="form-control form-control-sm mt-1" type="text"
-                                                    name="title" id="title" placeholder="Enter Youre title"
+                                                    name="title" id="title" placeholder="Enter Youre title" required
                                                     maxlength="100">
                                             </div>
                                             <div class="col-lg-4 mb-2">
@@ -202,14 +236,13 @@
                                                         <label class="form-label">Image <span
                                                                 class="text-danger">*</span></label>
                                                         <input id="logo" name="image" type="file"
-                                                            class="form-control form-control-sm" placeholder="Enter Image"
-                                                            required>
+                                                            class="form-control form-control-sm" placeholder="Enter Image">
                                                     </div>
                                                     <div class="col-lg-2">
                                                         <img id="preview-image"
                                                             src="{{ asset('admin/assets/images/no_image.jpg') }}"
-                                                            class="border" width="44" height="35" style="margin-top:25px;"
-                                                            alt="">
+                                                            class="border" width="44" height="35"
+                                                            style="margin-top:25px;" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,14 +281,14 @@
                                                     <div class="form-group">
                                                         <label class="ms-1" for="short_description">Short
                                                             Description</label>
-                                                        <textarea name="short_description" class="form-control" id="short_desc" rows="3"
+                                                        <textarea name="short_description" class="form-control" id="ckeditor_classic_empty_1" rows="3"
                                                             placeholder="Enter Your Short Description"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-2">
                                                         <label class="ms-1" for="content">Content</label>
-                                                        <textarea class="form-control" name="content" id="overview" rows="3" placeholder="Enter Your Content"></textarea>
+                                                        <textarea class="form-control" name="content" id="ckeditor_classic_empty_2" rows="3" placeholder="Enter Your Content"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -293,9 +326,9 @@
                                                     <tr>
 
                                                         <td> <input type="text" class="form-control form-control-sm"
-                                                                name="item_name[]" required></td>
+                                                                name="sidebar_title[]"></td>
                                                         <td> <input type="text" class="form-control form-control-sm"
-                                                                name="qty[]"></td>
+                                                                name="sidebar_value[]"></td>
                                                         <td class="text-center"> <a href="javascript:void(0)"
                                                                 class="bg-danger removeRow p-1"><i
                                                                     class="ph-minus icons_design text-white"></i></a></td>
@@ -309,10 +342,10 @@
                                                 <button type="submit" class="btn btn-success" name="action"
                                                     id="submitbtn" value="save">Save<i
                                                         class="ph-paper-plane-tilt"></i></button>
-                                                <a href="javascript:void(0);" class="btn btn-info rounded-0 p-2 px-2"
+                                                <button class="btn btn-info rounded-0 p-2 px-2" type="submit"
                                                     id="nextTabButton2">Create
                                                     <i class="ph-arrow-circle-right"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
 
@@ -489,8 +522,8 @@
                 // Add Row
                 $(".addRow").on("click", function() {
                     var newRow =
-                        '<tr><td><input type="text" class="form-control form-control-sm" name="item_name[]" required></td>' +
-                        '<td><input type="text" class="form-control form-control-sm" name="qty[]"></td>' +
+                        '<tr><td><input type="text" class="form-control form-control-sm" name="sidebar_title[]"></td>' +
+                        '<td><input type="text" class="form-control form-control-sm" name="sidebar_value[]"></td>' +
                         '<td class="text-center"><a href="javascript:void(0)" class="bg-danger removeRow p-1">' +
                         '<i class="ph-minus icons_design text-white"></i></a></td></tr>';
 
@@ -564,3 +597,7 @@
         </script>
     @endpush
 @endonce
+
+
+
+

@@ -2,7 +2,8 @@
 @section('title', 'Contact Us')
 @section('content')
     <!-- immer banner start -->
-    <section class="inner-banner pt-80 pb-95" style="background-image: url('img/banner/inner-banner.jpg');" data-overlay="7">
+    <section class="inner-banner pt-80 pb-95"
+        style="background-image: url({{ asset('frontend/img/banner/inner-banner.jpg') }});" data-overlay="7">
         <div class="container">
             <div class="row z-5 align-items-center">
                 <div class="col-md-8 text-center text-md-left">
@@ -39,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row ps-5">
                         <div class="col-lg-12 col-md-6">
                             <div class="d-flex mb-30">
                                 <div class="icon-box">
@@ -88,7 +89,7 @@
             </div>
             <div class="col-lg-7 col-sm-12">
                 <div class="container">
-                    <div class="row">
+                    <div class="row pe-5 me-3">
                         <div class="col-xl-12">
                             <div class="fancy-head text-center relative z-5 mb-40">
                                 <h5 class="line-head mb-15 ">
@@ -102,9 +103,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row pe-5">
                         <div class="col-lg-12">
-                            <form action="{{ route('contact.store') }}" class="relative z-5 mt-10" method="POST">
+                            <form action="{{ route('contact.store') }}" class="relative z-5 mt-10" method="POST"
+                                id="contactForm">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
@@ -112,31 +114,46 @@
                                             <input type="text" class="form-control input-lg input-white shadow-5"
                                                 id="name" placeholder="Name (Required)" name="name" required>
                                             <i class="far fa-user transform-v-center"></i>
+                                            <div class="text-danger validation-message" id="nameValidation"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group relative mb-30 mb-sm-20">
-                                            <input type="email" class="form-control input-lg input-white shadow-5"
+                                            <input type="email" class="form-control input-lg input-white shadow-5 email-validate"
                                                 id="email" placeholder="Email (Required)" name="email" required>
                                             <i class="far fa-envelope transform-v-center"></i>
+                                            <div class="text-danger validation-message" id="emailValidation"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group relative mb-30 mb-sm-20">
-                                            <input type="text" class="form-control input-lg input-white shadow-5"
+                                            <input type="text"
+                                                class="form-control input-lg input-white shadow-5 phone_number"
                                                 id="phone" placeholder="Phone number" name="phone">
                                             <i class="fas fa-mobile-alt transform-v-center"></i>
+                                            <div class="text-danger validation-message" id="phoneValidation"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
+                                        <div class="form-group relative mb-30 mb-sm-20">
+                                            <input type="text"
+                                                class="form-control input-lg input-white shadow-5 phone_number"
+                                                id="phone" placeholder="Address" name="address">
+                                            {{-- <i class="fas fa-mobile-alt transform-v-center"></i> --}}
+                                            <i class="fa-regular fa-address-book transform-v-center"></i>
+                                            <div class="text-danger validation-message" id="phoneValidation"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
                                         <div class="form-group relative mb-30 mb-sm-20">
                                             <textarea class="form-control input-white shadow-5" name="message" id="message" cols="30" rows="4"
-                                               required placeholder="Your message (Required)"></textarea>
+                                                required placeholder="Your message (Required)"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 text-center mt-30">
-                                        <button type="submit" class="btn btn-square blob-small">SUBMIT<i
-                                                class="fas fa-long-arrow-alt-right ml-20"></i></button>
+                                        <button type="submit" class="btn btn-square blob-small">
+                                            SUBMIT<i class="fas fa-long-arrow-alt-right ml-20"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -148,14 +165,6 @@
 
     </section>
     <!-- Contact us area end -->
-
-    <!-- Contact form area end -->
-    <section class="contact-form  bg-light-white pt-100 pb-100" style="background-image: url('img/bg/bg-abt.jpg');"
-        data-overlay="7">
-
-    </section>
-    <!-- Contact form area end -->
-
     <!-- Experience Cta start -->
     <section class="experience-cta pt-100 pb-100" style="background-image: url('img/bg/bg-2.jpg');" data-overlay="9">
         <div class="container">
@@ -288,3 +297,104 @@
     </section>
     <!-- cta area end -->
 @endsection
+
+@push('scripts')
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            validateInputs();
+            // If all inputs are valid, you can proceed with form submission
+            if (isFormValid()) {
+                form.submit();
+            }
+        });
+
+        nameInput.addEventListener('keyup', () => {
+            validateName();
+        });
+
+        emailInput.addEventListener('keyup', () => {
+            validateEmail();
+        });
+
+        phoneInput.addEventListener('keyup', () => {
+            validatePhone();
+        });
+
+        function validateName() {
+            const nameInput = document.getElementById('name');
+            const nameValidationMessage = document.getElementById('nameValidation');
+
+            const name = nameInput.value.trim();
+
+            if (name === '') {
+                nameValidationMessage.textContent = 'Name is required.';
+                nameInput.classList.add('input-error');
+
+            } else if (name.length < 4) {
+                nameValidationMessage.textContent = 'Full Name is required.';
+                nameInput.classList.add('input-error');
+            } else {
+                nameValidationMessage.textContent = '';
+                nameInput.classList.remove('input-error');
+            }
+        }
+
+        // function validateEmail() {
+        //     const emailInput = document.getElementById('email');
+        //     const emailValidationMessage = document.getElementById('emailValidation');
+
+        //     const email = emailInput.value.trim();
+        //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        //     if (email === '') {
+        //         emailValidationMessage.textContent = 'Email is required.';
+        //         emailInput.classList.add('input-error');
+        //     } else if (!emailRegex.test(email)) {
+        //         emailValidationMessage.textContent = 'Invalid email format.';
+        //         emailInput.classList.add('input-error');
+        //     } else {
+        //         emailValidationMessage.textContent = '';
+        //         emailInput.classList.remove('input-error');
+        //     }
+        // }
+
+        function validatePhone() {
+            const phoneInput = document.getElementById('phone');
+            const phoneValidationMessage = document.getElementById('phoneValidation');
+
+            const phone = phoneInput.value.trim();
+            const phoneRegex = /^[0-9+()]*$/; // Modify as needed for your phone number format
+
+            if (phone === '') {
+                phoneValidationMessage.textContent = ''; // No error message if field is empty
+                phoneInput.classList.remove('input-error');
+            } else if (!phoneRegex.test(phone)) {
+                phoneValidationMessage.textContent = 'Invalid phone number format.';
+                phoneInput.classList.add('input-error');
+            } else {
+                phoneValidationMessage.textContent = '';
+                phoneInput.classList.remove('input-error');
+            }
+        }
+
+
+
+        function validateInputs() {
+            validateName();
+            validateEmail();
+            validatePhone();
+            // Add more validations for other fields if needed
+        }
+
+        function isFormValid() {
+            // Implement logic to check if all fields are valid
+        }
+    </script>
+
+@endpush

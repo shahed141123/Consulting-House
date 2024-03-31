@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\RfqController;
@@ -18,10 +19,12 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PreOrderController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\BulkEmailController;
 use App\Http\Controllers\Admin\OrderItemController;
 use App\Http\Controllers\Admin\WareHouseController;
 use App\Http\Controllers\Admin\ClientTypeController;
 use App\Http\Controllers\Admin\EntityTypeController;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PreBookingController;
 use App\Http\Controllers\Admin\WebSettingController;
@@ -30,25 +33,31 @@ use App\Http\Controllers\Admin\PickUpPointController;
 use App\Http\Controllers\Admin\ProfileTypeController;
 use App\Http\Controllers\Admin\VerifyEmailController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\FrontendMenuController;
+use App\Http\Controllers\Admin\PrivacyTermsController;
 use App\Http\Controllers\Admin\ProductDraftController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\FilteringItemController;
 use App\Http\Controllers\Admin\IndustryWatchController;
 use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\BillingAddressController;
 use App\Http\Controllers\Admin\IndustrySectorController;
+use App\Http\Controllers\Admin\TermsConditionController;
 use App\Http\Controllers\Admin\GroupPermissionController;
 use App\Http\Controllers\Admin\ShippingAddressController;
 use App\Http\Controllers\Admin\TransactionTypeController;
+use App\Http\Controllers\Admin\SubscriptionPlanController;
 use App\Http\Controllers\Admin\PasswordResetLinkController;
 use App\Http\Controllers\Admin\ClientTypeCategoryController;
 use App\Http\Controllers\Admin\EmployeePermissionController;
 use App\Http\Controllers\Admin\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\TermsPrivacyCategoryController;
 use App\Http\Controllers\Admin\IndustryWatchCategoryController;
 use App\Http\Controllers\Admin\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\EmailVerificationNotificationController;
-use App\Http\Controllers\Admin\FrontendMenuController;
 
 Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(function () {
 
@@ -108,6 +117,9 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::delete('child/categories/{id}', [CategoryController::class, 'childCategoryDestroy'])->name('child.categories.destroy');
     Route::get('child/categories/dropdown', [CategoryController::class, 'childCategoryDropdown'])->name('child.categories.dropdown');
 
+
+    Route::post('/delete-message', [AdminChatController::class, 'deleteMessage'])->name('delete.message');
+
     //Product Multiimage
     Route::post('multi-image/store', [ProductController::class, 'multiImageStore'])->name('multi-image.store');
     Route::get('multi-image/update', [ProductController::class, 'multiImageUpdate'])->name('multi-image.update');
@@ -154,6 +166,13 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         'blog-post'                 => BlogPostController::class,
         'faq'                       => FaqController::class,
         'frontend-menu'             => FrontendMenuController::class,
+        'subscription'              => SubscriptionController::class,
+        'subscription-plan'         => SubscriptionPlanController::class,
+        'privacy-terms'             => PrivacyTermsController::class,
+        'terms-privacy-category'    => TermsPrivacyCategoryController::class,
+        'newsletter'                => NewsletterController::class,
+        'bulk-email'                => BulkEmailController::class,
+        'chat-messages'             => AdminChatController::class,
     ], [
         'except' => ['brand',  'create', 'show', 'edit'],
         'except' => ['profile_type',  'create', 'show', 'edit'],

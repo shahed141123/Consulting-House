@@ -39,30 +39,39 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group relative mb-25 mb-sm-20">
-                                <input type="email" class="form-control input-lg input-white shadow-5" id="name" name="email"
-                                    placeholder="Enter Your Email address" value="{{ old('email') }}">
+                                <input type="email" class="form-control input-lg input-white shadow-5 email-validate"
+                                    id="name" name="email" placeholder="Enter Your Email address"
+                                    value="{{ old('email') }}">
                                 <i class="far fa-email transform-v-center"></i>
+                                <div class="tooltip email-tooltip">
+                                    <!-- Tooltip content for email validation -->
+                                    <span>Email should be a valid email address.</span>
+                                </div>
                                 @error('email')
                                     <div class="text-danger">
-                                        {{$message}}
+                                        {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group relative mb-20 mb-sm-20">
-                                <input type="password" class="form-control input-lg input-white shadow-5" id="pwd" name="password"
-                                    placeholder="Password" autocomplete="current-password">
+                                <input type="password" class="form-control input-lg input-white shadow-5" id="pwd"
+                                    name="password" placeholder="Password" autocomplete="current-password">
                                 <i class="fas fa-eye transform-v-center view-password"></i>
+                                <div class="tooltip password-tooltip">
+                                    <!-- Tooltip content for password validation -->
+                                    <span>Password should contain at least 8 characters.</span>
+                                </div>
                                 @error('password')
                                     <div class="text-danger">
-                                        {{$message}}
+                                        {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group form-check pl-0">
                                 <div class="d-flex justify-content-between">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input"
-                                            checked="" id="remember_me" name="remember">
+                                        <input type="checkbox" class="custom-control-input" checked="" id="remember_me"
+                                            name="remember">
                                         <label class="custom-control-label fs-13" for="remember_me"><span
                                                 class="label-check">Remember me</span></label>
                                     </div>
@@ -72,7 +81,8 @@
                             <button type="submit" class="btn btn-square btn-block shadow-4 mt-20">LOGIN</button>
                             <div class="signup-login text-center">
                                 <p class="mt-15 fs-13">
-                                    New here?<a href="{{ route('register') }}" class="ml-5 mb-0 d-inline-block f-500">Sign up</a>
+                                    New here?<a href="{{ route('register') }}" class="ml-5 mb-0 d-inline-block f-500">Sign
+                                        up</a>
                                 </p>
                             </div>
                         </form>
@@ -194,17 +204,36 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('.view-password').on('click', function() {
-                let input = $(this).prev("input[name='password']");
-                let icon = $(this).toggleClass('fa-eye fa-eye-slash');
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.querySelector('.email-validate');
+            const passwordInput = document.querySelector('#pwd');
 
-                if (input.attr('type') === 'password') {
-                    input.attr('type', 'text');
+            emailInput.addEventListener('keyup', function() {
+                const tooltip = this.nextElementSibling;
+                const isValid = validateEmail(this.value);
+
+                if (isValid) {
+                    tooltip.classList.remove('show-tooltip');
                 } else {
-                    input.attr('type', 'password');
+                    tooltip.classList.add('show-tooltip');
                 }
             });
+
+            passwordInput.addEventListener('keyup', function() {
+                const tooltip = this.nextElementSibling;
+                const isValid = this.value.length >= 8;
+
+                if (isValid) {
+                    tooltip.classList.remove('show-tooltip');
+                } else {
+                    tooltip.classList.add('show-tooltip');
+                }
+            });
+
+            function validateEmail(email) {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
         });
     </script>
 @endpush

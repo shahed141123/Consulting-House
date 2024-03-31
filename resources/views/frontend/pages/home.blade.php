@@ -179,22 +179,28 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-3 col-md-6 text-center">
-                    <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
-                        <div class="icon-bg-white flex-center z-10">
-                            <img src="{{ asset('frontend/img/service/2.png') }}" class="" alt="">
-                        </div>
-                        <div class="service-text-3 transition-4 mt-15 z-10">
-                            <h4 class="f-700 mb-10">Financial Planning</h4>
-                            <p class="mb-20">Lorem ipsum dolor sit amet, consectetur</p>
-                            <a href="services-details.html" class="btn btn-border-blue mb-30">
-                                Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
-                            </a>
-                            <span class="bg-green undeline-3"></span>
+                @foreach ($plans as $plan)
+                    <div class="col-xl-3 col-md-6 text-center">
+                        <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
+                            <div class="icon-bg-white flex-center z-10">
+                                <img src="{{ asset('frontend/img/service/2.png') }}" class="" alt="">
+                            </div>
+                            <div class="service-text-3 transition-4 mt-15 z-10">
+                                <h4 class="f-700 mb-10">{{ $plan->name }}</h4>
+                                @if (!empty($plan->descriptions))
+                                    @foreach (json_decode(json_decode($plan->descriptions, true)) as $description)
+                                        <p class="mb-5">{{ $description }}</p>
+                                    @endforeach
+                                @endif
+                                <a href="{{ route('subscribe.post', $plan->slug) }}" class="btn btn-border-blue mb-30">
+                                    Readmore<i class="fas fa-long-arrow-alt-right ml-15"></i>
+                                </a>
+                                <span class="bg-green undeline-3"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-md-6 text-center">
+                @endforeach
+                {{-- <div class="col-xl-3 col-md-6 text-center">
                     <div class="service-list-3 shadow-2 transition-4 img-lined z-5">
                         <div class="icon-bg-white flex-center z-10">
                             <img src="{{ asset('frontend/img/service/1.png') }}" class="" alt="">
@@ -238,7 +244,7 @@
                             <span class="bg-green undeline-3"></span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
