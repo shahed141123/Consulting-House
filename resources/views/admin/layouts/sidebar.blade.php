@@ -12,6 +12,9 @@
             <a href="#"
                 class="nav-link {{ Route::is('admin.client_type_category.index', 'admin.profile_type.index', 'admin.client_type.index', 'admin.entity_type.index', 'admin.transaction_type.index') ? 'active' : '' }}">
                 <i class="ph ph-chalkboard-teacher"></i>
+            <a href="#"
+                class="nav-link {{ Route::is('admin.client_type_category.index', 'admin.profile_type.index', 'admin.client_type.index', 'admin.entity_type.index', 'admin.transaction_type.index') ? 'active' : '' }}">
+                <i class="ph ph-chalkboard-teacher"></i>
                 <span>{{ __('Types') }}</span>
             </a>
             <ul

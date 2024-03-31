@@ -17,8 +17,19 @@
 }
 
 .site-bg {
+    --border-color-translucent: rgba(0, 0, 0, 0.125);
+    --border-color: #d1d5db;
+    --border-width: 1px;
+    --white: #fff;
+    --shadow-one: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px;
+    --shadow-two: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    --secondary-color: black;
+}
+
+.site-bg {
     background-color: var(--button-bg-color);
 }
+.site-text {
 .site-text {
     color: var(--main-text-color);
 }
