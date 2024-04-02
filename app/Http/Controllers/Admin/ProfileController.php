@@ -151,7 +151,7 @@ class ProfileController extends Controller
             ProfileDocuments::insert($attachments);
 
         }
-        
+
         if (!empty($mainMultiProofFile)) {
             $attachments = [];
             foreach ($mainMultiProofFile as $mainMultiProofFile) {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SubscriptionPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Stripe\SetupIntent;
 
 class SubscriptionController extends Controller
 {
@@ -67,8 +68,8 @@ class SubscriptionController extends Controller
     }
     public function showSubscriptionForm()
     {
-        $data['plans'] = DB::table('subscription_plans')->orderBy('price','asc')->get();
-        return view('frontend.pages.subscription_plan' , $data);
+        $data['plans'] = DB::table('subscription_plans')->orderBy('price', 'asc')->get();
+        return view('frontend.pages.subscription_plan', $data);
     }
 
     public function subscribe(Request $request, $id)
@@ -79,11 +80,13 @@ class SubscriptionController extends Controller
         return view("frontend.pages.subscribe", $data);
     }
 
-    public function subscription(Request $request)
+    public function subscriptionPayment(Request $request)
     {
         $plan = SubscriptionPlan::find($request->plan);
 
-        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->create($request->token);
+        $subscription = $request->user()
+            ->newSubscription($request->plan, $plan->stripe_plan)
+            ->create($request->token);
 
         return view("frontend.pages.subscription_success");
     }
@@ -96,29 +99,33 @@ class SubscriptionController extends Controller
 
         return redirect()->route('home')->with('success', 'Subscription canceled!');
     }
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
-    public function retrievePlans() {
+    public function retrievePlans()
+    {
         $key = \config('services.stripe.secret');
         $stripe = new \Stripe\StripeClient($key);
         $plansraw = $stripe->plans->all();
         $plans = $plansraw->data;
 
-        foreach($plans as $plan) {
+        foreach ($plans as $plan) {
             $prod = $stripe->products->retrieve(
-                $plan->product,[]
+                $plan->product,
+                []
             );
             $plan->product = $prod;
         }
         return $plans;
     }
-    public function showSubscription() {
+    public function showSubscription()
+    {
         $plans = $this->retrievePlans();
         $user = Auth::user();
 
         return view('seller.pages.subscribe', [
-            'user'=>$user,
+            'user' => $user,
             'intent' => $user->createSetupIntent(),
             'plans' => $plans
         ]);

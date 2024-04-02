@@ -207,24 +207,24 @@ $(document).ready(function () {
         }
     });
 
-    $(".email-validate").on("input", function() {
-        const emailInput = $(this);
-        const emailValidationMessage = emailInput.next('.validation-message');
+    // $(".email-validate").on("input", function() {
+    //     const emailInput = $(this);
+    //     const emailValidationMessage = emailInput.next('.validation-message');
 
-        const email = emailInput.val().trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     const email = emailInput.val().trim();
+    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (email === '') {
-            emailValidationMessage.text('Email is required.');
-            emailInput.addClass('input-error');
-        } else if (!emailRegex.test(email)) {
-            emailValidationMessage.text('Invalid email format.(Example : ');
-            emailInput.addClass('input-error');
-        } else {
-            emailValidationMessage.text('');
-            emailInput.removeClass('input-error');
-        }
-    });
+    //     if (email === '') {
+    //         emailValidationMessage.text('Email is required.');
+    //         emailInput.addClass('input-error');
+    //     } else if (!emailRegex.test(email)) {
+    //         emailValidationMessage.text('Invalid email format.(Example : ');
+    //         emailInput.addClass('input-error');
+    //     } else {
+    //         emailValidationMessage.text('');
+    //         emailInput.removeClass('input-error');
+    //     }
+    // });
     $(".email-validate").on("input", function () {
         const emailInput = $(this);
         const emailValidationMessage = emailInput.next('.validation-message');

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('bidding_items', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
             $table->unsignedBigInteger('profile_type_id')->nullable();
@@ -63,7 +63,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('teaser')->nullable(); //file
             $table->enum('status', ['active', 'inactive'])->default('active')->nullable();
-            $table->foreign('client_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
@@ -77,6 +76,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('bidding_items');
     }
 };

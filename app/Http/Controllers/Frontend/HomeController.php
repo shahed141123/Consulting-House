@@ -42,6 +42,18 @@ class HomeController extends Controller
         $data['industries'] = Industry::orderBy('id', 'desc')->get(['id', 'slug', 'name']);
         return view('frontend.pages.custom_filter', $data);
     }
+    public function consultantFilter($id)
+    {
+        $data['active_id'] = $id;
+        $data['selected_profile_type'] = ProfileType::where('slug', $id)->first(['id', 'slug', 'name']);
+        $data['profile_types'] = ProfileType::orderBy('id', 'desc')->get(['id', 'slug', 'name']);
+        $data['client_types'] = ClientType::orderBy('id', 'desc')->get(['id', 'slug', 'name']);
+        $data['transaction_types'] = TransactionType::orderBy('id', 'desc')->get(['id', 'slug', 'name']);
+        $data['entity_types'] = EntityType::orderBy('id', 'desc')->get(['id', 'slug', 'name']);
+        $data['sectors'] = IndustrySector::with('industries')->orderBy('id', 'desc')->get(['id', 'slug', 'name']);
+        $data['industries'] = Industry::orderBy('id', 'desc')->get(['id', 'slug', 'name']);
+        return view('frontend.pages.custom_filter', $data);
+    }
     public function allBlog()
     {
         return view('frontend.pages.all_blog');
@@ -93,7 +105,8 @@ class HomeController extends Controller
 
     public function payment()
     {
-        return view('frontend.pages.payment');
+        $data['plans'] = DB::table('subscription_plans')->orderBy('price','asc')->get();
+        return view('frontend.pages.payment',$data);
     }
     public function aboutUs()
     {
@@ -110,7 +123,8 @@ class HomeController extends Controller
     }
     public function pricing()
     {
-        return view('frontend.pages.pricing');
+        $data['plans'] = DB::table('subscription_plans')->orderBy('price','asc')->get();
+        return view('frontend.pages.pricing',$data);
     }
     // public function profileDetails()
     // {

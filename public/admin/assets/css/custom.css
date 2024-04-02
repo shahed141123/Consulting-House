@@ -257,7 +257,7 @@
 }
 
 .sidebar-dark {
-    --sidebar-width: 13rem;
+    --sidebar-width: 15rem;
     background: #030c24e3 url(../images/backgrounds/panel_bg.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -273,7 +273,8 @@
     --nav-link-padding-x: 0.9rem;
 } */
 .nav-sidebar {
-    --nav-link-padding-x: 0.5rem;
+    --nav-link-padding-x: 1.3rem;
+    /* --nav-link-padding-x: 0.5rem; */
 }
 
 .nav-group-sub .nav-link {

@@ -178,12 +178,12 @@
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#"
-                class="nav-link {{ Route::is('admin.contact.index', 'admin.feedback.index') ? 'active' : '' }}">
+                class="nav-link {{ Route::is('admin.contact.index', 'admin.feedback.index', 'admin.chat-messages.index') ? 'active' : '' }}">
                 <i class="ph ph-user-circle-gear"></i>
                 <span>{{ __('CRM') }}</span>
             </a>
             <ul
-                class="nav-group-sub collapse {{ Route::is('admin.contact.index', 'admin.feedback.index') ? 'show' : '' }}">
+                class="nav-group-sub collapse {{ Route::is('admin.contact.index', 'admin.feedback.index', 'admin.chat-messages.index') ? 'show' : '' }}">
                 <li class="nav-item">
                     <a href="{{ route('admin.contact.index') }}"
                         class="nav-link {{ Route::is('admin.contact.index') ? 'active' : '' }}">
@@ -198,6 +198,13 @@
                         {{ __('Feedbacks') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.chat-messages.index') }}"
+                        class="nav-link {{ Route::is('admin.chat-messages.index') ? 'active' : '' }}">
+                        <i class="ph ph-messenger-logo"></i>
+                        {{ __('One to One Message') }}
+                    </a>
+                </li>
             </ul>
         </li>
 
@@ -209,6 +216,13 @@
             </a>
             <ul
                 class="nav-group-sub collapse {{ Route::is('admin.blog-category.index', 'admin.blog-post.index', 'admin.faq.index') ? 'show' : '' }}">
+                <li class="nav-item">
+                    <a href="{{ route('admin.about-us.index') }}"
+                        class="nav-link {{ Route::is('admin.about-us.index') ? 'active' : '' }}">
+                        <i class="ph ph-article"></i>
+                        {{ __('About Us Page') }}
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.blog-category.index') }}"
                         class="nav-link {{ Route::is('admin.blog-category.index') ? 'active' : '' }}">
@@ -234,6 +248,20 @@
                     <a href="{{ route('admin.frontend-menu.index') }}"
                         class="nav-link {{ Route::is('admin.frontend-menu.index') ? 'active' : '' }}">
                         <i class="ph ph-list"></i>
+                        {{ __('Frontend Menu') }}
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
+                    <a href="{{ route('admin.faq.index') }}"
+                        class="nav-link {{ Route::is('admin.faq.index') ? 'active' : '' }}">
+                        <i class="ph-person"></i>
+                        {{ __('FAQ') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.frontend-menu.index') }}"
+                        class="nav-link {{ Route::is('admin.frontend-menu.index') ? 'active' : '' }}">
+                        <i class="ph-person"></i>
                         {{ __('Frontend Menu') }}
                     </a>
                 </li>
@@ -328,5 +356,3 @@
 
     </ul>
 </div>
-
-

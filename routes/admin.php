@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\AdminChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\RfqController;
@@ -116,6 +118,9 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::delete('child/categories/{id}', [CategoryController::class, 'childCategoryDestroy'])->name('child.categories.destroy');
     Route::get('child/categories/dropdown', [CategoryController::class, 'childCategoryDropdown'])->name('child.categories.dropdown');
 
+
+    Route::post('/delete-message', [AdminChatController::class, 'deleteMessage'])->name('delete.message');
+
     //Product Multiimage
     Route::post('multi-image/store', [ProductController::class, 'multiImageStore'])->name('multi-image.store');
     Route::get('multi-image/update', [ProductController::class, 'multiImageUpdate'])->name('multi-image.update');
@@ -168,6 +173,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         'terms-privacy-category'    => TermsPrivacyCategoryController::class,
         'newsletter'                => NewsletterController::class,
         'bulk-email'                => BulkEmailController::class,
+        'chat-messages'             => AdminChatController::class,
+        'about-us'                  => AboutUsController::class,
     ], [
         'except' => ['brand',  'create', 'show', 'edit'],
         'except' => ['profile_type',  'create', 'show', 'edit'],

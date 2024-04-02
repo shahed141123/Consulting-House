@@ -48,6 +48,8 @@
             formData.append('image', this.files[0]);
 
             const imagePreview = $(this).closest('.user-image');
+            const headerRoundImage = $('#header-round-image');
+            const headerDropdownImage = $('#header-dropdown-image');
 
             $.ajax({
                 url: "{{ route('client-image.store') }}",
@@ -65,9 +67,19 @@
                                 <input id="upload-multi-img" type="file" class="file-input" name="profile_picture" accept="image/*" profile-picture-upload>
                                 <span class="edit-picture bg-white"><i class="fas fa-pencil-alt"></i></span>
                             </div>`;
+                    const roundhtml = `<div class="profile-image" id="header-round-image"
+                                    style="background-image:url(${productImage})"
+                                    profile-picture-container="">
+                                </div>`;
+                    const dropdownhtml = `<div class="profile-photo" id="header-dropdown-image">
+                                        <img src="${productImage}"
+                                            alt="">
+                                    </div>`;
 
                     toastr.success('Image uploaded successfully');
                     imagePreview.replaceWith(html);
+                    headerRoundImage.replaceWith(roundhtml);
+                    headerDropdownImage.replaceWith(dropdownhtml);
                 },
                 error: function(xhr, status, error) {
                     console.log(error); // For Debugging

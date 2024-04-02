@@ -38,8 +38,8 @@ class FrontendMenuController extends Controller
             $request->all(),
             [
                 'name'  => 'required',
-                'order' => 'required|unique: frontend_menus',
-                'url'   => 'required|confirmed',
+                'order' => 'required|unique:frontend_menus,order',
+                'url'   => 'required',
             ],
             [
                 'unique' => 'This order has already been taken for another menu.',
@@ -104,13 +104,13 @@ class FrontendMenuController extends Controller
             $request->all(),
             [
                 'name'  => 'required',
-                'order' => 'required|unique: frontend_menus',
-                'url'   => 'required|confirmed',
+                'order' => 'required|unique:frontend_menus,order,' . $fontendmenu->id,
+                'url'   => 'required',
             ],
             [
-                'unique' => 'This order has already been taken for another menu.',
-                'required' => 'This :attribute must be required.',
-            ],
+                'unique'   => 'This order has already been taken for another menu.',
+                'required' => 'The :attribute field is required.',
+            ]
         );
         if ($validator->passes()) {
             $fontendmenu->update([

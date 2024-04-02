@@ -279,6 +279,7 @@
                                                         <label class="ms-1" for="short_description">Header</label>
                                                         <textarea name="header" class="form-control" id="short_desc" rows="3" placeholder="Enter Your Header">
 @isset($blogPost)
+@isset($blogPost)
 {{ $blogPost->header }}
 @endisset
 </textarea>
@@ -289,6 +290,7 @@
                                                         <label class="ms-1" for="content">Short Description</label>
                                                         <textarea class="form-control" name="short_description" id="overview" rows="3"
                                                             placeholder="Enter Your Short Description">
+@isset($blogPost)
 @isset($blogPost)
 {{ $blogPost->short_description }}
 @endisset
