@@ -105,7 +105,8 @@ class HomeController extends Controller
 
     public function payment()
     {
-        return view('frontend.pages.payment');
+        $data['plans'] = DB::table('subscription_plans')->orderBy('price','asc')->get();
+        return view('frontend.pages.payment',$data);
     }
     public function aboutUs()
     {
@@ -122,7 +123,8 @@ class HomeController extends Controller
     }
     public function pricing()
     {
-        return view('frontend.pages.pricing');
+        $data['plans'] = DB::table('subscription_plans')->orderBy('price','asc')->get();
+        return view('frontend.pages.pricing',$data);
     }
     // public function profileDetails()
     // {
