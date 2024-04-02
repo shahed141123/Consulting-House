@@ -19,8 +19,8 @@ class HomeController extends Controller
 {
     public function home()
     {
-
-        return view('frontend.pages.home');
+        $data['plans'] = DB::table('subscription_plans')->orderBy('price','asc')->get();
+        return view('frontend.pages.home',$data);
     }
     public function contact()
     {

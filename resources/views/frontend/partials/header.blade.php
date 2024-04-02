@@ -32,8 +32,7 @@
                                 <span><a
                                         href="https://wa.me/{{ isset($data['site']->whatsapp_number) ? $data['site']->whatsapp_number : '' }}">{{ isset($data['site']->whatsapp_number)
                                             ? $data['site']->whatsapp_number
-                                            : 'No
-                                                                                                                        Number' }}</a></span>
+                                            : 'No Number' }}</a></span>
                             </div>
 
                             <div class='social-btn flex-center' id="email_header">
@@ -370,14 +369,17 @@
                                 <div class="dropdown-menu-scrollable m-0 container p-0">
                                     <ul>
                                         @foreach ($data['profile_types'] as $profile_type)
-                                            <li class="p-1 px-2 add-new-area"><a href="{{route('add.profile',$profile_type->slug)}}" class="text-one">Add
+                                            <li class="p-1 px-2 add-new-area"><a
+                                                    href="{{ route('add.profile', $profile_type->slug) }}"
+                                                    class="text-one">Add
                                                     {{ $profile_type->name }}
                                                     Profile</a>
                                             </li>
                                         @endforeach
-                                        <li class="p-1 px-2 add-new-area"><a href="{{route('add.consultant')}}" class="text-one">
-                                            Add Consultant Profile
-                                        </a>
+                                        <li class="p-1 px-2 add-new-area"><a href="{{ route('add.consultant') }}"
+                                                class="text-one">
+                                                Add Consultant Profile
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
