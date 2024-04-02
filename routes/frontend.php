@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\CLient\BiddingController;
+use App\Http\Controllers\Client\BiddingController;
 use App\Http\Controllers\Admin\SubscriptionController;
 
 // Route::get('/', function () {
