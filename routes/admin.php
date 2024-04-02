@@ -49,6 +49,8 @@ use App\Http\Controllers\Admin\IndustryWatchCategoryController;
 use App\Http\Controllers\Admin\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\EmailVerificationNotificationController;
 use App\Http\Controllers\Admin\FrontendMenuController;
+use App\Http\Controllers\Admin\SubscriptionController;
+use App\Http\Controllers\Admin\SubscriptionPlanController;
 
 Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(function () {
 
@@ -154,6 +156,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         'blog-post'                 => BlogPostController::class,
         'faq'                       => FaqController::class,
         'frontend-menu'             => FrontendMenuController::class,
+        'subscription'              => SubscriptionController::class,
+        'subscription-plan'         => SubscriptionPlanController::class,
     ], [
         'except' => ['brand',  'create', 'show', 'edit'],
         'except' => ['profile_type',  'create', 'show', 'edit'],

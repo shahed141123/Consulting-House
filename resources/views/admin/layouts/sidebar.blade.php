@@ -148,6 +148,31 @@
         </li>
 
         <li class="nav-item nav-item-submenu">
+            <a href="#" class="nav-link {{ Route::is('admin.subscription-plan.index', 'admin.feedback.index') ? 'active' : '' }}">
+                <i class="ph-keyhole"></i>
+                <span>{{ __('Subscription') }}</span>
+            </a>
+            <ul
+                class="nav-group-sub collapse {{ Route::is('admin.subscription-plan.index', 'admin.feedback.index') ? 'show' : '' }}">
+                <li class="nav-item">
+                    <a href="{{ route('admin.subscription-plan.index') }}"
+                        class="nav-link {{ Route::is('admin.subscription-plan.index') ? 'active' : '' }}">
+                        <i class="ph-person"></i>
+                        {{ __('Subscription Plans') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.feedback.index') }}"
+                        class="nav-link {{ Route::is('admin.feedback.index') ? 'active' : '' }}">
+                        <i class="ph-person"></i>
+                        {{ __('Subscription Users') }}
+                    </a>
+                </li>
+
+
+            </ul>
+        </li>
+                <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link {{ Route::is('admin.contact.index', 'admin.feedback.index') ? 'active' : '' }}">
                 <i class="ph-keyhole"></i>
                 <span>{{ __('CRM') }}</span>
@@ -201,6 +226,20 @@
                         {{ __('FAQ') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.frontend-menu.index') }}"
+                        class="nav-link {{ Route::is('admin.frontend-menu.index') ? 'active' : '' }}">
+                        <i class="ph-person"></i>
+                        {{ __('Frontend Menu') }}
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
+                    <a href="{{ route('admin.faq.index') }}"
+                        class="nav-link {{ Route::is('admin.faq.index') ? 'active' : '' }}">
+                        <i class="ph-person"></i>
+                        {{ __('FAQ') }}
+                    </a>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a href="{{ route('admin.industry-watch.index') }}"
                         class="nav-link {{ Route::is('admin.industry-watch.index') ? 'active' : '' }}">

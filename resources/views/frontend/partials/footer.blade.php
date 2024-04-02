@@ -97,7 +97,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-xl-6">
-                    <p class="mb-0 white">© Copyrights 2019 Bizz All rights reserved</p>
+                    <p class="mb-0 white">© Copyrights 2019 Consultant House All rights reserved</p>
                 </div>
                 <div class="col-xl-6 text-end">
                     <div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\IndustryWatchCategory;
 use App\Http\Requests\Blog\BlogPostRequest;
+use App\Models\BlogCategory;
 
 class BlogPostController extends Controller
 {
@@ -20,7 +21,7 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $data['blogPosts'] = BlogPost::get();
+        $data['blogPosts'] = BlogPost::latest('id','desc')->get();
         return view('admin.pages.blog_post.index', $data);
     }
 
@@ -30,10 +31,9 @@ class BlogPostController extends Controller
     public function create()
     {
         $data = [
-            'profile_types'      => ProfileType::get(['id', 'name']),
-            'users'              => User::get(['id', 'name']),
-            'categories'         => IndustryWatchCategory::get(['id', 'name']),
-            'industries'         => Industry::get(['id', 'name']),
+            'profile_types'      => ProfileType::get(['id', 'name', 'slug']),
+            'categories'         => BlogCategory::get(['id', 'name', 'slug']),
+            'industries'         => Industry::get(['id', 'name', 'slug']),
         ];
         return view('admin.pages.blog_post.create', $data);
     }

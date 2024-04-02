@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('industry_watch_sidebars', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('industry_watch_id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('value');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

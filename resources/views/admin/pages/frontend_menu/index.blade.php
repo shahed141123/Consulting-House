@@ -86,17 +86,148 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="d-inline-flex">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#menuItemEditModal{{ $menuItem->id }}"
-                                                        class="text-primary">
-                                                        <i class="ph-pen"></i>
-                                                    </a>
 
-                                                    <a href="{{ route('admin.frontend-menu.destroy', $menuItem->id) }}"
-                                                        class="text-danger mx-2 delete">
-                                                        <i class="ph-trash"></i>
-                                                    </a>
+                                                <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                    data-bs-target="#menuItemEditModal-{{ $menuItem->id }}"
+                                                    class="text-primary">
+                                                    <i class="ph-pen"></i>
+                                                </a>
+
+                                                <a href="{{ route('admin.frontend-menu.destroy', $menuItem->id) }}"
+                                                    class="text-danger mx-2 delete">
+                                                    <i class="ph-trash"></i>
+                                                </a>
+
+                                                <div id="menuItemEditModal-{{ $menuItem->id }}" class="modal fade"
+                                                    data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Edit Frontend Menu</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                            </div>
+
+                                                            <form
+                                                                action="{{ route('admin.frontend-menu.update', $menuItem->id) }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">Parent Menu Name
+                                                                                    <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <select name="parent_id"
+                                                                                    data-placeholder="Select a Profile Name...."
+                                                                                    class="form-control form-control-sm select"
+                                                                                    data-minimum-results-for-search="Infinity"
+                                                                                    data-container-css-class="select-sm">
+                                                                                    <option></option>
+                                                                                    @foreach ($menuItems as $menuItem)
+                                                                                        <option value="{{ $menuItem->id }}"
+                                                                                            @selected($menuItem->parent_id == $menuItem->id)>
+                                                                                            {{ $menuItem->name }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">Name <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <input id="name" name="name"
+                                                                                    type="text"
+                                                                                    value="{{ $menuItem->name }}"
+                                                                                    class="form-control form-control-sm"
+                                                                                    placeholder="Enter Menu Name"
+                                                                                    maxlength="100">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-lg-4">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">URL</label>
+                                                                                <input id="url" name="url"
+                                                                                    type="text"
+                                                                                    value="{{ $menuItem->url }}"
+                                                                                    class="form-control form-control-sm"
+                                                                                    placeholder="Enter Menu url"
+                                                                                    maxlength="100">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">Order</label>
+                                                                                <input id="order" name="order"
+                                                                                    type="text"
+                                                                                    value="{{ $menuItem->order }}"
+                                                                                    class="form-control form-control-sm"
+                                                                                    placeholder="Enter Menu order"
+                                                                                    maxlength="100">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">Target</label>
+                                                                                <input id="target" name="target"
+                                                                                    type="text"
+                                                                                    value="{{ $menuItem->target }}"
+                                                                                    class="form-control form-control-sm"
+                                                                                    placeholder="Enter Menu target"
+                                                                                    maxlength="100">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">Icon [Font
+                                                                                    Awesome(6) Icon]</label>
+                                                                                <input id="icon" name="icon"
+                                                                                    type="text"
+                                                                                    value="{{ $menuItem->icon }}"
+                                                                                    class="form-control form-control-sm"
+                                                                                    placeholder="Icon (Fa-solid fa-icon)"
+                                                                                    maxlength="100">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label">Status <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <select name="status"
+                                                                                    data-placeholder="Select Status..."
+                                                                                    class="form-control form-control-sm select"
+                                                                                    data-minimum-results-for-search="Infinity"
+                                                                                    data-container-css-class="select-sm">
+                                                                                    <option></option>
+                                                                                    <option value="active"
+                                                                                        @selected($menuItem->status == 'active')>Active
+                                                                                    </option>
+                                                                                    <option value="inactive"
+                                                                                        @selected($menuItem->status == 'inactive')>
+                                                                                        Inactive</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-link"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary ">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -110,7 +241,8 @@
             </div>
         </div>
         <!-- Disabled keyboard interaction add modal for Client  Type -->
-        <div id="menuItemAddModal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
+        <div id="menuItemAddModal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static"
+            tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -118,7 +250,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <form action="{{ route('admin.frontend-menu.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.frontend-menu.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -128,7 +261,8 @@
                                                 class="text-danger">*</span></label>
                                         <select name="parent_id" data-placeholder="Select a Profile Name...."
                                             class="form-control form-control-sm select"
-                                            data-minimum-results-for-search="Infinity" data-container-css-class="select-sm">
+                                            data-minimum-results-for-search="Infinity"
+                                            data-container-css-class="select-sm">
                                             <option></option>
                                             @foreach ($menuItems as $menuItem)
                                                 <option value="{{ $menuItem->id }}">
@@ -209,110 +343,8 @@
         </div>
         <!-- Disabled keyboard interaction add modal for menuItem -->
         <!-- /Edit Modal -->
-        @foreach ($menuItems as $menuItem)
-            <div id="menuItemEditModal{{ $menuItem->id }}" class="modal fade" data-bs-keyboard="false"
-                data-bs-backdrop="static" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Your Client Type</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <form action="{{ route('admin.frontend-menu.update', $menuItem->id) }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-2">
-                                            <label class="form-label">Parent Menu Name <span
-                                                    class="text-danger">*</span></label>
-                                            <select name="parent_id" data-placeholder="Select a Profile Name...."
-                                                class="form-control form-control-sm select"
-                                                data-minimum-results-for-search="Infinity"
-                                                data-container-css-class="select-sm">
-                                                <option></option>
-                                                @foreach ($menuItems as $menuItem)
-                                                    <option value="{{ $menuItem->id }}" @selected($menuItem->parent_id == $menuItem->id)>
-                                                        {{ $menuItem->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-2">
-                                            <label class="form-label">Name <span class="text-danger">*</span></label>
-                                            <input id="name" name="name" type="text" value="{{ $menuItem->name }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu Name"
-                                                maxlength="100">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">URL</label>
-                                            <input id="url" name="url" type="text" value="{{ $menuItem->url }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu url"
-                                                maxlength="100">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Order</label>
-                                            <input id="order" name="order" type="text" value="{{ $menuItem->order }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu order"
-                                                maxlength="100">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Target</label>
-                                            <input id="target" name="target" type="text" value="{{ $menuItem->target }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu target"
-                                                maxlength="100">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Icon [Font Awesome(6) Icon]</label>
-                                            <input id="icon" name="icon" type="text" value="{{ $menuItem->icon }}"
-                                                class="form-control form-control-sm" placeholder="Icon (Fa-solid fa-icon)"
-                                                maxlength="100">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select name="status" data-placeholder="Select Status..."
-                                                class="form-control form-control-sm select"
-                                                data-minimum-results-for-search="Infinity"
-                                                data-container-css-class="select-sm">
-                                                <option></option>
-                                                <option value="active" @selected($menuItem->status == 'active')>Active</option>
-                                                <option value="inactive" @selected($menuItem->status == 'inactive')>Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary ">Save
-                                    changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+        {{-- @foreach ($menuItems as $menuItem)
+        @endforeach --}}
         <!-- /Edit Modal -->
 
     </div>
@@ -330,7 +362,7 @@
                 columnDefs: [{
                     orderable: false,
                     // width: 100,
-                    targets: [0, 1, 2, 3,4,5,6],
+                    targets: [0, 1, 2, 3, 4, 5, 6],
                 }, ],
 
 

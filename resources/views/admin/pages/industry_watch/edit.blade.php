@@ -39,7 +39,13 @@
                         <a href="{{ route('admin.dashboard') }}" class="breadcrumb-item">Home</a>
                         <a href="{{ route('admin.industry-watch.index') }}" class="breadcrumb-item">Industry Management</a>
                         <a href="{{ route('admin.industry-watch.index') }}" class="breadcrumb-item">Industry Watch</a>
-                        <span class="breadcrumb-item active">Edit</span>
+                        <span class="breadcrumb-item active">
+                            @if (isset($industryWatch))
+                                Edit
+                            @else
+                                Add
+                            @endif
+                        </span>
                     </div>
 
                     <a href="#breadcrumb_elements"
@@ -67,7 +73,13 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-12 d-flex justify-content-center">
-                            <h4 class="text-white p-0 m-0 fw-bold admin_adedit_title">Industry Watch Add</h4>
+                            <h4 class="text-white p-0 m-0 fw-bold admin_adedit_title">
+                                @if (isset($industryWatch))
+                                    Industry Watch Edit
+                                @else
+                                    Industry Watch Add
+                                @endif
+                            </h4>
                         </div>
 
                     </div>
@@ -88,16 +100,30 @@
                                         aria-controls="description" aria-selected="false">Descripton</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link text-white" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3"
-                                        type="button" role="tab" aria-controls="tab3" aria-selected="false">Source
-                                        Details</button>
+                                    <button class="nav-link text-white" id="tab3-tab" data-bs-toggle="tab"
+                                        data-bs-target="#tab3" type="button" role="tab" aria-controls="tab3"
+                                        aria-selected="false">Sidebar Informations</button>
                                 </li>
+
                             </ul>
                         </div>
                         <div class="col-lg-10">
-                            <form id="myForm" method="post" action="{{ route('admin.industry-watch.store') }}"
+                            <form id="myForm" method="post"
+                                @if (isset($industryWatch)) action="{{ route('admin.industry-watch.update', $industryWatch->id) }}"
+                                @else
+                                    action="{{ route('admin.industry-watch.store') }}" @endif
                                 enctype="multipart/form-data">
                                 @csrf
+                                @isset($industryWatch)
+                                    @method('PUT')
+                                    @php
+                                        $categoryIds = isset($industryWatch->category_id) ? json_decode($industryWatch->category_id, true) : [];
+                                        $profile_typeIds = isset($industryWatch->profile_type_id) ? json_decode($industryWatch->profile_type_id, true) : [];
+                                        $sectorIds = isset($industryWatch->sector_id) ? json_decode($industryWatch->sector_id, true) : [];
+                                        $industryIds = isset($industryWatch->industry_id) ? json_decode($industryWatch->industry_id, true) : [];
+                                    @endphp
+                                @endisset
+
                                 <div class="tab-content bg-white p-2 mt-0 pt-0" id="myTabContent">
                                     {{-- Basic Info Tab Content --}}
                                     <div class="tab-pane fade show active" id="basic_info" role="tabpanel"
@@ -107,15 +133,17 @@
 
                                         <h6 class="mb-0 text-info">Basic Information</h6>
                                         <div class="row mb-3 gx-1 border border-secondary bg-light p-2">
-                                            <div class="col-lg-3">
-                                                <label class="form-label">Related Category <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="category_id" class="form-control-sm multiselect btn btn-sm"
+                                            <div class="col-lg-3 mb-2">
+                                                <label class="form-label">Related Category</label>
+                                                <select name="category_id[]" class="form-control-sm multiselect btn btn-sm"
                                                     id="select6" multiple="multiple" data-include-select-all-option="true"
                                                     data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
                                                     @foreach ($categories as $categorie)
-                                                        <option value="{{ $categorie->id }}">{{ $categorie->name }}
+                                                        <option value="{{ $categorie->id }}" @isset($industryWatch)
+                                                            {{ is_array($categoryIds) && in_array($categorie->id, $categoryIds) ? 'selected' : '' }}
+                                                            @endisset>
+                                                            {{ $categorie->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -123,107 +151,120 @@
 
                                             <input type="hidden" name="user_id"
                                                 value="{{ Auth::guard('admin')->user()->id }}">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 mb-2">
                                                 <label class="form-label">Related Profiles </label>
                                                 <select name="profile_type_id[]"
                                                     class="form-control-sm multiselect btn btn-sm" id="select6"
                                                     multiple="multiple" data-include-select-all-option="true"
                                                     data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
-
                                                     @foreach ($profile_types as $profile_type)
-                                                        <option value="{{ $profile_type->id }}">
+                                                        <option value="{{ $profile_type->id }}" @isset($industryWatch)
+                                                            {{ is_array($profile_typeIds) && in_array($profile_type->id, $profile_typeIds) ? 'selected' : '' }}
+                                                            @endisset>
                                                             {{ $profile_type->name }}</option>
                                                     @endforeach
                                                 </select>
 
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 mb-2">
                                                 <label class="form-label">Related Sector <span
                                                         class="text-danger">*</span></label>
-                                                <select name="sector_id" class="form-control-sm multiselect btn btn-sm"
-                                                    id="select6" multiple="multiple" data-include-select-all-option="true"
-                                                    data-enable-filtering="true"
+                                                <select name="sector_id[]" class="form-control-sm multiselect btn btn-sm"
+                                                    id="select6" multiple="multiple"
+                                                    data-include-select-all-option="true" data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
-
                                                     @foreach ($sectors as $sector)
-                                                        <option value="{{ $sector->id }}">{{ $sector->name }}
+                                                        <option value="{{ $sector->id }}" @isset($industryWatch)
+                                                            {{ is_array($sectorIds) && in_array($sector->id, $sectorIds) ? 'selected' : '' }}
+                                                            @endisset>{{ $sector->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 mb-2">
                                                 <label class="form-label">Related Industry <span
                                                         class="text-danger">*</span></label>
-                                                <select name="industry_id" class="form-control-sm multiselect btn btn-sm"
+                                                <select name="industry_id[]" class="form-control-sm multiselect btn btn-sm"
                                                     id="select6" multiple="multiple"
                                                     data-include-select-all-option="true" data-enable-filtering="true"
                                                     data-enable-case-insensitive-filtering="true">
                                                     @foreach ($industries as $industrie)
-                                                        <option value="{{ $industrie->id }}">{{ $industrie->name }}
+                                                        <option value="{{ $industrie->id }}" @isset($industryWatch)
+                                                            {{ is_array($industryIds) && in_array($industrie->id, $industryIds) ? 'selected' : '' }}
+                                                            @endisset>{{ $industrie->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 mb-2">
                                                 <label class="ms-1" for="author_name">Author Name</label>
                                                 <input class="form-control form-control-sm mt-1" type="text"
+                                                    @if (isset($industryWatch)) value="{{ $industryWatch->author_name }}"
+                                                        @else value="{{ old('author_name') }}" @endif
                                                     name="author_name" id="author_name" maxlength="100">
                                             </div>
-                                            <div class="col-lg-1">
+                                            <div class="col-lg-1 mb-2">
                                                 <label class="form-check-label" for="sc_r_secondary">Featured</label> <br>
                                                 <input type="checkbox" name="featured" value="1"
-                                                    class="form-check-input form-check-input-secondary mt-2"
-                                                    id="sc_r_secondary">
+                                                    class="form-check-input form-check-input-secondary mt-2 ms-3"
+                                                    id="sc_r_secondary"
+                                                    @if (isset($industryWatch)) @checked($industryWatch->featured == '1') @endif>
                                             </div>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-3 mb-2">
                                                 <label class="ms-1" for="badge">Badge</label>
                                                 <input class="form-control form-control-sm mt-1" type="text"
-                                                    name="badge" id="badge" placeholder="Enter Youre Badge"
+                                                    name="badge" id="badge" placeholder="Enter Badge"
+                                                     @if (isset($industryWatch)) value="{{ $industryWatch->badge }}"
+                                                    @else value="{{ old('badge') }}" @endif
                                                     maxlength="100">
                                             </div>
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-5 mb-2">
                                                 <label class="ms-1" for="title">Title</label>
                                                 <input class="form-control form-control-sm mt-1" type="text"
-                                                    name="title" id="title" placeholder="Enter Youre title"
+                                                    name="title" id="title" placeholder="Enter Youre title" required
+                                                    @if (isset($industryWatch)) value="{{ $industryWatch->title }}"
+                                                    @else value="{{ old('title') }}" @endif
                                                     maxlength="100">
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-lg-4 mb-2">
                                                 <label class="ms-1" for="tags">Tags</label>
-                                                <input class="form-control form-control-sm mt-1" type="text"
-                                                    name="tags" id="tags" placeholder="Enter Youre header"
-                                                    maxlength="100">
+                                                <input type="text" name="tags" id="tags"
+                                                    class="form-control form-control-sm visually-hidden mt-1"
+                                                    @if (isset($industryWatch)) value="{{ $industryWatch->tags }}"
+                                                    @else value="{{ old('tags') }}" @endif
+                                                    data-role="tagsinput" placeholder="Tags">
+
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-lg-4 mb-2">
                                                 <div class="row gx-0 d-flex align-items-center">
                                                     <div class="col-lg-10">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Image <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input id="logo" name="image" type="file"
-                                                                class="form-control form-control-sm"
-                                                                placeholder="Enter Image" required>
-                                                        </div>
+                                                        <label class="form-label">Image <span
+                                                                class="text-danger">*</span></label>
+                                                        <input id="logo" name="image" type="file" @if (isset($industryWatch)) value="{{ $industryWatch->image }}"
+                                                        @else value="{{ old('image') }}" @endif
+                                                            class="form-control form-control-sm" placeholder="Enter Image">
                                                     </div>
                                                     <div class="col-lg-2">
-                                                        <a href="#" class="mb-3">
-                                                            <img id="preview-image"
-                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4zGCi3zopn2o_TNs3JU18b7GjJKEE_ZvW15Vwfjv4sXFIVQROwOAixqUtkwICmNhShbc&usqp=CAU"
-                                                                class="border" style="margin-top: 6px !important;"
-                                                                width="44" height="36" alt="">
-                                                        </a>
+                                                        <img id="show-image"
+                                                            src="{{ asset('admin/assets/images/no_image.jpg') }}"
+                                                            class="border" width="44" height="35"
+                                                            style="margin-top:25px;" alt="">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-lg-4 mb-2">
                                                 <label class="ms-1" for="meta_tags">Meta Tags</label>
-                                                <input class="form-control form-control-sm mt-1" type="text"
-                                                    name="meta_tags" id="meta_tags" placeholder="Enter Youre header"
-                                                    maxlength="100">
+                                                <input type="text" name="meta_tags" id="meta_tags"
+                                                    class="form-control form-control-sm visually-hidden mt-1"
+                                                    @if (isset($industryWatch)) value="{{ $industryWatch->image }}"
+                                                        @else value="{{ old('image') }}" @endif
+                                                    data-role="tagsinput" placeholder="Meta Tags">
+
                                             </div>
                                             <div class="col-lg-12">
                                                 <label class="ms-1" for="header">Header</label>
-                                                <textarea name="header" rows="3" class="form-control" placeholder="Enter your message here"></textarea>
+                                                <textarea name="header" rows="3" class="form-control" placeholder="Enter your message here">{{ $industryWatch->header }}</textarea>
 
                                             </div>
                                         </div>
@@ -249,13 +290,14 @@
                                                     <div class="form-group">
                                                         <label class="ms-1" for="short_description">Short
                                                             Description</label>
-                                                        <textarea name="short_description" class="form-control" id="short_desc" rows="3"></textarea>
+                                                        <textarea name="short_description" class="form-control" id="ckeditor_classic_empty_1" rows="3"
+                                                            placeholder="Enter Your Short Description">{!! $industryWatch->short_description !!}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-2">
                                                         <label class="ms-1" for="content">Content</label>
-                                                        <textarea class="form-control" name="content" id="overview" rows="3"></textarea>
+                                                        <textarea class="form-control" name="content" id="ckeditor_classic_empty_2" rows="3" placeholder="Enter Your Content" required>{!! $industryWatch->content !!}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -276,33 +318,43 @@
                                     </div>
                                     <div class="tab-pane fade" id="tab3" role="tabpanel"
                                         aria-labelledby="tab3-tab">
-                                        <h6 class="ms-1 mb-0 text-info">Industry Watch Contents</h6>
-                                        <div class="row mb-3 gx-0 border border-secondary bg-light p-2">
-                                            <div class="mb-1 row px-0 gx-1">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="ms-1" for="short_description">Short
-                                                            Description</label>
-                                                        <textarea name="short_description" class="form-control" id="short_desc" rows="3"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-2">
-                                                        <label class="ms-1" for="content">Content</label>
-                                                        <textarea class="form-control" name="content" id="overview" rows="3"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <h6 class="ms-1 mb-0 text-info">Industry Watch Sidebar Informations</h6>
+                                        <div class="table-responsive col-md-12">
+                                            <table class="table table-bordered col-md-12 product text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="padding:7px !important;"> Information Title</th>
+                                                        <th style="padding:7px !important;"> Information Value</th>
+                                                        <th style="padding:7px !important;"> <a href="javascript:void(0)"
+                                                                class="bg-success addRow p-1"><i
+                                                                    class="ph-plus icons_design text-white"></i></a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="repeater">
+                                                    <tr>
+
+                                                        <td> <input type="text" class="form-control form-control-sm"
+                                                                name="sidebar_title[]"></td>
+                                                        <td> <input type="text" class="form-control form-control-sm"
+                                                                name="sidebar_value[]"></td>
+                                                        <td class="text-center"> <a href="javascript:void(0)"
+                                                                class="bg-danger removeRow p-1"><i
+                                                                    class="ph-minus icons_design text-white"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
                                         </div>
-                                        <div class="row">
+                                        <div class="row mt-3">
                                             <div class="col-lg-12 text-end">
                                                 <button type="submit" class="btn btn-success" name="action"
                                                     id="submitbtn" value="save">Save<i
                                                         class="ph-paper-plane-tilt"></i></button>
-                                                <a href="javascript:void(0);" class="btn btn-info rounded-0 p-2 px-2"
-                                                    id="nextTabButton2">Next
+                                                <button class="btn btn-info rounded-0 p-2 px-2" type="submit"
+                                                    id="nextTabButton2">Update
                                                     <i class="ph-arrow-circle-right"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
 
@@ -336,56 +388,9 @@
     </script>
 
 
-    <script>
-        $(document).ready(function() {
-            $('#multiImg').on('change', function() { //on file input change
-                if (window.File && window.FileReader && window.FileList && window
-                    .Blob) //check File API supported browser
-                {
-                    var data = $(this)[0].files; //this file data
-
-                    $.each(data, function(index, file) { //loop though each file
-                        if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file
-                                .type)) { //check supported file type
-                            var fRead = new FileReader(); //new filereader
-                            fRead.onload = (function(file) { //trigger function on successful read
-                                return function(e) {
-                                    var img = $('<img/>').addClass('thumb').attr('src',
-                                            e.target.result).width(70)
-                                        .height(50); //create image element
-                                    $('#preview_img').append(
-                                        img); //append image to output element
-                                };
-                            })(file);
-                            fRead.readAsDataURL(file); //URL representing the file's data.
-                        }
-                    });
-
-                } else {
-                    alert("Your browser doesn't support File API!"); //if File API is absent
-                }
-            });
-        });
-    </script>
-
-    <script>
-        //---------Sidebar list Show Hide----------
-
-        $(document).ready(function() {
-
-            $('#dealId').click(function() {
-                $("#dealExpand").toggle(this.checked);
-            });
-
-            $('#rfqId').click(function() {
-
-                $("#rfqExpand").toggle('slow');
-
-            });
+    <script></script>
 
 
-        });
-    </script>
     <script>
         $(document).ready(function() {
             var isValid = true;
@@ -523,64 +528,21 @@
     @push('scripts')
         <script>
             $(document).ready(function() {
-                var stock_value = $('.stock_select').find(":selected").val();
-                if (stock_value == 'available') {
-                    $(".qty_display").removeClass("d-none");
-                    $(".qty_required").prop('required', true);
-                } else if (stock_value == 'limited') {
-                    $(".qty_display").removeClass("d-none");
-                    $(".qty_required").prop('required', true);
-                } else {
-                    $(".qty_display").addClass("d-none");
-                    $(".qty_required").prop('required', false);
-                }
-            });
-            $('.stock_select').on('change', function() {
-                var stock_value = $(this).find(":selected").val();
-                if (stock_value == 'available') {
-                    $(".qty_display").removeClass("d-none");
-                    $(".qty_required").prop('required', true);
-                } else if (stock_value == 'limited') {
-                    $(".qty_display").removeClass("d-none");
-                    $(".qty_required").prop('required', true);
-                } else {
-                    $(".qty_display").addClass("d-none");
-                    $(".qty_required").prop('required', false);
-                }
-            });
-            $(document).ready(function() {
-                var price_value = $(this).find(":selected").val();
-                if (price_value == 'rfq') {
-                    // alert(price_value);
-                    $(".rfq_price").removeClass("d-none");
-                    $(".offer_price").addClass("d-none");
-                    $(".price").addClass("d-none");
-                } else if (price_value == 'offer_price') {
-                    $(".offer_price").removeClass("d-none");
-                    $(".rfq_price").addClass("d-none");
-                    $(".price").addClass("d-none");
-                } else {
-                    $(".price").removeClass("d-none");
-                    $(".offer_price").addClass("d-none");
-                    $(".rfq_price").addClass("d-none");
-                }
-            });
-            $('.price_select').on('change', function() {
-                var price_value = $(this).find(":selected").val();
-                if (price_value == 'rfq') {
-                    // alert(price_value);
-                    $(".rfq_price").removeClass("d-none");
-                    $(".offer_price").addClass("d-none");
-                    $(".price").addClass("d-none");
-                } else if (price_value == 'offer_price') {
-                    $(".offer_price").removeClass("d-none");
-                    $(".rfq_price").addClass("d-none");
-                    $(".price").addClass("d-none");
-                } else {
-                    $(".price").removeClass("d-none");
-                    $(".offer_price").addClass("d-none");
-                    $(".rfq_price").addClass("d-none");
-                }
+                // Add Row
+                $(".addRow").on("click", function() {
+                    var newRow =
+                        '<tr><td><input type="text" class="form-control form-control-sm" name="sidebar_title[]"></td>' +
+                        '<td><input type="text" class="form-control form-control-sm" name="sidebar_value[]"></td>' +
+                        '<td class="text-center"><a href="javascript:void(0)" class="bg-danger removeRow p-1">' +
+                        '<i class="ph-minus icons_design text-white"></i></a></td></tr>';
+
+                    $(".repeater").append(newRow);
+                });
+
+                // Remove Row
+                $(".repeater").on("click", ".removeRow", function() {
+                    $(this).closest("tr").remove();
+                });
             });
         </script>
         <script>
@@ -644,3 +606,7 @@
         </script>
     @endpush
 @endonce
+
+
+
+

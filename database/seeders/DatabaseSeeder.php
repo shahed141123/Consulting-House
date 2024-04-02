@@ -19,6 +19,7 @@ use Database\Seeders\PreOrderSeeder;
 use Database\Seeders\OrderItemSeeder;
 use Database\Seeders\WareHouseSeeder;
 use Database\Seeders\ClientTypeSeeder;
+use Database\Seeders\EntityTypeSeeder;
 use Database\Seeders\PreBookingSeeder;
 use Database\Seeders\PickUpPointSeeder;
 use Database\Seeders\SubCategorySeeder;
@@ -47,32 +48,37 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminSeeder::class,
-            BrandSeeder::class,
-            CategorySeeder::class,
-            SubCategorySeeder::class,
-            ChildCategorySeeder::class,
+            // BrandSeeder::class,
+            // CategorySeeder::class,
+            // SubCategorySeeder::class,
+            // ChildCategorySeeder::class,
             GroupPermissionSeeder::class,
-            ProductSeeder::class,
+            // ProductSeeder::class,
             CountrySeeder::class,
             StateSeeder::class,
             PaymentMethodSeeder::class,
-            WareHouseSeeder::class,
-            PickUpPointSeeder::class,
-            CouponSeeder::class,
-            AdvertisementSeeder::class,
-            FilteringItemSeeder::class,
-            ReviewSeeder::class,
-            RfqSeeder::class,
-            PreBookingSeeder::class,
-            PreOrderSeeder::class,
-            OrderSeeder::class,
-            OrderItemSeeder::class,
-            BillingAddressSeeder::class,
-            ShippingAddressSeeder::class,
-            ProductDraftSeeder::class,
+            // WareHouseSeeder::class,
+            // PickUpPointSeeder::class,
+            // CouponSeeder::class,
+            // AdvertisementSeeder::class,
+            // FilteringItemSeeder::class,
+            // ReviewSeeder::class,
+            // RfqSeeder::class,
+            // PreBookingSeeder::class,
+            // PreOrderSeeder::class,
+            // OrderSeeder::class,
+            // OrderItemSeeder::class,
+            // BillingAddressSeeder::class,
+            // ShippingAddressSeeder::class,
+            // ProductDraftSeeder::class,
             ProfileTypeSeeder::class,
             ClientTypeCategorySeeder::class,
             ClientTypeSeeder::class,
+            IndustrySectorSeeder::class,
+            IndustrySeeder::class,
+            SubscriptionPlanSeeder::class,
+            TransactionTypeSeeder::class,
+            EntityTypeSeeder::class,
             FrontendMenuSeeder::class,
         ]);
     }

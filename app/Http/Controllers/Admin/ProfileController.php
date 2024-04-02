@@ -14,6 +14,7 @@ use App\Models\InterestType;
 use Illuminate\Http\Request;
 use App\Models\IndividualService;
 use App\Http\Controllers\Controller;
+use App\Models\TransactionType;
 use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
@@ -60,7 +61,7 @@ class ProfileController extends Controller
             'IndividualServices' => IndividualService::get(['id', 'name']),
             'Users'              => User::get(['id', 'name']),
             'ClientTypes'        => ClientType::get(['id', 'name']),
-            'InterestTypes'      => InterestType::get(['id', 'name']),
+            'InterestTypes'      => TransactionType::get(['id', 'name']),
             'Industries'         => Industry::get(['id', 'name']),
         ];
         return view('admin.pages.profile.create', $data);
@@ -92,7 +93,7 @@ class ProfileController extends Controller
             'individual_service_id' => $request->individual_service_id,
             'client_id'             => $request->client_id,
             'client_type_id'        => $request->client_type_id,
-            'interest_type_id'      => $request->interest_type_id,
+            'transaction_type_id'      => $request->transaction_type_id,
             'industry_id'           => $request->industry_id,
             'established_year'      => $request->established_year,
             'employee'              => $request->employee,
@@ -204,7 +205,7 @@ class ProfileController extends Controller
             'individual_service_id' => $request->individual_service_id,
             'client_id'             => $request->client_id,
             'client_type_id'        => $request->client_type_id,
-            'interest_type_id'      => $request->interest_type_id,
+            'transaction_type_id'      => $request->transaction_type_id,
             'industry_id'           => $request->industry_id,
             'established_year'      => $request->established_year,
             'employee'              => $request->employee,

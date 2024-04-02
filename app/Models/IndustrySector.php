@@ -15,6 +15,10 @@ class IndustrySector extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function industries() {
+        return $this->hasMany(Industry::class, 'sector_id');
+    }
     public function getParentName()
     {
         return IndustrySector::where('id', $this->parent_id)->value('name');

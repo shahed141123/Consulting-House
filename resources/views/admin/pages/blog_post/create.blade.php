@@ -85,8 +85,13 @@
                             </ul>
                         </div>
                         <div class="col-lg-10">
-                            <form id="myForm" method="post" action="" enctype="multipart/form-data">
+                            <form id="myForm" method="post"
+                                action="{{ isset($blogPost) ? route('admin.blog-post.update', $blogPost->id) : route('admin.blog-post.store') }}"
+                                enctype="multipart/form-data">
                                 @csrf
+                                @if (isset($blogPost))
+                                    @method('PUT')
+                                @endif
                                 <div class="tab-content bg-white p-2 mt-0 pt-0" id="myTabContent">
                                     {{-- Basic Info Tab Content --}}
                                     <div class="tab-pane fade show active" id="basic_info" role="tabpanel"
@@ -96,147 +101,157 @@
 
                                         <h6 class="mb-0 text-info">User Name</h6>
                                         <div class="row mb-3 gx-1 shadow-lg bg-light p-2">
-
-                                            <div class="col-lg-3">
-                                                <label class="form-label">User Name <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="user_id" class="form-control-sm multiselect btn btn-sm"
-                                                    id="user_id" multiple="multiple" data-include-select-all-option="true"
-                                                    data-enable-filtering="true"
-                                                    data-enable-case-insensitive-filtering="true" required>
-                                                    <option value="" selected>Select a User Name....</option>
-                                                    <option value=""> Active</option>
-                                                    <option value=""> In Active</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="form-label">Category Name <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="category_id" class="form-control-sm multiselect btn btn-sm"
-                                                    id="category_id" multiple="multiple"
-                                                    data-include-select-all-option="true" data-enable-filtering="true"
-                                                    data-enable-case-insensitive-filtering="true" required>
-                                                    <option value="" selected>Select a Category Id....</option>
-                                                    <option value=""> Active</option>
-                                                    <option value=""> In Active</option>
-                                                </select>
-
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="form-label">Word Count</label>
-                                                <select name="word_count" class="form-control-sm multiselect btn btn-sm"
-                                                    id="word_count" multiple="multiple"
-                                                    data-include-select-all-option="true" data-enable-filtering="true"
-                                                    data-enable-case-insensitive-filtering="true">
-                                                    <option value="" selected>Select Word Count....</option>
-                                                    <option value=""> Active</option>
-                                                    <option value=""> In Active</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="form-label">Reading Time </label>
-                                                <select name="reading_time" class="form-control-sm multiselect btn btn-sm"
-                                                    id="reading_time" multiple="multiple"
-                                                    data-include-select-all-option="true" data-enable-filtering="true"
-                                                    data-enable-case-insensitive-filtering="true">
-                                                    <option value="" selected>Select Reading Time....</option>
-                                                    <option value=""> Active</option>
-                                                    <option value=""> In Active</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="form-label">Views </label>
-                                                <select name="views" class="form-control-sm multiselect btn btn-sm"
-                                                    id="views" multiple="multiple"
-                                                    data-include-select-all-option="true" data-enable-filtering="true"
-                                                    data-enable-case-insensitive-filtering="true">
-                                                    <option value="" selected>Select views....</option>
-                                                    <option value=""> Active</option>
-                                                    <option value=""> In Active</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="form-label">Feature <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="feature" class="form-control-sm multiselect btn btn-sm"
-                                                    id="feature">
-                                                    <option value="" selected>Select a Feature....</option>
-                                                    <option value=""> Active</option>
-                                                    <option value=""> In Active</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="ms-1" for="industry_id">Industry Name</label>
-                                                <input class="form-control form-control-sm" type="text"
-                                                    name="industry_id" placeholder="Enter Industry Name" id="industry_id"
-                                                    maxlength="100">
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="form-check-label" for="sc_r_secondary">Profile Type
-                                                    Name</label> <br>
-                                                <input type="text" name="profile_type_id"
-                                                    placeholder="Profile Type Name" class="form-control form-control-sm"
-                                                    id="profile_type_id">
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="ms-1" for="badge">Badge</label>
-                                                <input class="form-control form-control-sm" type="text" name="badge"
-                                                    id="badge" placeholder="Enter Badge" maxlength="100">
-                                            </div>
-
-
-                                            <div class="col-sm-3">
-                                                <label class="ms-1" for="tags">Title <span
-                                                        class="text-danger">*</span></label>
-                                                <input class="form-control form-control-sm" type="text" name="title"
-                                                    id="title" placeholder="Enter Youre Title" maxlength="100">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label class="ms-1" for="tags">Tags</label>
-                                                <input class="form-control form-control-sm" type="text" name="tags"
-                                                    id="tags" placeholder="Enter Youre Tags" maxlength="100">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <label class="ms-1" for="source">Source</label>
-                                                <input class="form-control form-control-sm" type="text" name="source"
-                                                    id="source" placeholder="Enter Youre Source" maxlength="100">
-                                            </div>
-
-                                            <div class="col-sm-3">
-                                                <label class="ms-1" for="source_url">Source Url</label>
-                                                <input class="form-control form-control-sm" type="text"
-                                                    name="source_url" id="source_url" placeholder="Enter Source Url"
-                                                    maxlength="100">
-                                            </div>
                                             <div class="col-sm-3">
                                                 <label class="ms-1" for="author_name">Author Name</label>
                                                 <input class="form-control form-control-sm" type="text"
                                                     name="author_name" id="author_name" placeholder="Enter Author Name"
+                                                    maxlength="100"
+                                                    @isset($blogPost) value="{{ $blogPost->author_name }}" @endisset>
+                                            </div>
+
+                                            <div class="col-lg-3 mb-2">
+                                                <label class="form-label">Related Category <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="category_id" class="form-control-sm multiselect btn btn-sm"
+                                                    id="select6" multiple="multiple" data-include-select-all-option="true"
+                                                    data-enable-filtering="true"
+                                                    data-enable-case-insensitive-filtering="true">
+                                                    @foreach ($categories as $categorie)
+                                                        <option value="{{ $categorie->id }}">{{ $categorie->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 mb-2">
+                                                <label class="form-label">Related Profiles </label>
+                                                <select name="profile_type_id[]"
+                                                    class="form-control-sm multiselect btn btn-sm" id="select6"
+                                                    multiple="multiple" data-include-select-all-option="true"
+                                                    data-enable-filtering="true"
+                                                    data-enable-case-insensitive-filtering="true">
+
+                                                    @foreach ($profile_types as $profile_type)
+                                                        <option value="{{ $profile_type->id }}">
+                                                            {{ $profile_type->name }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+
+                                            <div class="col-lg-3 mb-2">
+                                                <label class="form-label">Related Industry <span
+                                                        class="text-danger">*</span></label>
+                                                <select name="industry_id" class="form-control-sm multiselect btn btn-sm"
+                                                    id="select6" multiple="multiple"
+                                                    data-include-select-all-option="true" data-enable-filtering="true"
+                                                    data-enable-case-insensitive-filtering="true">
+                                                    @foreach ($industries as $industrie)
+                                                        <option value="{{ $industrie->id }}">{{ $industrie->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="col-lg-3 mb-2">
+                                                <label class="ms-1" for="author_name">Author Name</label>
+                                                <input class="form-control form-control-sm mt-1" type="text"
+                                                    name="author_name" id="author_name" maxlength="100">
+                                            </div>
+                                            <div class="col-lg-1 mb-2">
+                                                <label class="form-check-label" for="sc_r_secondary">Featured</label> <br>
+                                                <input type="checkbox" name="featured" value="1"
+                                                    class="form-check-input form-check-input-secondary mt-2 ms-3"
+                                                    id="sc_r_secondary">
+                                            </div>
+                                            <div class="col-lg-3 mb-2">
+                                                <label class="ms-1" for="badge">Badge</label>
+                                                <input class="form-control form-control-sm mt-1" type="text"
+                                                    name="badge" id="badge" placeholder="Enter Youre Badge"
                                                     maxlength="100">
                                             </div>
+                                            <div class="col-lg-5 mb-2">
+                                                <label class="ms-1" for="title">Title</label>
+                                                <input class="form-control form-control-sm mt-1" type="text"
+                                                    name="title" id="title" placeholder="Enter Youre title"
+                                                    maxlength="100">
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="ms-1" for="tags">Tags</label>
+                                                <input type="text" name="tags" id="tags"
+                                                    class="form-control form-control-sm visually-hidden mt-1"
+                                                    data-role="tagsinput" placeholder="Tags">
+
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <div class="row gx-0 d-flex align-items-center">
+                                                    <div class="col-lg-10">
+                                                        <label class="form-label">Image <span
+                                                                class="text-danger">*</span></label>
+                                                        <input id="logo" name="image" type="file"
+                                                            class="form-control form-control-sm" placeholder="Enter Image"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <img id="preview-image"
+                                                            src="{{ asset('admin/assets/images/no_image.jpg') }}"
+                                                            class="border" width="44" height="35" style="margin-top:25px;"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="ms-1" for="meta_tags">Meta Tags</label>
+                                                <input type="text" name="meta_tags" id="meta_tags"
+                                                    class="form-control form-control-sm visually-hidden mt-1"
+                                                    data-role="tagsinput" placeholder="Meta Tags">
+
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label class="ms-1" for="header">Header</label>
+                                                <textarea name="header" rows="3" class="form-control" placeholder="Enter your message here"></textarea>
+
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="ms-1" for="source">Source</label>
+                                                <input class="form-control form-control-sm" type="text" name="source"
+                                                    id="source" placeholder="Enter Your Source" maxlength="100"
+                                                    @isset($blogPost) value="{{ $blogPost->source }}" @endisset>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="ms-1" for="source_url">Source Url</label>
+                                                <input class="form-control form-control-sm" type="text"
+                                                    name="source_url" id="source_url" placeholder="Enter Source Url"
+                                                    maxlength="100"
+                                                    @isset($blogPost) value="{{ $blogPost->source_url }}" @endisset>
+                                            </div>
+
                                             <div class="col-sm-3">
                                                 <label class="ms-1" for="author_email">Author Email</label>
                                                 <input class="form-control form-control-sm" type="text"
                                                     name="author_email" id="author_email"
-                                                    placeholder="Enter Author Email" maxlength="100">
+                                                    placeholder="Enter Author Email" maxlength="100"
+                                                    @isset($blogPost) value="{{ $blogPost->author_email }}" @endisset>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-lg-3">
                                                 <div class="row gx-0 d-flex align-items-center">
-                                                    <div class="col-sm-10">
+                                                    <div class="col-lg-10">
                                                         <div class="mb-3">
                                                             <label class="form-label">Image</label>
                                                             <input id="logo" name="image" type="file"
                                                                 class="form-control form-control-sm"
-                                                                placeholder="Enter Image" required>
+                                                                placeholder="Enter Image"
+                                                                @isset($blogPost) value="{{ $blogPost->image }}" @endisset
+                                                                required>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2">
-                                                        <a href="#" class="mb-3">
-                                                            <img id="preview-image"
-                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4zGCi3zopn2o_TNs3JU18b7GjJKEE_ZvW15Vwfjv4sXFIVQROwOAixqUtkwICmNhShbc&usqp=CAU"
-                                                                class="border" style="margin-top: 6px !important;"
-                                                                width="44" height="36" alt="">
-                                                        </a>
+                                                    <div class="col-lg-2">
+                                                        @isset($blogPost)
+                                                            <a href="#" class="mb-3">
+                                                                <img id="preview-image" src="{{ $blogPost->image }}"
+                                                                    class="border" style="margin-top: 6px !important;"
+                                                                    width="44" height="36" alt="">
+                                                            </a>
+                                                        @endisset
                                                     </div>
                                                 </div>
                                             </div>
@@ -262,21 +277,33 @@
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
                                                         <label class="ms-1" for="short_description">Header</label>
-                                                        <textarea name="header" class="form-control" id="short_desc" rows="3" placeholder="Enter Your Header"></textarea>
+                                                        <textarea name="header" class="form-control" id="short_desc" rows="3" placeholder="Enter Your Header">
+@isset($blogPost)
+{{ $blogPost->header }}
+@endisset
+</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="mb-2">
                                                         <label class="ms-1" for="content">Short Description</label>
                                                         <textarea class="form-control" name="short_description" id="overview" rows="3"
-                                                            placeholder="Enter Your Short Description"></textarea>
+                                                            placeholder="Enter Your Short Description">
+@isset($blogPost)
+{{ $blogPost->short_description }}
+@endisset
+</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="mb-2">
                                                         <label class="ms-1" for="content">Content <span
                                                                 class="text-danger">*</span></label>
-                                                        <textarea class="form-control" name="content" id="overview" rows="3" placeholder="Enter Your Content"></textarea>
+                                                        <textarea class="form-control" name="content" id="overview" rows="3" placeholder="Enter Your Content">
+@isset($blogPost)
+{{ $blogPost->content }}
+@endisset
+</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -292,11 +319,10 @@
                                                 </a>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     $('.select2-image').select2({
+        placeholder: 'Select a Country',
         templateResult: formatState, // Custom function to format the dropdown options
         escapeMarkup: function (markup) {
             return markup;
@@ -20,6 +21,7 @@ function formatState(state) {
     return $state;
 }
 
+
 // $(document).ready(function () {
 //     $('.select2').select2({
 //         // templateResult: formatState, // Custom function to format the dropdown options
@@ -29,54 +31,54 @@ function formatState(state) {
 //     });
 // });
 // Script
-    $(document).ready(function() {
-        $('.select2-search-box').select2({
-            width: 'resolve',
-            theme: "classic"
-        });
-        // $('.select2').select2();
+$(document).ready(function () {
+    $('.select2-search-box').select2({
+        width: 'resolve',
+        theme: "classic"
     });
+    // $('.select2').select2();
+});
 // Script
-    document.addEventListener("DOMContentLoaded", function() {
-        var accordionButtons = document.querySelectorAll(".accordion-button");
+document.addEventListener("DOMContentLoaded", function () {
+    var accordionButtons = document.querySelectorAll(".accordion-button");
 
-        accordionButtons.forEach(function(accordionButton) {
-            var minusIcon = accordionButton.querySelector(".fa-minus");
-            var plusIcon = accordionButton.querySelector(".fa-plus");
+    accordionButtons.forEach(function (accordionButton) {
+        var minusIcon = accordionButton.querySelector(".fa-minus");
+        var plusIcon = accordionButton.querySelector(".fa-plus");
 
-            accordionButton.addEventListener("click", function() {
-                var accordionItem = this.closest(".accordion-item");
-                var collapseTarget = this.getAttribute("data-bs-target");
+        accordionButton.addEventListener("click", function () {
+            var accordionItem = this.closest(".accordion-item");
+            var collapseTarget = this.getAttribute("data-bs-target");
 
-                // Close all other open accordion items
-                accordionButtons.forEach(function(otherAccordionButton) {
-                    var otherAccordionItem = otherAccordionButton.closest(
-                        ".accordion-item");
-                    var otherCollapseTarget = otherAccordionButton.getAttribute(
-                        "data-bs-target");
+            // Close all other open accordion items
+            accordionButtons.forEach(function (otherAccordionButton) {
+                var otherAccordionItem = otherAccordionButton.closest(
+                    ".accordion-item");
+                var otherCollapseTarget = otherAccordionButton.getAttribute(
+                    "data-bs-target");
 
-                    if (otherCollapseTarget !== collapseTarget && otherAccordionItem !==
-                        accordionItem) {
-                        otherAccordionButton.querySelector(".fa-minus").style.display =
-                            "none";
-                        otherAccordionButton.querySelector(".fa-plus").style.display =
-                            "inline";
-                    }
-                });
-
-                // Toggle the icon of the clicked accordion item
-                if (minusIcon.style.display === "inline") {
-                    minusIcon.style.display = "none";
-                    plusIcon.style.display = "inline";
-                } else {
-                    minusIcon.style.display = "inline";
-                    plusIcon.style.display = "none";
+                if (otherCollapseTarget !== collapseTarget && otherAccordionItem !==
+                    accordionItem) {
+                    otherAccordionButton.querySelector(".fa-minus").style.display =
+                        "none";
+                    otherAccordionButton.querySelector(".fa-plus").style.display =
+                        "inline";
                 }
             });
+
+            // Toggle the icon of the clicked accordion item
+            if (minusIcon.style.display === "inline") {
+                minusIcon.style.display = "none";
+                plusIcon.style.display = "inline";
+            } else {
+                minusIcon.style.display = "inline";
+                plusIcon.style.display = "none";
+            }
         });
     });
+});
 // Script
-    $(document).ready(function ($) {
+$(document).ready(function ($) {
     $(".owl-carousel").owlCarousel({
         loop: true,
         margin: 10,
@@ -114,28 +116,28 @@ function formatState(state) {
 });
 
 // Script
-    $(function() {
+$(function () {
 
-        $('[data-toggle="tooltip"]').tooltip();
-    })
+    $('[data-toggle="tooltip"]').tooltip();
+})
 // Script
 
 //MultiImage Preview Code
-$(document).ready(function() {
-    $('#multiImg').on('change', function() { //on file input change
+$(document).ready(function () {
+    $('#multiImg').on('change', function () { //on file input change
         if (window.File && window.FileReader && window.FileList && window
             .Blob) //check File API supported browser
         {
             var data = $(this)[0].files; //this file data
 
-            $.each(data, function(index, file) { //loop though each file
+            $.each(data, function (index, file) { //loop though each file
                 if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file
-                        .type)) { //check supported file type
+                    .type)) { //check supported file type
                     var fRead = new FileReader(); //new filereader
-                    fRead.onload = (function(file) { //trigger function on successful read
-                        return function(e) {
+                    fRead.onload = (function (file) { //trigger function on successful read
+                        return function (e) {
                             var img = $('<img/>').addClass('thumb').attr('src',
-                                    e.target.result).width(70)
+                                e.target.result).width(70)
                                 .height(50); //create image element
                             $('#preview_img').append(
                                 img); //append image to output element
@@ -151,5 +153,21 @@ $(document).ready(function() {
     });
 });
 
+// Script
+$(function () {
+
+    $('[data-toggle="tooltip"]').tooltip();
+})
+// Script
+
+
+
+var popup = document.getElementById("myPopup"); // Define popup outside the function
+function myFunction() {
+    popup.classList.toggle("show");
+    setTimeout(function () {
+        popup.classList.remove("show");
+    }, 6000); // 6000 milliseconds = 6 seconds
+}
 
 
