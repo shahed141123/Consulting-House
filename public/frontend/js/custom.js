@@ -170,4 +170,115 @@ function myFunction() {
     }, 6000); // 6000 milliseconds = 6 seconds
 }
 
+// phoneRegex = /^[0-9+()]*$/;
+// document.addEventListener("DOMContentLoaded", function () {
+//     const phoneNumbers = document.querySelectorAll(".phone_number");
+
+//     phoneNumbers.forEach(phoneNumber => {
+//         phoneNumber.addEventListener("input", function (evt) {
+//             const self = evt.target;
+//             self.value = self.value.replace(/[^0-9+()]/g, '');
+//         });
+
+//         // phoneNumber.addEventListener("keydown", function (evt) {
+//             if ((evt.which != 46 || self.value.indexOf('.') != -1) && (evt.which < 48 || evt.which >
+//                 57)) {
+//                 evt.preventDefault();
+//             }
+//         // });
+//     });
+// });
+
+$(document).ready(function () {
+    $(".phone_number").on("input", function (evt) {
+        var self = $(this);
+        self.val(self.val().replace(/[^0-9+()]/g, ''));
+
+        if ((evt.which !== 46 || self.val().indexOf('.') !== -1) && (evt.which < 48 || evt.which > 57)) {
+            evt.preventDefault();
+        }
+    });
+    $(".price").on("input", function (evt) {
+        var self = $(this);
+        self.val(self.val().replace(/[^0-9\.]/g, ''));
+        if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which >
+            57)) {
+            evt.preventDefault();
+        }
+    });
+
+    // $(".email-validate").on("input", function() {
+    //     const emailInput = $(this);
+    //     const emailValidationMessage = emailInput.next('.validation-message');
+
+    //     const email = emailInput.val().trim();
+    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    //     if (email === '') {
+    //         emailValidationMessage.text('Email is required.');
+    //         emailInput.addClass('input-error');
+    //     } else if (!emailRegex.test(email)) {
+    //         emailValidationMessage.text('Invalid email format.(Example : ');
+    //         emailInput.addClass('input-error');
+    //     } else {
+    //         emailValidationMessage.text('');
+    //         emailInput.removeClass('input-error');
+    //     }
+    // });
+    $(".email-validate").on("input", function () {
+        const emailInput = $(this);
+        const emailValidationMessage = emailInput.next('.validation-message');
+        const email = emailInput.val().trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === '') {
+            emailValidationMessage.text('Email is required.');
+            emailInput.addClass('input-error');
+        } else if (!emailRegex.test(email)) {
+            const missingParts = [];
+
+            if (!email.includes('@')) {
+                missingParts.push('@');
+            }
+            if (!email.includes('com')) {
+                missingParts.push('com');
+            }
+            if (!email.includes('.')) {
+                missingParts.push('.');
+            }
+            if (!email.includes('@') || !email.includes('.') || !email.includes('com')) {
+                emailValidationMessage.text('Email must contain: ' + missingParts.join(', '));
+            } else {
+                emailValidationMessage.text('Invalid email format.');
+            }
+
+            emailInput.addClass('input-error');
+        } else {
+            emailValidationMessage.text('');
+            emailInput.removeClass('input-error');
+        }
+    });
+
+    $('.view-password').on('click', function () {
+        let input = $(this).prev("input[name='password']");
+        let icon = $(this).toggleClass('fa-eye fa-eye-slash');
+
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+        } else {
+            input.attr('type', 'password');
+        }
+    });
+
+    $('#confirm_password').on('keyup', function() {
+
+        if ($('#password').val() == $('#confirm_password').val()) {
+            $('#message').html('Passwords match').css('color', 'green');
+            $('#confirm_password').toggleClass('fa-lock fa-check-circle').css('color', 'green');
+        } else {
+            $('#message').html('Passwords do not match').css('color', 'red');
+        }
+    });
+});
+
 

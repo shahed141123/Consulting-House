@@ -82,7 +82,7 @@
                                                         data-bs-target="#plan_edit{{ $plan->id }}" class="text-primary">
                                                         <i class="ph-pen"></i>
                                                     </a>
-                                                    <a href="{{ route('admin.industry-watch-category.destroy', $plan->id) }}"
+                                                    <a href="{{ route('admin.subscription-plan.destroy', $plan->id) }}"
                                                         class="text-danger mx-2 delete">
                                                         <i class="ph-trash"></i>
                                                     </a>

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('privacy_terms', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('name');
+            $table->enum('condition', ['terms', 'policy'])->default('terms');
+            $table->longText('description');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profile_documents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('profile_id')->nullable();
-            $table->string('files')->nullable();
+            $table->string('file')->nullable();
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

@@ -59,7 +59,7 @@ class IndustryWatchController extends Controller
             $globalFunImage = ['status' => 0];
         }
         $slug = Str::slug($request->title);
-        $count = IndustryWatchCategory::where('slug', $slug)->count();
+        $count = IndustryWatch::where('slug', $slug)->count();
         if ($count > 0) {
             $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
         }

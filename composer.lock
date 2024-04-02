@@ -1126,6 +1126,76 @@
             "time": "2022-05-21T17:30:32+00:00"
         },
         {
+            "name": "jeremykenedy/laravel2step",
+            "version": "V3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeremykenedy/laravel2step.git",
+                "reference": "251974cb3bcf3c7b9fc93be5d94d5a1ae7158c2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeremykenedy/laravel2step/zipball/251974cb3bcf3c7b9fc93be5d94d5a1ae7158c2c",
+                "reference": "251974cb3bcf3c7b9fc93be5d94d5a1ae7158c2c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "6.*|7.*|8.*|9.*|10.*",
+                "php": "^7.3|^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "illuminate/support": "^8.5",
+                "laravel/laravel": "^8.0",
+                "laravel/tinker": "^2.4",
+                "orchestra/testbench": "^6.0",
+                "suin/phpcs-psr4-sniff": "^3.0"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "jeremykenedy\\laravel2step\\Laravel2stepServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "jeremykenedy\\laravel2step\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jeremykenedy",
+                    "email": "jeremykenedy@gmail.com"
+                }
+            ],
+            "description": "Laravel 2 Step Authentication Package",
+            "keywords": [
+                "2-step verification",
+                "laravel",
+                "verification"
+            ],
+            "support": {
+                "issues": "https://github.com/jeremykenedy/laravel2step/issues",
+                "source": "https://github.com/jeremykenedy/laravel2step/tree/V3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jeremykenedy",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/jeremykenedy",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2023-06-08T13:03:38+00:00"
+        },
+        {
             "name": "laravel/cashier",
             "version": "14.12.4",
             "source": {

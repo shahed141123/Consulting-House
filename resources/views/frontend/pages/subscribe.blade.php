@@ -1,6 +1,6 @@
 @extends('frontend.master')
 @section('content')
-    <style>
+    {{-- <style>
         .nav-link {
             background-image: linear-gradient(#186191, #186191);
             color: white;
@@ -57,9 +57,9 @@
             text-align: center;
 
             /*
-                                    Let the content set the size of the tooltips
-                                    but this will also keep them from being obnoxious
-                                    */
+                                            Let the content set the size of the tooltips
+                                            but this will also keep them from being obnoxious
+                                            */
             min-width: 3em;
             max-width: 21em;
             white-space: nowrap;
@@ -624,14 +624,14 @@
                 padding-right: 30px;
             }
         }
-    </style>
+    </style> --}}
 
     <section class="container page-wrapper mt-65 mb-30">
         <main>
             <div class="content">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="blk-clr text-center">Payment Information</h3>
+                        <h3 class="blk-clr text-center">Plan Name: {{ $plan->name }} </h3>
                     </div>
 
                     <div class="card-body">
@@ -639,7 +639,7 @@
                             <div class="container border">
 
                                 <!-- Top Row -->
-                                <div class="row p-2">
+                                <div class="row p-2 border-bottom">
                                     <div class="col-lg-4 text-center">
                                         <span>Order Date: </span>
                                         <span class="thm-clr">{{ date('d-m-y') }}</span>
@@ -658,18 +658,21 @@
 
                                     </div>
                                 </div>
-                                <hr />
+
                                 <!-- Top Second Row -->
-                                <div class="row mx-1 p-2">
+                                <div class="row py-2 px-3 border-bottom">
                                     <div class="col-lg-4">
                                         <ul>
                                             <li>Invoice Number : <span class="thm-clr">#556</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <ul>
                                             <li>
                                                 Client Name : <span class="thm-clr">{{ Auth::user()->name }}</span>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-lg-4"></div>
                                     <div class="col-lg-4" style="display: flex; justify-content: end; text-align: end">
                                         <ul class="">
                                             <li class="text-end">
@@ -683,366 +686,169 @@
                                     </div>
                                 </div>
                                 <div class="separation-line"></div>
-                                <div class="row mt-2 p-2">
-                                    <div class="col-lg-2">
-                                        <ul class="nav flex-column mb-3 border-0" id="ex1" role="tablist">
-                                            <li class="nav-item mb-2" role="presentation">
-                                                <a class="nav-link active btn" id="ex1-tab-1" data-bs-toggle="tab"
-                                                    href="#paypal" role="tab" type="button" aria-controls="paypal"
-                                                    aria-selected="true">PayPal</a>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link btn" id="ex1-tab-2" data-bs-toggle="tab" href="#stripe"
-                                                    role="tab" type="button" aria-controls="stripe"
-                                                    aria-selected="false">Stripe</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+
+                                <div class="col-lg-10 offset-lg-1">
                                     <form id="payment-form" action="{{ route('subscription.create') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="plan" id="plan" value="{{ $plan->id }}">
+                                        <div class="row">
 
-                                        <div class="col-lg-10" style="padding: 0px">
-                                            <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active" id="paypal">
-                                                    <div class="screen flex-center" style="padding-bottom: 2rem">
-                                                        <form class="popup flex p-lg">
-                                                            <div class="close-btn pointer flex-center p-sm">
-                                                                <i class="ai-cross"></i>
-                                                            </div>
-                                                            <!-- CARD FORM -->
-                                                            <div class="flex-fill flex-vertical">
-                                                                <div class="header flex-between flex-vertical-center">
-                                                                    <div class="flex-vertical-center">
-                                                                        <i
-                                                                            class="ai-bitcoin-fill size-xl pr-sm f-main-color"></i>
-                                                                        <span class="title">
-                                                                            <strong>Paypal</strong><span>Pay</span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-data flex-vertical">
-                                                                    <!-- Card Number -->
-                                                                    <div class="flex-between flex-vertical-center">
-                                                                        <div class="card-property-title">
-                                                                            <strong>Card Number</strong>
-                                                                            <span>Enter 16-digit card number on the
-                                                                                card</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Card Field -->
-                                                                    <div class="flex-between">
-                                                                        <div
-                                                                            class="card-number flex-vertical-center flex-fill">
-                                                                            <div
-                                                                                class="card-number-field flex-vertical-center flex-fill">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    viewBox="0 0 48 48" width="24px"
-                                                                                    height="24px">
-                                                                                    <path fill="#ff9800"
-                                                                                        d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z" />
-                                                                                    <path fill="#d50000"
-                                                                                        d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z" />
-                                                                                    <path fill="#ff3d00"
-                                                                                        d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z" />
-                                                                                </svg>
-                                                                                <input class="numbers" type="number"
-                                                                                    min="1" max="9999"
-                                                                                    placeholder="0000" />-
-                                                                                <input class="numbers" type="number"
-                                                                                    placeholder="0000" />-
-                                                                                <input class="numbers" type="number"
-                                                                                    placeholder="0000" />-
-                                                                                <input class="numbers" type="number"
-                                                                                    placeholder="0000"
-                                                                                    data-bound="carddigits_mock"
-                                                                                    data-def="0000" />
-                                                                            </div>
-                                                                            <i
-                                                                                class="ai-circle-check-fill size-lg f-main-color"></i>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Expiry Date -->
-                                                                    <div class="flex-between">
-                                                                        <div class="card-property-title">
-                                                                            <strong>Expiry Date</strong>
-                                                                            <span>Enter the expiration date of the
-                                                                                card</span>
-                                                                        </div>
-                                                                        <div
-                                                                            class="card-property-value flex-vertical-center">
-                                                                            <div class="input-container half-width">
-                                                                                <input
-                                                                                    class="numbers form-control form-control-sm"
-                                                                                    data-bound="mm_mock" data-def="00"
-                                                                                    type="number" min="1"
-                                                                                    max="12" step="1"
-                                                                                    placeholder="MM" />
-                                                                            </div>
-                                                                            <span class="m-md">/</span>
-                                                                            <div class="input-container half-width">
-                                                                                <input
-                                                                                    class="numbers form-control form-control-sm"
-                                                                                    data-bound="yy_mock" data-def="01"
-                                                                                    type="number" min="23"
-                                                                                    max="99" step="1"
-                                                                                    placeholder="YY" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- CCV Number -->
-                                                                    <div class="flex-between">
-                                                                        <div class="card-property-title">
-                                                                            <strong>CVC Number</strong>
-                                                                            <span>Enter card verification code</span>
-                                                                        </div>
-                                                                        <div class="card-property-value">
-                                                                            <div class="input-container">
-                                                                                <input id="cvc" type="text" />
-                                                                                <i id="cvc_toggler" data-target="cvc"
-                                                                                    class="ai-eye-open pointer"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Name -->
-                                                                    <div class="flex-between">
-                                                                        <div class="card-property-title">
-                                                                            <strong>Cardholder Name</strong>
-                                                                            <span>Enter cardholder's name</span>
-                                                                        </div>
-                                                                        <div class="card-property-value">
-                                                                            <div class="input-container">
-                                                                                <input id="name"
-                                                                                    data-bound="name_mock"
-                                                                                    data-def="Mr. Cardholder"
-                                                                                    type="text" class="uppercase"
-                                                                                    placeholder="CARDHOLDER NAME" />
-                                                                                <i class="ai-person"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                            <div class="card-body">
+                                                <div class="col-lg-12">
+                                                    <ul class="nav nav-tabs d-flex justify-content-center mx-auto"
+                                                        id="myTab" role="tablist"
+                                                        style="width:60%; border-bottom: 1px solid var(--main-text-color)">
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link m-0 rounded-0" id="cash-on-delivery"
+                                                                data-bs-toggle="tab" data-bs-target="#cash-on-delivery-pane"
+                                                                type="button" role="tab"
+                                                                aria-controls="cash-on-delivery-pane" aria-selected="true">
+                                                                Paypal </button>
+                                                        </li>
+                                                        <li class="nav-item border-0" role="presentation">
+                                                            <button class="nav-link active m-0 rounded-0" id="stripe"
+                                                                data-bs-toggle="tab" data-bs-target="#stripe-pane"
+                                                                type="button" role="tab" aria-controls="stripe-pane"
+                                                                aria-selected="false"> Stripe Pay</button>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content" id="myTabContent">
+                                                        <div class="tab-pane fade" id="cash-on-delivery-pane"
+                                                            role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                                            <div class="row">
+                                                                <h5 class="text-center pt-3 pb-0">Paypal
+                                                                </h5>
+                                                                <div class="col-lg-12 text-center">
+                                                                    <h5 class="text-center text-site">Will be added
+                                                                        Soon.....</h5>
                                                                 </div>
                                                             </div>
-                                                            <!-- SIDEBAR -->
-                                                            <div class="sidebar flex-vertical">
-                                                                <div class="purchase-section flex-vertical">
-                                                                    <div class="card-mockup flex-vertical">
-                                                                        <div class="flex-fill flex-between">
-                                                                            <i
-                                                                                class="ai-bitcoin-fill size-xl f-secondary-color"></i>
-                                                                            <i
-                                                                                class="ai-wifi size-lg f-secondary-color"></i>
+                                                        </div>
+                                                        <div class="tab-pane fade show active" id="stripe-pane"
+                                                            role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                                            <div class="row">
+                                                                <div class="row mt-2" id="app">
+                                                                    <div class="card-form">
+                                                                        <div class="card-list">
+                                                                            <div class="card-item">
+                                                                                <div class="card-item__side -front">
+                                                                                    <div class="card-item__focus"></div>
+                                                                                    <div class="card-item__cover">
+                                                                                        <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/20.jpeg"
+                                                                                            class="card-item__bg" />
+                                                                                    </div>
+                                                                                    <div class="card-item__wrapper">
+                                                                                        <div class="card-item__top">
+                                                                                            <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
+                                                                                                class="card-item__chip" />
+                                                                                            <div class="card-item__type">
+                                                                                                <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png"
+                                                                                                    alt=""
+                                                                                                    class="card-item__typeImg" />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <label for="cardNumber"
+                                                                                            class="card-item__number"
+                                                                                            ref="cardNumber">
+                                                                                            <span>
+                                                                                                <div class="card-item__numberItem">
+                                                                                                    0000 0000 0000
+                                                                                                </div>
+                                                                                            </span>
+                                                                                        </label>
+                                                                                        <div class="card-item__content">
+                                                                                            <label for="cardName"
+                                                                                                class="card-item__info"
+                                                                                                ref="cardName">
+                                                                                                <div
+                                                                                                    class="card-item__holder">
+                                                                                                    Card Holder
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="card-item__name">
+                                                                                                    <transition-group
+                                                                                                        name="slide-fade-right">
+                                                                                                        <span
+                                                                                                            class="card-item__nameItem">Card
+                                                                                                            Holder
+                                                                                                            Name</span>
+                                                                                                </div>
+                                                                                            </label>
+                                                                                            <div class="card-item__date"
+                                                                                                ref="cardDate">
+                                                                                                <label for="cardMonth"
+                                                                                                    class="card-item__dateTitle">Expires</label>
+                                                                                                <label for="cardMonth"
+                                                                                                    class="card-item__dateItem">
+                                                                                                    <span v-if="cardMonth"
+                                                                                                        key="cardMonth">05</span></label>
+                                                                                                <label for="cardMonth"
+                                                                                                    class="card-item__dateItem">
+                                                                                                    <span v-if="cardMonth"
+                                                                                                        key="cardMonth">05</span></label>
+                                                                                                <label for="cardMonth"
+                                                                                                    class="card-item__dateItem">
+                                                                                                    <span v-if="cardMonth"
+                                                                                                        key="cardMonth">2026</span></label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="card-item__side -back">
+                                                                                    <div class="card-item__cover">
+                                                                                        <img src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'"
+                                                                                            class="card-item__bg" />
+                                                                                    </div>
+                                                                                    <div class="card-item__band"></div>
+                                                                                    <div class="card-item__cvv">
+                                                                                        <div class="card-item__cvvTitle">
+                                                                                            CVV
+                                                                                        </div>
+                                                                                        <div class="card-item__cvvBand">
+                                                                                            <span
+                                                                                                v-for="(n, $index) in cardCvv"
+                                                                                                :key="$index"> *
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div class="card-item__type">
+                                                                                            <img src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png'"
+                                                                                                v-if="getCardType"
+                                                                                                class="card-item__typeImg" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div>
-                                                                            <div id="name_mock"
-                                                                                class="size-md pb-sm uppercase ellipsis">
-                                                                                mr. Cardholder
+                                                                        <div class="card-form__inner">
+                                                                            <div class="card-input">
+                                                                                <div id="card-element"></div>
                                                                             </div>
-                                                                            <div class="size-md pb-md">
-                                                                                <strong>
-                                                                                    <span class="pr-sm">
-                                                                                        &#x2022;&#x2022;&#x2022;&#x2022;
-                                                                                    </span>
-                                                                                    <span id="carddigits_mock">0000</span>
-                                                                                </strong>
+                                                                            <div class="card-input">
+                                                                                <label for="cardName"
+                                                                                    class="card-input__label">Card
+                                                                                    Holder</label>
+                                                                                <input type="text" id="cardName"
+                                                                                    placeholder="Card Holder Name"
+                                                                                    class="form-control" />
                                                                             </div>
-                                                                            <div class="flex-between flex-vertical-center">
-                                                                                <strong class="size-md">
-                                                                                    <span id="mm_mock">00</span>/<span
-                                                                                        id="yy_mock">01</span>
-                                                                                </strong>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    viewBox="0 0 48 48" width="24px"
-                                                                                    height="24px">
-                                                                                    <path fill="#ff9800"
-                                                                                        d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z" />
-                                                                                    <path fill="#d50000"
-                                                                                        d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z" />
-                                                                                    <path fill="#ff3d00"
-                                                                                        d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z" />
-                                                                                </svg>
+                                                                            <div class="card-form__row w-50 mx-auto">
+                                                                                <button type="submit" class="card-form__button" id="card-button" data-secret="{{ $intent->client_secret }}">
+                                                                                    Pay {{ number_format($plan->price, 2) }} $
+                                                                                </button>
                                                                             </div>
+
                                                                         </div>
                                                                     </div>
-
-                                                                    <ul class="purchase-props">
-                                                                        <li class="flex-between">
-                                                                            <span>Company</span>
-                                                                            <strong>Apple</strong>
-                                                                        </li>
-                                                                        <li class="flex-between">
-                                                                            <span>Order number</span>
-                                                                            <strong>429252965</strong>
-                                                                        </li>
-                                                                        <li class="flex-between">
-                                                                            <span>Product</span>
-                                                                            <strong>MacBook Air</strong>
-                                                                        </li>
-                                                                        <li class="flex-between">
-                                                                            <span>VAT (20%)</span>
-                                                                            <strong>$100.00</strong>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="separation-line"></div>
-                                                                <div
-                                                                    class="total-section flex-between flex-vertical-center">
-                                                                    <div class="flex-fill flex-vertical">
-                                                                        <div class="total-label f-secondary-color">
-                                                                            You have to Pay
-                                                                        </div>
-                                                                        <div>
-                                                                            <strong>${{ number_format($plan->price, 2) }}</strong>
-                                                                            <small>
-                                                                                <span
-                                                                                    class="f-secondary-color">USD</span></small>
-                                                                        </div>
-                                                                    </div>
-                                                                    <i class="ai-coin size-lg"></i>
-                                                                </div>
-                                                                <div class="action flex-center" style="padding-top: 2rem">
-                                                                    <a type="submit" href="#"
-                                                                        class="btn btn-site-1">Pay Now</a>
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane" id="stripe">
-                                                    <div class="screen flex-center" style="padding-bottom: 2rem">
-                                                        <form class="popup flex p-lg">
-                                                            <div class="close-btn pointer flex-center p-sm">
-                                                                <i class="ai-cross"></i>
-                                                            </div>
-                                                            <!-- CARD FORM -->
-                                                            <div class="flex-fill flex-vertical">
-                                                                <div class="header flex-between flex-vertical-center">
-                                                                    <div class="flex-vertical-center">
-                                                                        <i
-                                                                            class="ai-bitcoin-fill size-xl pr-sm f-main-color"></i>
-                                                                        <span class="title">
-                                                                            <strong>Stripe</strong> <span>Pay</span>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mt-2">
-                                                                    <div id="card-element"></div>
-                                                                    <div class="flex-between mt-2">
-                                                                        <div class="card-property-title">
-                                                                            <h6 class="mb-0">
-                                                                                <strong>Cardholder Name</strong>
-                                                                                <span>Enter cardholder's name</span>
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div class="card-property-value">
-                                                                            <div class="input-container">
-                                                                                <input id="name"
-                                                                                    data-moc="name_mock2"
-                                                                                    data-doc="Mr. Cardholder"
-                                                                                    type="text" class="uppercase"
-                                                                                    placeholder="CARDHOLDER NAME" />
-                                                                                <i class="ai-person"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <!-- SIDEBAR -->
-                                                            <div class="sidebar flex-vertical">
-                                                                <div class="purchase-section flex-vertical">
-                                                                    <div class="card-mockup flex-vertical">
-                                                                        <div class="flex-fill flex-between">
-                                                                            <i
-                                                                                class="ai-bitcoin-fill size-xl f-secondary-color"></i>
-                                                                            <i
-                                                                                class="ai-wifi size-lg f-secondary-color"></i>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div id="name_mock2"
-                                                                                class="size-md pb-sm uppercase ellipsis">
-                                                                                mr. Cardholder
-                                                                            </div>
-                                                                            <div class="size-md pb-md">
-                                                                                <strong>
-                                                                                    <span class="pr-sm">
-                                                                                        &#x2022;&#x2022;&#x2022;&#x2022;
-                                                                                    </span>
-                                                                                    <span id="carddigits_mock2">0001</span>
-                                                                                </strong>
-                                                                            </div>
-                                                                            <div class="flex-between flex-vertical-center">
-                                                                                <strong class="size-md">
-                                                                                    <span id="mm_mock2">00</span>/<span
-                                                                                        id="yy_mock2">01</span>
-                                                                                </strong>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    viewBox="0 0 48 48" width="24px"
-                                                                                    height="24px">
-                                                                                    <path fill="#ff9800"
-                                                                                        d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z" />
-                                                                                    <path fill="#d50000"
-                                                                                        d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z" />
-                                                                                    <path fill="#ff3d00"
-                                                                                        d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z" />
-                                                                                </svg>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <ul class="purchase-props">
-                                                                        <li class="flex-between">
-                                                                            <span>Company</span>
-                                                                            <strong>Apple</strong>
-                                                                        </li>
-                                                                        <li class="flex-between">
-                                                                            <span>Order number</span>
-                                                                            <strong>429252965</strong>
-                                                                        </li>
-                                                                        <li class="flex-between">
-                                                                            <span>Product</span>
-                                                                            <strong>MacBook Air</strong>
-                                                                        </li>
-                                                                        <li class="flex-between">
-                                                                            <span>VAT (20%)</span>
-                                                                            <strong>$100.00</strong>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-
-                                                                <div class="separation-line"></div>
-                                                                <div
-                                                                    class="total-section flex-between flex-vertical-center">
-                                                                    <div class="flex-fill flex-vertical">
-                                                                        <div class="total-label f-secondary-color">
-                                                                            You have to Pay
-                                                                        </div>
-                                                                        <div>
-                                                                            <strong>549</strong>
-                                                                            <small>.99
-                                                                                <span
-                                                                                    class="f-secondary-color">USD</span></small>
-                                                                        </div>
-                                                                    </div>
-                                                                    <i class="ai-coin size-lg"></i>
-                                                                </div>
-                                                                <div class="action flex-center" style="padding-top: 2rem">
-                                                                    <a type="submit" href="#"
-                                                                        class="btn btn-site-1">Pay Now</a>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
+
 
                                 <!-- Content Area End -->
                             </div>
@@ -1085,47 +891,58 @@
         }
     });
 </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#cardName').on('input', function() {
+                var inputVal = $(this).val();
+
+                $('.card-item__nameItem').text(inputVal); // Assuming '.welcome_name' exists elsewhere in your HTML
+            });
+            $('input[name="cardnumber"]').on('input', function() {
+                var inputnumberVal = $(this).val();
+                $('.card-item__numberItem').text(inputnumberVal);
+            });
+        });
+    </script>
 
     <script>
-        const stripe = Stripe('{{ env('STRIPE_KEY') }}')
+        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
 
-        const elements = stripe.elements()
-        const cardElement = elements.create('card')
+    cardElement.mount('#card-element');
 
-        cardElement.mount('#card-element')
+    const form = document.getElementById('payment-form');
+    const cardBtn = document.getElementById('card-button');
+    const cardHolderName = document.getElementById('cardName');
 
-        const form = document.getElementById('payment-form')
-        const cardBtn = document.getElementById('card-button')
-        const cardHolderName = document.getElementById('card-holder-name')
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault()
-
-            cardBtn.disabled = true
-            const {
-                setupIntent,
-                error
-            } = await stripe.confirmCardSetup(
-                cardBtn.dataset.secret, {
-                    payment_method: {
-                        card: cardElement,
-                        billing_details: {
-                            name: cardHolderName.value
-                        }
+        cardBtn.disabled = true;
+        const { setupIntent, error } = await stripe.confirmCardSetup(
+            cardBtn.dataset.secret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: cardHolderName.value
                     }
                 }
-            )
-
-            if (error) {
-                cardBtn.disable = false
-            } else {
-                let token = document.createElement('input')
-                token.setAttribute('type', 'hidden')
-                token.setAttribute('name', 'token')
-                token.setAttribute('value', setupIntent.payment_method)
-                form.appendChild(token)
-                form.submit();
             }
-        })
+        );
+
+        if (error) {
+            // console.error(error);
+            cardBtn.disabled = false;
+        } else {
+            let token = document.createElement('input');
+            token.setAttribute('type', 'hidden');
+            token.setAttribute('name', 'token');
+            token.setAttribute('value', setupIntent.payment_method);
+            form.appendChild(token);
+            form.submit();
+        }
+    });
+
     </script>
 @endpush

@@ -134,7 +134,7 @@
                                                     @endphp
                                                     @if (!empty($descriptions))
                                                         @foreach ($descriptions as $description)
-                                                            <li><i class="ion-checkmark"></i> {{ $description }}</li>
+                                                            <li><i class="fa-solid fa-star"></i>{{ $description }}</li>
                                                         @endforeach
                                                     @endif
                                                 </ul>

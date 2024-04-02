@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('profile_type_id')->nullable();
             $table->unsignedBigInteger('business_plan_id')->nullable();
             $table->unsignedBigInteger('individual_service_id')->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
-
             $table->unsignedBigInteger('client_type')->nullable();
             $table->unsignedBigInteger('transaction_type')->nullable();
             $table->unsignedBigInteger('company_entity_type')->nullable();
@@ -36,8 +36,14 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->longText('specification')->nullable();
             $table->mediumText('capitalization_overview')->nullable();
-            $table->string('company_location', 230);
+            $table->double('monthly_expected_sales', 8, 2)->nullable();
+            $table->double('yearly_turnover', 8, 2)->nullable();
+            $table->double('ebitda_margin', 8, 2)->nullable();
+            $table->double('ebitda_margin_percentage', 8, 2)->nullable();
             $table->mediumText('assets_description')->nullable();
+            $table->double('real_estate_value', 8, 2)->nullable();
+            $table->boolean('allow_advisors_contact')->default(false);
+            $table->string('company_location', 230);
             $table->mediumText('franchise_procedures')->nullable();
             $table->string('currency')->nullable();
             $table->double('asset_value', 8, 2)->nullable();
@@ -56,8 +62,8 @@ return new class extends Migration
             $table->string('designation')->nullable();
             $table->string('image')->nullable();
             $table->string('teaser')->nullable(); //file
-            $table->string('slug')->unique();
             $table->enum('status', ['active', 'inactive'])->default('active')->nullable();
+            $table->foreign('client_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

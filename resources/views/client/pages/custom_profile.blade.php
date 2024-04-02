@@ -1,97 +1,487 @@
 @extends('frontend.master')
 @section('content')
-    <section>
-        <div class="container business-profile">
-            <div class="row">
-                <div class="col-lg-8">
-                    <form action="" method="post">
-                        {{-- First Form --}}
-                        <div>
-                            <div class="form-heading"> Register Business Profile </div>
-                            <div class="form-section ">
-                                <div class="form-section-title"> Confidential Information <div class="form-section-subtitle">
-                                        Please enter your own details here. Information entered here is not publicly
-                                        displayed.
+<section>
+    <div class="container business-profile">
+        <div class="row">
+            <div class="col-lg-8">
+                <form action="" method="post">
+                    {{-- First Form --}}
+                    <div>
+                        <div class="form-heading"> Register Business Profile </div>
+                        <div class="form-section ">
+                            <div class="form-section-title"> Confidential Information <div class="form-section-subtitle">
+                                    Please enter your own details here. Information entered here is not publicly
+                                    displayed.
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-6">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Your Name</label>
+                                            <input type="email" class="form-control form-control-sm "
+                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="">
+                                            <label for="exampleInputEmail1" class="form-label">Company Name <span
+                                                    href="#" class="why-needed" data-toggle="tooltip"
+                                                    title="This is button.">Why is this needed?</span>
+                                            </label>
+                                            <input type="email" class="form-control form-control-sm "
+                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="container">
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-6">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Your Name</label>
-                                                <input type="text" class="form-control form-control-sm" name="contact_person"
-                                                    value="{{ Auth::user()->name }}" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Your Mobile
+                                                Number</label>
+                                            <input type="email" class="form-control form-control-sm "
+                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="">
+                                            <label for="exampleInputEmail1" class="form-label">Enter official email
+                                                <span href="#" class="why-needed" data-toggle="tooltip"
+                                                    title="This is button.">Why is this needed?</span>
+                                            </label>
+                                            <input type="email" class="form-control form-control-sm "
+                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="form-fields pb-3">
+                                    <li id="li_id_display_contact_details" class="full-width empty">
+                                        <div class="field-label">
+                                            <input type="checkbox" name="display_contact_details"
+                                                id="id_display_contact_details" sr-value="**">
+                                            <span class="bold-label">
+                                                <span id="field_label_id_display_contact_details">Display contact
+                                                    details to
+                                                    introduced members so that they can contact me directly</span>
+                                                <i id="status_icon_id_display_contact_details"
+                                                    class="icon-check-empty"></i>
+                                            </span>
+                                            <div class="sub-label"></div>
+                                        </div>
+                                        <div class="field-note-wrapper">
+                                            <div id="status_message_id_display_contact_details" class="field-note">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                    </li>
+                                    <li id="li_id_display_company_details" class="full-width">
+                                        <div class="field-label">
+                                            <input type="checkbox" name="display_company_details"
+                                                id="id_display_company_details">
+                                            <span class="bold-label">
+                                                <span id="field_label_id_display_contact_details">Display company
+                                                    details to
+                                                    introduced members so that they can know about my company</span>
+                                                <i id="status_icon_id_display_company_details"
+                                                    class="icon-check-empty"></i>
+                                            </span>
+                                            <div class="sub-label"></div>
+                                        </div>
+                                        <div class="field-note-wrapper">
+                                            <div id="status_message_id_display_company_details" class="field-note">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Second Form --}}
+                    <div>
+                        <div class="form-section ">
+                            <div class="form-section-title"> Confidential Information
+                                <div class="form-section-subtitle">
+                                    Information entered here is displayed publicly to match you with the right set of
+                                    investors and buyers. Do not mention business name/information which can identify
+                                    the
+                                    business.
+                                </div>
+                            </div>
+                            <div class="container">
+                                {{-- First Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">You are a(n)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select name="type" data-sm-placeholder="check"
+                                            class="select2 select2-search-box form-control form-control-sm ">
+                                            <option value="" disabled selected hidden>Country</option>
+                                            <option value="AL">Alabama</option>
+                                            <option value="AK">Alaska</option>
+                                            <option value="AZ">Arizona</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">You are interested in
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            <select name="transaction_type" data-sm-placeholder="check"
+                                                class="select2 select2-search-box form-control form-control-sm ">
+                                                <option value="" disabled selected hidden>Country</option>
+                                                <option value="AL">Alabama</option>
+                                                <option value="AK">Alaska</option>
+                                                <option value="AZ">Arizona</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">When was the business
+                                                established?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            <select name="established" id="select-state-when"
+                                                data-sm-placeholder="check"
+                                                class="select2 select2-search-box form-control form-control-sm ">
+                                                <option value="" disabled selected hidden>Country</option>
+                                                <option value="AL">Alabama</option>
+                                                <option value="AK">Alaska</option>
+                                                <option value="AZ">Arizona</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Select business'
+                                                industry</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            <select name="industry_activity" id="select-state-business"
+                                                data-sm-placeholder="check"
+                                                class="select2 select2-search-box form-control form-control-sm ">
+                                                <option value="" disabled selected hidden>Country</option>
+                                                <option value="AL">Alabama</option>
+                                                <option value="AK">Alaska</option>
+                                                <option value="AZ">Arizona</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Where is the business
+                                                located / headquartered?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            <select name="cities" id="select-state-where"
+                                                data-sm-placeholder="check"
+                                                class="select2 select2-search-box form-control form-control-sm ">
+                                                <option value="" disabled selected hidden>Country</option>
+                                                <option value="AL">Alabama</option>
+                                                <option value="AK">Alaska</option>
+                                                <option value="AZ">Arizona</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">How many permanent
+                                                employees does the business have?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            <input name="employees" type="email"
+                                                class="form-control form-control-sm " id="exampleInputEmail1"
+                                                aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Select business legal
+                                                entity type</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
                                             <div class="">
-                                                <label for="exampleInputEmail1" class="form-label">Company Name <span
-                                                        href="#" class="why-needed" data-toggle="tooltip"
-                                                        title="This is button.">Why is this needed?</span>
-                                                </label>
-                                                <input type="text" class="form-control form-control-sm " name="company_name"
-                                                    value="{{ Auth::user()->company_name }}" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
+                                                <select name="company_entity_type" id="select-state-where"
+                                                    data-sm-placeholder="check"
+                                                    class="select2 select2-search-box form-control form-control-sm ">
+                                                    <option value="" disabled selected hidden>Country</option>
+                                                    <option value="AL">Alabama</option>
+                                                    <option value="AK">Alaska</option>
+                                                    <option value="AZ">Arizona</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Your Mobile
-                                                    Number</label>
-                                                <input type="text" class="form-control form-control-sm " name="mobile_number"
-                                                    value="{{ Auth::user()->phone }}" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
-                                            </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Describe the business
+                                                in a
+                                                single line</label>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="">
-                                                <label for="exampleInputEmail1" class="form-label">Enter official email
-                                                    <span href="#" class="why-needed" data-toggle="tooltip"
-                                                        title="This is button.">Why is this needed?</span>
-                                                </label>
-                                                <input type="email" class="form-control form-control-sm " name="email_address"
-                                                    value="{{ Auth::user()->email }}" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            {{-- Modal Area --}}
+                                            <!-- Button trigger modal -->
+                                            <span type="button" class="navy text-so-small" data-bs-toggle="modal"
+                                            data-bs-target="#example"> Examples of what to write</span>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="example" tabindex="-1"
+                                                aria-labelledby="exampleLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleLabel">Examples of what to write
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="owl-carousel owl-theme">
+                                                                <div class="item">
+                                                                    <ul class="">
+                                                                        <li class="text-one">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates libero earum possimus nesciunt beatae in, vel saepe modi, ratione adipisci eveniet laborum itaque consequuntur porro</li>
+
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="item">2</div>
+                                                                <div class="item">3</div>
+                                                                <div class="item">4</div>
+                                                                <div class="item">5</div>
+                                                                <div class="item">6</div>
+                                                                <div class="item">7</div>
+                                                                <div class="item">8</div>
+                                                                <div class="item">9</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            {{-- Modal Area End --}}
+                                            <textarea name="single_line_description" rows="4" autocomplete="nope" class="form-control form-control-sm"
+                                                id="id_description_of_business" data-listener-added_b0084440="true" spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">List all products and
+                                                services of the business</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="">
+                                            <input name="products_services" type="email"
+                                                class="form-control form-control-sm " id="exampleInputEmail1"
+                                                aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Mention highlights of
+                                                the
+                                                business including number of clients, growth rate, promoter experience,
+                                                business relationships, awards, etc</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <textarea name="description_of_business" rows="4" autocomplete="nope" class="form-control form-control-sm"
+                                                id="id_description_of_business" data-listener-added_b0084440="true" spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">Describe your facility
+                                                such
+                                                as built-up area, number of floors, rental/lease details</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <textarea name="facilities_description" rows="4" autocomplete="nope" class="form-control form-control-sm"
+                                                id="id_description_of_business" data-listener-added_b0084440="true" spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">How is the business
+                                                funded
+                                                presently? Mention all debts/loans outstanding and the total number of
+                                                shareholders/owners of the business with percentage ownership.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <textarea name="capitalization_overview" rows="4" autocomplete="nope" class="form-control form-control-sm"
+                                                id="id_description_of_business" data-listener-added_b0084440="true" spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">At present, what is
+                                                your
+                                                average monthly sales?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <input name="capitalization_overview" type="email"
+                                                class="form-control form-control-sm " id="exampleInputEmail1"
+                                                aria-describedby="emailHelp">
+                                            <ul class="form-fields">
+                                                <li id="li_id_display_company_details" class="full-width">
+                                                    <div class="field-label">
+                                                        <input type="checkbox" name="yearly_turnover_show_range"
+                                                            id="id_yearly_turnover_show_range">
+                                                        <span class="bold-label">
+                                                            <span id="field_label_id_display_contact_details">Display
+                                                                as
+                                                                range</span>
+                                                            <i id="status_icon_id_yearly_turnover_show_range"
+                                                                class="icon-check-empty"></i>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <span class="text-one">Yearly Run Rate Sales = 12 * BDT 1.2 lakh = BDT 14.8
+                                                lakh</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">What is the EBITDA /
+                                                Operating Profit Margin Percentage?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <input name="ebitda_margin_percentage" type="email"
+                                                class="form-control form-control-sm " id="exampleInputEmail1"
+                                                aria-describedby="emailHelp">
+                                            <ul class="form-fields">
+                                                <li id="li_id_display_company_details" class="full-width">
+                                                    <div class="field-label">
+                                                        <input type="checkbox" name="yearly_turnover_show_range"
+                                                            id="id_yearly_turnover_show_range">
+                                                        <span class="bold-label">
+                                                            <span id="field_label_id_display_contact_details">Display
+                                                                as
+                                                                range</span>
+                                                            <i id="status_icon_id_yearly_turnover_show_range"
+                                                                class="icon-check-empty"></i>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <span class="text-one">Yearly Run Rate Sales = 12 * BDT 1.2 lakh = BDT 14.8
+                                                lakh</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">List all tangible and
+                                                intangible assets the business owns</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <input name="real_estate_value" type="email"
+                                                class="form-control form-control-sm " id="exampleInputEmail1"
+                                                aria-describedby="emailHelp">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Second Row --}}
+                                <div class="row pt-3 pb-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-1">
+                                            <label for="exampleInputEmail1" class="form-label">What is the value of
+                                                physical assets owned by the business that would be part of the
+                                                transaction?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="w-100">
+                                            <textarea name="assets_description" rows="4" autocomplete="nope" class="form-control form-control-sm"
+                                                id="id_description_of_business" data-listener-added_b0084440="true" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <ul class="form-fields pb-3">
                                         <li id="li_id_display_contact_details" class="full-width empty">
                                             <div class="field-label">
                                                 <input type="checkbox" name="display_contact_details"
-                                                    value="true">
+                                                    id="id_display_contact_details" sr-value="**">
                                                 <span class="bold-label">
-                                                    <span id="field_label_id_display_contact_details">Display contact
-                                                        details to
-                                                        introduced members so that they can contact me directly</span>
+                                                    <span id="field_label_id_display_contact_details"> I’m interested
+                                                        in
+                                                        receiving quotations from Advisors / Boutique Investment Banks
+                                                        who
+                                                        can manage this transaction. </span>
                                                     <i id="status_icon_id_display_contact_details"
                                                         class="icon-check-empty"></i>
                                                 </span>
                                                 <div class="sub-label"></div>
                                             </div>
                                             <div class="field-note-wrapper">
-                                                <div id="status_message_id_display_contact_details" class="field-note">
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li id="li_id_display_company_details" class="full-width">
-                                            <div class="field-label">
-                                                <input type="checkbox" name="display_company_details" value="true"
-                                                    id="id_display_company_details">
-                                                <span class="bold-label">
-                                                    <span id="field_label_id_display_contact_details">Display company
-                                                        details to
-                                                        introduced members so that they can know about my company</span>
-                                                    <i id="status_icon_id_display_company_details"
-                                                        class="icon-check-empty"></i>
-                                                </span>
-                                                <div class="sub-label"></div>
-                                            </div>
-                                            <div class="field-note-wrapper">
-                                                <div id="status_message_id_display_company_details" class="field-note">
+                                                <div id="status_message_id_display_contact_details"
+                                                    class="field-note">
                                                 </div>
                                             </div>
                                         </li>
@@ -99,447 +489,46 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Second Form --}}
-                        <div>
-                            <div class="form-section ">
-                                <div class="form-section-title"> Confidential Information
-                                    <div class="form-section-subtitle">
-                                        Information entered here is displayed publicly to match you with the right set of
-                                        investors and buyers. Do not mention business name/information which can identify
-                                        the
-                                        business.
-                                    </div>
-                                </div>
-                                <div class="container">
-                                    {{-- First Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">You are a(n)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <select name="client_type" data-sm-placeholder="check"
-                                                class="select2 select2-search-box form-control form-control-sm ">
-                                                <option value="" disabled selected hidden></option>
-                                                @foreach ($client_types as $client_type)
-                                                    <option value="{{ $client_type->id }}">{{ $client_type->name }}
-                                                    </option>
-                                                @endforeach
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">You are interested in
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <select name="transaction_type" data-sm-placeholder="check"
-                                                    class="select2 select2-search-box form-control form-control-sm ">
-                                                    <option value="" disabled selected hidden></option>
-                                                    @foreach ($transaction_types as $transaction_type)
-                                                        <option value="{{ $transaction_type->id }}">
-                                                            {{ $transaction_type->name }}</option>
-                                                    @endforeach
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">When was the business
-                                                    established?</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <select name="established_year" id="select-state-when"
-                                                    data-sm-placeholder="check"
-                                                    class="select2 select2-search-box form-control form-control-sm ">
-                                                    <option value="" disabled selected hidden></option>
-                                                    <option value="not_operational">Not Operational Yet</option>
-                                                    @foreach ($years as $year)
-                                                        <option value="{{ $year }}">{{ $year }}</option>
-                                                    @endforeach
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Select Business
-                                                    industry</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <select id="select-state-business" data-maximum-selection-length="2"
-                                                    data-sm-placeholder="check" multiple="multiple" name="industry_id[]"
-                                                    class="select2 select2-search-box form-control form-control-sm">
-                                                    <option value="" disabled hidden></option>
-                                                    @foreach ($industries as $industry)
-                                                        <option value="{{ $industry->id }}">
-                                                            {{ $industry->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Where is the business
-                                                    located / headquartered?</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <input class="form-control form-control-sm" type="text"
-                                                    name="profile_location" placeholder="Enter City Name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">How many permanent
-                                                    employees does the business have?</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <input name="employee" type="number"
-                                                    class="form-control form-control-sm " id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Select business legal
-                                                    entity type</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <div class="">
-                                                    <select name="company_entity_type" id="select-state-where"
-                                                        data-sm-placeholder="check"
-                                                        class="select2 select2-search-box form-control form-control-sm ">
-                                                        <option value="" disabled selected hidden></option>
-                                                        @foreach ($company_entity_types as $company_entity_type)
-                                                            <option value="{{ $company_entity_type->id }}">
-                                                                {{ $company_entity_type->name }}</option>
-                                                        @endforeach
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Describe the business
-                                                    in a single line</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                {{-- Modal Area --}}
-                                                <!-- Button trigger modal -->
-                                                <span type="button" class="navy text-so-small" data-bs-toggle="modal"
-                                                    data-bs-target="#example"> Examples of what to write</span>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="example" tabindex="-1"
-                                                    aria-labelledby="exampleLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleLabel">Examples of what
-                                                                    to write
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="owl-carousel owl-theme">
-                                                                    <div class="item">
-                                                                        <ul class="">
-                                                                            <li class="text-one">Lorem ipsum dolor sit
-                                                                                amet, consectetur adipisicing elit.
-                                                                                Voluptates libero earum possimus nesciunt
-                                                                                beatae in, vel saepe modi, ratione adipisci
-                                                                                eveniet laborum itaque consequuntur porro
-                                                                            </li>
-
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="item">2</div>
-                                                                    <div class="item">3</div>
-                                                                    <div class="item">4</div>
-                                                                    <div class="item">5</div>
-                                                                    <div class="item">6</div>
-                                                                    <div class="item">7</div>
-                                                                    <div class="item">8</div>
-                                                                    <div class="item">9</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {{-- Modal Area End --}}
-                                                <textarea name="short_description" rows="2" autocomplete="nope" class="form-control form-control-sm"
-                                                    spellcheck="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">List all products and
-                                                    services of the business</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <textarea name="products_services" rows="4" autocomplete="nope" class="form-control form-control-sm"
-                                                    spellcheck="true"></textarea>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Mention highlights of
-                                                    the business including number of clients, growth rate, promoter experience,
-                                                    business relationships, awards, etc</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <textarea name="description" rows="4" autocomplete="nope" class="form-control form-control-sm"
-                                                     spellcheck="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">Describe your facility
-                                                    such as built-up area, number of floors, rental/lease details</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <textarea name="specification" rows="4" autocomplete="nope" class="form-control form-control-sm"
-                                                     spellcheck="true"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">How is the business
-                                                    funded
-                                                    presently? Mention all debts/loans outstanding and the total number of
-                                                    shareholders/owners of the business with percentage ownership.</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <textarea name="capitalization_overview" rows="4" autocomplete="nope" class="form-control form-control-sm"
-                                                     spellcheck="false"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">At present, what is
-                                                    your
-                                                    average monthly sales?</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <input name="capitalization_overview" type="email"
-                                                    class="form-control form-control-sm " id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
-                                                <ul class="form-fields">
-                                                    <li id="li_id_display_company_details" class="full-width">
-                                                        <div class="field-label">
-                                                            <input type="checkbox" name="yearly_turnover_show_range"
-                                                                id="id_yearly_turnover_show_range">
-                                                            <span class="bold-label">
-                                                                <span id="field_label_id_display_contact_details">Display
-                                                                    as
-                                                                    range</span>
-                                                                <i id="status_icon_id_yearly_turnover_show_range"
-                                                                    class="icon-check-empty"></i>
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <span class="text-one">Yearly Run Rate Sales = 12 * BDT 1.2 lakh = BDT 14.8
-                                                    lakh</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">What is the EBITDA /
-                                                    Operating Profit Margin Percentage?</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <input name="ebitda_margin_percentage" type="email"
-                                                    class="form-control form-control-sm " id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
-                                                <ul class="form-fields">
-                                                    <li id="li_id_display_company_details" class="full-width">
-                                                        <div class="field-label">
-                                                            <input type="checkbox" name="yearly_turnover_show_range"
-                                                                id="id_yearly_turnover_show_range">
-                                                            <span class="bold-label">
-                                                                <span id="field_label_id_display_contact_details">Display
-                                                                    as
-                                                                    range</span>
-                                                                <i id="status_icon_id_yearly_turnover_show_range"
-                                                                    class="icon-check-empty"></i>
-                                                            </span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <span class="text-one">Yearly Run Rate Sales = 12 * BDT 1.2 lakh = BDT 14.8
-                                                    lakh</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">List all tangible and
-                                                    intangible assets the business owns</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <input name="real_estate_value" type="email"
-                                                    class="form-control form-control-sm " id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Second Row --}}
-                                    <div class="row pt-3 pb-0">
-                                        <div class="col-lg-4">
-                                            <div class="mb-1">
-                                                <label for="exampleInputEmail1" class="form-label">What is the value of
-                                                    physical assets owned by the business that would be part of the
-                                                    transaction?</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="w-100">
-                                                <textarea name="assets_description" rows="4" autocomplete="nope" class="form-control form-control-sm"
-                                                    id="id_description_of_business" data-listener-added_b0084440="true" spellcheck="false"></textarea>
-                                            </div>
-                                        </div>
-                                        <ul class="form-fields pb-3">
-                                            <li id="li_id_display_contact_details" class="full-width empty">
-                                                <div class="field-label">
-                                                    <input type="checkbox" name="display_contact_details"
-                                                        id="id_display_contact_details" sr-value="**">
-                                                    <span class="bold-label">
-                                                        <span id="field_label_id_display_contact_details"> I’m interested
-                                                            in
-                                                            receiving quotations from Advisors / Boutique Investment Banks
-                                                            who
-                                                            can manage this transaction. </span>
-                                                        <i id="status_icon_id_display_contact_details"
-                                                            class="icon-check-empty"></i>
-                                                    </span>
-                                                    <div class="sub-label"></div>
-                                                </div>
-                                                <div class="field-note-wrapper">
-                                                    <div id="status_message_id_display_contact_details"
-                                                        class="field-note">
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                    </div>
+                    {{-- First Form --}}
+                    <div>
+                        <div class="form-section ">
+                            <div class="form-section-title"> Photos, Documents & Proof
+                                <div class="form-section-subtitle">
+                                    Photos are an important part of your profile and are publicly displayed. Documents
+                                    help
+                                    us verify and approve your profile faster. Documents names entered here are publicly
+                                    visible but are accessible only to introduced members.
                                 </div>
                             </div>
-                        </div>
-                        {{-- First Form --}}
-                        <div>
-                            <div class="form-section ">
-                                <div class="form-section-title"> Photos, Documents & Proof
-                                    <div class="form-section-subtitle">
-                                        Photos are an important part of your profile and are publicly displayed. Documents
-                                        help
-                                        us verify and approve your profile faster. Documents names entered here are publicly
-                                        visible but are accessible only to introduced members.
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="container pt-3 pb-3">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="mb-1">
-                                                    <label for="exampleInputEmail1" class="form-label">Business
-                                                        Photos</label>
-                                                </div>
+                            <div>
+                                <div class="container pt-3 pb-3">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-1">
+                                                <label for="exampleInputEmail1" class="form-label">Business
+                                                    Photos</label>
                                             </div>
-                                            <div class="col-lg-8">
-                                                <div class="">
-                                                    <input name="image-0-original" type="file"
-                                                        class="form-control form-control-sm " id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp">
-                                                </div>
-                                                {{-- Image Preview Area --}}
-                                                <div class="row gx-1 mt-1">
-                                                    <div class="col-lg-4">
-                                                        <img class="img-fluid"
-                                                            src="https://thumbs.dreamstime.com/b/demo-text-businessman-dark-vintage-background-108609906.jpg"
-                                                            alt="">
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="">
+                                                <input name="image-0-original" type="file"
+                                                    class="form-control form-control-sm " id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp">
+                                            </div>
+                                            {{-- Image Preview Area --}}
+                                            <div class="row gx-1 mt-1">
+                                                <div class="col-lg-4">
+                                                    <img class="img-fluid"
+                                                        src="https://thumbs.dreamstime.com/b/demo-text-businessman-dark-vintage-background-108609906.jpg"
+                                                        alt="">
 
                                                         <input name="document-0-document" type="text"
                                                             class="form-control form-control-sm mt-1"
                                                             placeholder="Describe The Photo" id="exampleInputEmail1"
                                                             aria-describedby="emailHelp">
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 {{-- Image Preview Area --}}
                                             </div>
                                         </div>
@@ -552,23 +541,10 @@
                                             </div>
                                             <div class="col-lg-8">
                                                 <div class="">
-                                                    <input name="document-0-document" type="file"
+                                                    <input name="document" type="file" multiple
                                                         class="form-control form-control-sm " id="exampleInputEmail1"
                                                         aria-describedby="emailHelp">
-                                                    {{-- Image Preview Area --}}
-                                                    <div class="row gx-1 mt-1">
-                                                        <div class="col-lg-4">
-                                                            <img class="img-fluid"
-                                                                src="https://thumbs.dreamstime.com/b/demo-text-businessman-dark-vintage-background-108609906.jpg"
-                                                                alt="">
 
-                                                            <input name="document-0-document" type="text"
-                                                                class="form-control form-control-sm mt-1"
-                                                                placeholder="Describe The Photo" id="exampleInputEmail1"
-                                                                aria-describedby="emailHelp">
-                                                        </div>
-                                                    </div>
-                                                    {{-- Image Preview Area --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -581,23 +557,10 @@
                                             </div>
                                             <div class="col-lg-8">
                                                 <div class="">
-                                                    <input name="verification_documents-0-document" type="file"
+                                                    <input name="verification_document" type="file" multiple
                                                         class="form-control form-control-sm " id="exampleInputEmail1"
                                                         aria-describedby="emailHelp">
-                                                    {{-- Image Preview Area --}}
-                                                    <div class="row gx-1 mt-1">
-                                                        <div class="col-lg-4">
-                                                            <img class="img-fluid"
-                                                                src="https://thumbs.dreamstime.com/b/demo-text-businessman-dark-vintage-background-108609906.jpg"
-                                                                alt="">
 
-                                                            <input name="document-0-document" type="text"
-                                                                class="form-control form-control-sm mt-1"
-                                                                placeholder="Describe The Photo" id="exampleInputEmail1"
-                                                                aria-describedby="emailHelp">
-                                                        </div>
-                                                    </div>
-                                                    {{-- Image Preview Area --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -908,10 +871,11 @@
                                                 </ul>
                                             </div>
                                             <div class="col-lg-3 text-end text-one">
-                                                <a type="submit" href="#" class="btn-site-1 login-modal-link"
-                                                    style="background-color: #186191; color: white; font-family:proxima_novaregular; padding-top: 2px !important; padding-bottom: 2px !important;">
+                                                <button type="submit" class="btn-site-1 login-modal-link"
+                                                    style="background-color: #186191; color: white; font-family:proxima_novaregular;
+                                                    padding-top: 2px !important; padding-bottom: 2px !important;">
                                                     Submit
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

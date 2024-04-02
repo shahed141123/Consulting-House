@@ -139,6 +139,37 @@
                         </tr>
                     </table>
                 </div>
+                <div class="sme-v3-padded-box-sm sme-v3-border-bottom" style="padding-top:5px;">
+                    <div class="sme-v3-center-justify sme-v3-bolder sme-v3-padded-box-xs">
+                        Bidding Area
+                        <span class="sme-v3-smalltext sme-v3-thinner-text sme-v3-lighter-text text-one">
+                            <a href="{{ route('bidding.index') }}"><i class="fas fa-arrow-right"></i>
+                                Go</a>
+                        </span>
+                    </div>
+                    <table class="sme-v3-smalltext table table-borderless table-condensed" style="margin-bottom:0;">
+                        <tr>
+                            <td>
+                                <strong>Recent Biddings</strong>
+                            </td>
+                            <td>
+                                None
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Your Biddings</strong></td>
+                            <td>
+                                None
+                            </td>
+                        </tr>
+                        {{-- <tr>
+                            <td><strong>New Opportunity Notifications</strong></td>
+                            <td>
+                                Weekly
+                            </td>
+                        </tr> --}}
+                    </table>
+                </div>
                 <div class="user-profiles">
                     <div class="profiles-label  space-1">
                         No Active Profiles

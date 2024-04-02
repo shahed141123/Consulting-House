@@ -3,8 +3,7 @@
     <div class="scp-breadcrumb my-3">
         <ul class="breadcrumb">
             <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li class="active">Accessories</li>
+            <li><a href="#">{{$active_id}}</a></li>
         </ul>
     </div>
     {{-- Breadcrum Area End --}}
@@ -105,12 +104,17 @@
                             </div>
                         </div>
                         {{-- Short Description --}}
-                        <div class="row">
-                            <span style="font-size: 10px; text-align: justify;">
-                                - Our company is engaged in the construction of bridges, buildings, roads,
-                                canals, pipe schemes, connexes, hungers, refurbishment, and innovation.
-                                - Till date we have worked on
-                            </span>
+                        <div class="row gx-0">
+                            <div class="col-lg-9">
+                                <span style="font-size: 10px; text-align: justify;">
+                                    - Our company is engaged in the construction of bridges, buildings, roads,
+                                    canals, pipe schemes, connexes, hungers, refurbishment, and innovation.
+                                </span>
+                            </div>
+                            <div class="col-lg-3">
+                                <img class="mt-2" src="https://www.smergers.com/media/cache/eb/5b/eb5b7207ef52a6bda93b2b3e3f7d103c.webp" alt="" height="60px" width="60px">
+                            </div>
+
                         </div>
                         {{-- Rating Area --}}
                         <div class="row  py-2">
@@ -170,7 +174,7 @@
                             </div>
                             <div class="col-sm-6 text-end px-0" style="border-left:1px solid #ddd;">
                                 <div>
-                                    <a href="#" class="rounded-0 btn btn-sm btn-primary border-0 text-one"
+                                    <a href="{{route('profile.details',['id' => 'engineering_procurement'])}}" class="rounded-0 btn btn-sm btn-primary border-0 text-one"
                                         style="background-color: var(--button-bg-color);">
                                         Contact Business
                                     </a>

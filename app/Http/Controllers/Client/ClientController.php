@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ChMessage as Message;
 use App\Models\ClientType;
 use App\Models\EntityType;
+use App\Models\IndustrySector;
 use App\Models\ProfileType;
+use App\Models\SubscriptionPlan;
 use App\Models\TransactionType;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +53,19 @@ class ClientController extends Controller
             $data['industries'] = Industry::orderBy('name', 'ASC')->get(['id', 'name', 'sector_id']);
             $data['countries'] = Country::orderBy('name', 'ASC')->get(['id', 'name']);
             return view('client.pages.custom_profile', $data);
+        } else {
+            return redirect()->route('login');
+        }
+    }
+    public function consultantProfile()
+    {
+        if (Auth::check()) {
+            $data['years'] = range( date('Y') , date('Y') - 50);
+            $data['industries'] = Industry::orderBy('name', 'ASC')->get(['id', 'name', 'sector_id']);
+            $data['sectors'] = IndustrySector::orderBy('name', 'ASC')->get(['id', 'name']);
+            $data['plans'] = SubscriptionPlan::latest('id', 'ASC')->get();
+            $data['countries'] = Country::orderBy('name', 'ASC')->get(['id', 'name']);
+            return view('client.pages.consultant_profile', $data);
         } else {
             return redirect()->route('login');
         }

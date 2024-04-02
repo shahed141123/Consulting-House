@@ -9,6 +9,7 @@
         "browner12/helpers": "^3.5",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
+        "jeremykenedy/laravel2step": "^3.1",
         "laravel/cashier": "^14.12",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",

@@ -53,7 +53,7 @@
                             <div class="form-group relative mb-20 mb-sm-20">
                                 <input type="password" class="form-control input-lg input-white shadow-5" id="password"
                                     name="password" value="{{ old('password') }}" placeholder="Password">
-                                <i class="fas fa-lock transform-v-center"></i>
+                                    <i class="fas fa-eye transform-v-center view-password"></i>
                                 @error('password') <div class="text-danger">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group relative mb-20 mb-sm-20">
@@ -196,16 +196,10 @@
     </section>
     <!-- Client logos area end -->
 @endsection
-@push('scripts')
+{{-- @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#confirm_password').on('keyup', function() {
-                if ($('#password').val() == $('#confirm_password').val()) {
-                    $('#message').html('Passwords match').css('color', 'green');
-                } else {
-                    $('#message').html('Passwords do not match').css('color', 'red');
-                }
-            });
+
         });
     </script>
-@endpush
+@endpush --}}

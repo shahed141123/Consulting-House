@@ -113,27 +113,7 @@
                                 </a>
                             </div>
                         </div>
-                        {{-- <div class="col-md-4">
-                            <div class="sme-v3-shadow-box industry-watch-business-card" style="margin-bottom:20px;">
-                                <a href="">
-                                    <div
-                                        style="background:url(https://www.smergers.com/media/sectorpics/xhospital.jpeg.pagespeed.ic.UYXrEzVQEq.webp) no-repeat center center;background-size:cover;width:100%;height:200px">
-                                    </div>
-                                </a>
-                                <div class="p-2 sme-v3-h3 sme-v3-border-bottom">
-                                    <a href="">Indian Hospital Industry </a>
-                                </div>
-                                <p
-                                    class=" p-2 sme-v3-smalltext sme-v3-left-justify sme-v3-lighter-text sme-v3-fixed-multiline">
-                                    <a style="color:#999;text-decoration:none;" href="">The Indian healthcare
-                                        market is expected to reach ₹ 24 lakh crore by 2022...</a>
-                                </p>
-                                <a href="#" class="rounded-0 btn-site-1 login-modal-link"
-                                    style="background-color: #186191; color: white; font-family:proxima_novaregular; padding-top: 2px !important; padding-bottom: 2px !important;">
-                                    Read More
-                                </a>
-                            </div>
-                        </div> --}}
+
                     </div>
                 </div>
             </div>
