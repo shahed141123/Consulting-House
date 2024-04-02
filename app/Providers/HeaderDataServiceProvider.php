@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use View;
+
 use App\Models\Site;
 use App\Models\User;
 use App\Models\Country;
@@ -11,6 +11,8 @@ use App\Models\FrontendMenu;
 use Illuminate\Support\Facades\DB;
 use App\Models\ChMessage as Message;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class HeaderDataServiceProvider extends ServiceProvider
@@ -29,11 +31,35 @@ class HeaderDataServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('frontend.partials.header', function ($view) {
-            $data['countries'] = Country::get();
-            $data['site'] = Site::first();
-            $data['profile_types'] = ProfileType::get();
-            $data['menuItems'] = FrontendMenu::with('children')->whereNull('parent_id')->orderBy('order', 'asc')->get();
-            $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+            if (Schema::hasTable('countries')) {
+                $data['countries'] = Country::get();
+            } else {
+                $data['countries'] = null;
+            }
+
+            if (Schema::hasTable('sites')) {
+                $data['site'] = Site::first();
+            } else {
+                $data['site'] = null;
+            }
+
+            if (Schema::hasTable('profile_types')) {
+                $data['profile_types'] = ProfileType::get();
+            } else {
+                $data['profile_types'] = null;
+            }
+
+            if (Schema::hasTable('frontend_menus')) {
+                $data['menuItems'] = FrontendMenu::with('children')->whereNull('parent_id')->orderBy('order', 'asc')->get();
+            } else {
+                $data['menuItems'] = null;
+            }
+
+            if (Schema::hasTable('users') && Auth::check()) {
+                $data['user'] = User::where('id', '=', Auth::user()->id)->first();
+            } else {
+                $data['user'] = null;
+            }
             // $data['users'] = Message::join('users',  function ($join) {
             //     $join->on('ch_messages.from_id', '=', 'users.id')
             //         ->orOn('ch_messages.to_id', '=', 'users.id');
