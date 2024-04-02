@@ -25,22 +25,7 @@
             <div class="col-lg-10 offset-lg-1">
                 <div class="card rounded-0">
                     <div class="card-body">
-                        {{-- <div class="d-flex align-items-center table_header">
 
-                        <div class="text-success table_header_content">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#menuItemAddModal"
-                                class="btn btn-flat-success btn-labeled btn-labeled-start btn-sm table_header_button">
-                                <span class="btn-labeled-icon bg-success text-white">
-                                    <i class="ph-plus-circle ph-sm"></i>
-                                </span>
-                                Add
-                            </button>
-                            <div class="text-center table_header_text">
-                                <h5 class="ms-1 mb-0">Client  Types Table</h5>
-                            </div>
-                        </div>
-
-                    </div> --}}
                         <div class="d-flex align-items-center table_header">
                             {{-- Add Details Start --}}
                             <div class="text-success table_header_content">
@@ -61,12 +46,12 @@
                             <thead>
                                 <tr class="bg-secondary border-secondary text-white">
                                     <th width="5%">#</th>
-                                    <th width="22%">Parent Menu</th>
-                                    <th width="22%">MenuName</th>
-                                    <th width="28%">URL</th>
+                                    <th width="17%">Parent Menu</th>
+                                    <th width="20%">MenuName</th>
+                                    <th width="30%">URL</th>
                                     <th width="8%">Order</th>
                                     <th width="10%">Status</th>
-                                    <th class="text-center" width="5%">Action</th>
+                                    <th class="text-center" width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,9 +71,9 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="d-inline-flex">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#menuItemEditModal{{ $menuItem->id }}"
+                                                <div class="d-flex align-content-center">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                        data-bs-target="#menuEditModal{{ $menuItem->id }}"
                                                         class="text-primary">
                                                         <i class="ph-pen"></i>
                                                     </a>
@@ -210,12 +195,12 @@
         <!-- Disabled keyboard interaction add modal for menuItem -->
         <!-- /Edit Modal -->
         @foreach ($menuItems as $menuItem)
-            <div id="menuItemEditModal{{ $menuItem->id }}" class="modal fade" data-bs-keyboard="false"
+            <div id="menuEditModal{{ $menuItem->id }}" class="modal fade" data-bs-keyboard="false"
                 data-bs-backdrop="static" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Your Client Type</h5>
+                            <h5 class="modal-title">Edit Frontend Menu</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
@@ -227,16 +212,16 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-2">
-                                            <label class="form-label">Parent Menu Name <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label">Parent Menu Name
+                                                <span class="text-danger">*</span></label>
                                             <select name="parent_id" data-placeholder="Select a Profile Name...."
                                                 class="form-control form-control-sm select"
                                                 data-minimum-results-for-search="Infinity"
                                                 data-container-css-class="select-sm">
                                                 <option></option>
-                                                @foreach ($menuItems as $menuItem)
-                                                    <option value="{{ $menuItem->id }}" @selected($menuItem->parent_id == $menuItem->id)>
-                                                        {{ $menuItem->name }}</option>
+                                                @foreach ($menuItems as $item)
+                                                    <option value="{{ $item->id }}" @selected($menuItem->parent_id == $item->id)>
+                                                        {{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -244,9 +229,9 @@
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label class="form-label">Name <span class="text-danger">*</span></label>
-                                            <input id="name" name="name" type="text" value="{{ $menuItem->name }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu Name"
-                                                maxlength="100">
+                                            <input id="name" name="name" type="text"
+                                                value="{{ $menuItem->name }}" class="form-control form-control-sm"
+                                                placeholder="Enter Menu Name" maxlength="100">
                                         </div>
                                     </div>
                                 </div>
@@ -255,33 +240,34 @@
                                     <div class="col-lg-4">
                                         <div class="mb-2">
                                             <label class="form-label">URL</label>
-                                            <input id="url" name="url" type="text" value="{{ $menuItem->url }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu url"
-                                                maxlength="100">
+                                            <input id="url" name="url" type="text"
+                                                value="{{ $menuItem->url }}" class="form-control form-control-sm"
+                                                placeholder="Enter Menu url" maxlength="100">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-2">
                                             <label class="form-label">Order</label>
-                                            <input id="order" name="order" type="text" value="{{ $menuItem->order }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu order"
-                                                maxlength="100">
+                                            <input id="order" name="order" type="text"
+                                                value="{{ $menuItem->order }}" class="form-control form-control-sm"
+                                                placeholder="Enter Menu order" maxlength="100">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-2">
                                             <label class="form-label">Target</label>
-                                            <input id="target" name="target" type="text" value="{{ $menuItem->target }}"
-                                                class="form-control form-control-sm" placeholder="Enter Menu target"
-                                                maxlength="100">
+                                            <input id="target" name="target" type="text"
+                                                value="{{ $menuItem->target }}" class="form-control form-control-sm"
+                                                placeholder="Enter Menu target" maxlength="100">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-2">
-                                            <label class="form-label">Icon [Font Awesome(6) Icon]</label>
-                                            <input id="icon" name="icon" type="text" value="{{ $menuItem->icon }}"
-                                                class="form-control form-control-sm" placeholder="Icon (Fa-solid fa-icon)"
-                                                maxlength="100">
+                                            <label class="form-label">Icon [Font
+                                                Awesome(6) Icon]</label>
+                                            <input id="icon" name="icon" type="text"
+                                                value="{{ $menuItem->icon }}" class="form-control form-control-sm"
+                                                placeholder="Icon (Fa-solid fa-icon)" maxlength="100">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -292,8 +278,10 @@
                                                 data-minimum-results-for-search="Infinity"
                                                 data-container-css-class="select-sm">
                                                 <option></option>
-                                                <option value="active" @selected($menuItem->status == 'active')>Active</option>
-                                                <option value="inactive" @selected($menuItem->status == 'inactive')>Inactive</option>
+                                                <option value="active" @selected($menuItem->status == 'active')>Active
+                                                </option>
+                                                <option value="inactive" @selected($menuItem->status == 'inactive')>
+                                                    Inactive</option>
                                             </select>
                                         </div>
                                     </div>
@@ -330,7 +318,7 @@
                 columnDefs: [{
                     orderable: false,
                     // width: 100,
-                    targets: [0, 1, 2, 3,4,5,6],
+                    targets: [0, 1, 2, 3, 5, 6],
                 }, ],
 
 

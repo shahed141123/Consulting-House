@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Industry;
 use App\Models\ClientType;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Models\IndustryWatchCategory;
 use App\Http\Requests\Industry\IndustryWatchRequest;
+use App\Models\IndustryWatchSidebar;
 
 class IndustryWatchController extends Controller
 {
@@ -57,17 +59,17 @@ class IndustryWatchController extends Controller
             $globalFunImage = ['status' => 0];
         }
         $slug = Str::slug($request->title);
-        $count = IndustryWatchCategory::where('slug', $slug)->count();
+        $count = IndustryWatch::where('slug', $slug)->count();
         if ($count > 0) {
             $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
         }
         $data['slug'] = $slug;
-        IndustryWatch::create([
+        $industry_watch_id = IndustryWatch::insertGetId([
             'user_id'           => $request->user_id,
-            'category_id'       => $request->category_id,
-            'sector_id'         => $request->sector_id,
-            'industry_id'       => $request->industry_id,
-            'profile_type_id'   => $request->profile_type_id,
+            'category_id'       => json_encode($request->category_id),
+            'sector_id'         => json_encode($request->sector_id),
+            'industry_id'       => json_encode($request->industry_id),
+            'profile_type_id'   => json_encode($request->profile_type_id),
             'featured'          => $request->featured,
             'badge'             => $request->badge,
             'title'             => $request->title,
@@ -79,13 +81,33 @@ class IndustryWatchController extends Controller
             'image'             => $globalFunImage['status'] == 1 ? $mainFile->hashName() : null,
             'published_at'      => $request->published_at,
             'author_name'       => $request->author_name,
-            'views'             => $request->views,
-            'status'            => $request->status,
+            'views'             => !empty($request->views) ? $request->views : 0,
+            'status'            => !empty($request->status) ? $request->status : 'published',
             'meta_tags'         => $request->meta_tags,
             'author_email'      => $request->author_email,
             'word_count'        => $request->word_count,
             'reading_time'      => $request->reading_time,
         ]);
+
+
+        $industry_watch_id = $industry_watch_id;
+        $title             = $request->sidebar_title;
+        $value             = $request->sidebar_value;
+
+
+
+        for ($i = 0; $i < count($title); $i++) {
+            $datasave = [
+                'industry_watch_id' => $industry_watch_id,
+                'title'             => $title[$i],
+                'value'             => $value[$i],
+                'created_at'        => Carbon::now(),
+
+            ];
+
+            IndustryWatchSidebar::insert($datasave);
+        }
+
         toastr()->success('Data has been saved successfully!');
         return redirect()->back()->withInput();
     }
@@ -111,7 +133,7 @@ class IndustryWatchController extends Controller
             'sectors'            => IndustrySector::get(['id', 'name']),
             'industries'         => Industry::get(['id', 'name']),
         ];
-        return view('admin.pages.industry_watch.create', $data);
+        return view('admin.pages.industry_watch.edit', $data);
     }
 
     /**
@@ -142,30 +164,29 @@ class IndustryWatchController extends Controller
 
         $industryWatch->update([
             'user_id'           => $request->user_id,
-            'category_id'       => $request->category_id,
-            'sector_id'         => $request->sector_id,
-            'industry_id'       => $request->industry_id,
-            'profile_type_id'   => $request->profile_type_id,
+            'category_id'       => json_encode($request->category_id),
+            'sector_id'         => json_encode($request->sector_id),
+            'industry_id'       => json_encode($request->industry_id),
+            'profile_type_id'   => json_encode($request->profile_type_id),
             'featured'          => $request->featured,
             'badge'             => $request->badge,
             'title'             => $request->title,
-            'slug'              => Str::slug($request->title),
             'header'            => $request->header,
             'tags'              => $request->tags,
             'content'           => $request->content,
             'short_description' => $request->short_description,
-            'image'             => $globalFunImage['status'] == 1 ? $mainFile->hashName() : $industryWatch->image,
+            'image'             => $globalFunImage['status'] == 1 ? $mainFile->hashName() : null,
             'published_at'      => $request->published_at,
             'author_name'       => $request->author_name,
-            'views'             => $request->views,
-            'status'            => $request->status,
+            'views'             => !empty($request->views) ? $request->views : 0,
+            'status'            => !empty($request->status) ? $request->status : 'published',
             'meta_tags'         => $request->meta_tags,
             'author_email'      => $request->author_email,
             'word_count'        => $request->word_count,
             'reading_time'      => $request->reading_time,
         ]);
 
-        toastr()->success('Data has been saved successfully!');
+        toastr()->success('Data has been updated successfully!');
 
         return redirect()->back()->withInput();
     }

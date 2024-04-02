@@ -18,83 +18,85 @@
             </div>
         </div>
     </div>
-    <div class="content">
+    <div class="content row">
         <!-- Javascript behaviour -->
-        <div class="container">
-            <div class="row d-flex justify-content-between bg-white pt-2">
-                <div class="col-lg-6">
-                    <div class="text-success">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#industry_add"
-                            class="btn btn-flat-success btn-labeled btn-labeled-start btn-sm">
-                            <span class="btn-labeled-icon bg-success text-white">
-                                <i class="ph-plus-circle ph-sm"></i>
-                            </span>
-                            Add
-                        </button>
+        <div class="col-lg-8 offset-2">
+            <div class="container">
+                <div class="row d-flex justify-content-between bg-white pt-2">
+                    <div class="col-lg-6">
+                        <div class="text-success">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#industry_add"
+                                class="btn btn-flat-success btn-labeled btn-labeled-start btn-sm">
+                                <span class="btn-labeled-icon bg-success text-white">
+                                    <i class="ph-plus-circle ph-sm"></i>
+                                </span>
+                                Add
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="text-end form_title">
-                        <h5 class="ms-1 mb-0 text-uppercase text-secondary">Industry Watch Category</h5>
+                    <div class="col-lg-6">
+                        <div class="text-end form_title">
+                            <h5 class="ms-1 mb-0 text-uppercase text-secondary">Industry Watch Category</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card rounded-0 border-0 shadow-none">
-                    <div class="card-body p-0">
-                        <table
-                            class="industry_watch_category_table table datatable-responsive table-bordered table-striped table-hover">
-                            <thead>
-                                <tr class="bg-secondary border-secondary text-white">
-                                    <th width="8%">#</th>
-                                    <th width="12%">Logo</th>
-                                    <th width="13%">Image</th>
-                                    <th width="42%">Name</th>
-                                    <th width="15%">Status</th>
-                                    <th class="text-center" width="10%">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($industryWatchCategorys as $industryWatchCategory)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            <img class="rounded-circle"
-                                                src="{{ isset($industryWatchCategory->icon) && Str::startsWith($industryWatchCategory->icon, 'https:') ? $industryWatchCategory->icon : (isset($industryWatchCategory->icon) ? asset('storage/' . $industryWatchCategory->icon) : url('admin/assets/images/demo/brands/dell.png')) }}"
-                                                alt="" width="25px" height="25px">
-                                        </td>
-                                        <td>
-                                            <img class="rounded-circle"
-                                                src="{{ isset($industryWatchCategory->image) && Str::startsWith($industryWatchCategory->image, 'https:') ? $industryWatchCategory->image : (isset($industryWatchCategory->image) ? asset('storage/' . $industryWatchCategory->image) : url('admin/assets/images/demo/brands/dell.png')) }}"
-                                                alt="" width="25px" height="25px">
-                                        </td>
-                                        <td>{{ $industryWatchCategory->name }}</td>
-                                        <td>
-                                            @if ($industryWatchCategory->status == 'active')
-                                                <span class="badge bg-success">Active</span>
-                                            @else
-                                                <span class="badge bg-danger">In Active</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-flex">
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#industry_edit{{ $industryWatchCategory->id }}"
-                                                    class="text-primary">
-                                                    <i class="ph-pen"></i>
-                                                </a>
-                                                <a href="{{ route('admin.industry-watch-category.destroy', $industryWatchCategory->id) }}"
-                                                    class="text-danger mx-2 delete">
-                                                    <i class="ph-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card rounded-0 border-0 shadow-none">
+                        <div class="card-body p-0">
+                            <table
+                                class="industry_watch_category_table table datatable-responsive table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr class="bg-secondary border-secondary text-white">
+                                        <th width="8%">#</th>
+                                        <th width="12%">Logo</th>
+                                        <th width="13%">Image</th>
+                                        <th width="42%">Name</th>
+                                        <th width="15%">Status</th>
+                                        <th class="text-center" width="10%">Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($industryWatchCategorys as $industryWatchCategory)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <img class="rounded-circle"
+                                                    src="{{ isset($industryWatchCategory->icon) && Str::startsWith($industryWatchCategory->icon, 'https:') ? $industryWatchCategory->icon : (isset($industryWatchCategory->icon) ? asset('storage/' . $industryWatchCategory->icon) : url('admin/assets/images/demo/brands/dell.png')) }}"
+                                                    alt="" width="25px" height="25px">
+                                            </td>
+                                            <td>
+                                                <img class="rounded-circle"
+                                                    src="{{ isset($industryWatchCategory->image) && Str::startsWith($industryWatchCategory->image, 'https:') ? $industryWatchCategory->image : (isset($industryWatchCategory->image) ? asset('storage/' . $industryWatchCategory->image) : url('admin/assets/images/demo/brands/dell.png')) }}"
+                                                    alt="" width="25px" height="25px">
+                                            </td>
+                                            <td>{{ $industryWatchCategory->name }}</td>
+                                            <td>
+                                                @if ($industryWatchCategory->status == 'active')
+                                                    <span class="badge bg-success">Active</span>
+                                                @else
+                                                    <span class="badge bg-danger">In Active</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="d-inline-flex">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#industry_edit{{ $industryWatchCategory->id }}"
+                                                        class="text-primary">
+                                                        <i class="ph-pen"></i>
+                                                    </a>
+                                                    <a href="{{ route('admin.industry-watch-category.destroy', $industryWatchCategory->id) }}"
+                                                        class="text-danger mx-2 delete">
+                                                        <i class="ph-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -193,15 +195,16 @@
         <!-- Disabled keyboard interaction add modal for Industry -->
         <!-- /Edit Modal -->
         @foreach ($industryWatchCategorys as $industryWatchCategory)
-            <div id="industry_edit{{ $industryWatchCategory->id }}" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static"
-                tabindex="-1">
+            <div id="industry_edit{{ $industryWatchCategory->id }}" class="modal fade" data-bs-keyboard="false"
+                data-bs-backdrop="static" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header p-2 text-white bg-secondary rounded-0 m-0">
                             <h6 class="modal-title">Edit Your Industy Watch Category</h6>
                             <button type="button" class="btn-close text-white" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ route('admin.industry-watch-category.update',$industryWatchCategory->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.industry-watch-category.update', $industryWatchCategory->id) }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="modal-body">

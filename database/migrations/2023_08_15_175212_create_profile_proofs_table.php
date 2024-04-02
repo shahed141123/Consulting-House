@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pick_up_points', function (Blueprint $table) {
+        Schema::create('profile_proofs', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 200);
-            $table->string('address', 255);
-            $table->string('city', 100);
-            $table->string('state', 100)->nullable();
-            $table->string('zip_code', 15)->nullable();
-            $table->string('contact_name', 200)->nullable();
-            $table->string('contact_email', 255)->nullable();
-            $table->string('contact_phone', 20)->nullable();
+            $table->unsignedBigInteger('profile_id')->nullable();
+            $table->string('file')->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pick_up_points');
+        Schema::dropIfExists('profile_proofs');
     }
 };

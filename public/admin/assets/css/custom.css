@@ -524,3 +524,41 @@ label {
     font-weight: 600;
     border-radius: 2px;
 }
+
+.multiselect-filter{
+    padding: 0px 3px;
+}
+.multiselect-search{
+    padding: 5px;
+}
+
+
+/* 13-08-23 SHAHED */
+        .notification_card {
+            height: 8rem !important;
+        }
+
+        .dasboard_main_card {
+            height: 9rem !important;
+        }
+
+        .notification_link_area {
+            color: gray;
+        }
+
+        .notification_link_area:hover {
+            color: #ae0a46;
+        }
+
+        .site_color {
+            color: #ae0a46;
+        }
+
+        .site_bg_color {
+            background-color: #ae0a46;
+        }
+
+        .admin_color {
+            color: #247297;
+        }
+

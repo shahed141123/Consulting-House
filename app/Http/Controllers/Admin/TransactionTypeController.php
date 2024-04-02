@@ -37,7 +37,7 @@ class TransactionTypeController extends Controller
     public function store(TransactionAndProfileTypeRequest $request)
     {
         $slug = Str::slug($request->name);
-        $count = IndustrySector::where('slug', $slug)->count();
+        $count = TransactionType::where('slug', $slug)->count();
         if ($count > 0) {
             $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
         }

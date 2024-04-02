@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ware_houses', function (Blueprint $table) {
+        Schema::create('privacy_terms', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 200);
-            $table->string('address', 255);
-            $table->string('city', 100);
-            $table->string('state', 100)->nullable();
-            $table->string('zip_code', 15)->nullable();
-            $table->string('contact_name', 200)->nullable();
-            $table->string('contact_email', 255)->nullable();
-            $table->string('contact_phone', 20)->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('name');
+            $table->enum('condition', ['terms', 'policy'])->default('terms');
+            $table->longText('description');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ware_houses');
+        Schema::dropIfExists('privacy_terms');
     }
 };

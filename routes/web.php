@@ -26,7 +26,7 @@ require __DIR__ . '/frontend.php';
 //     return view('welcome');
 // });
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/dashboard', [ClientController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ClientController::class, 'dashboard'])->middleware(['auth', 'verified','twostep'])->name('dashboard');
 // Route::get('/dashboard', function () {
 //     return view('client/pages/dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

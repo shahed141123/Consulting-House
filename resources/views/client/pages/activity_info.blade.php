@@ -55,9 +55,7 @@
                             <div class="white-box">
                                 <div class="box-heading">Your Messages</div>
                                 <main style="padding: 20px;">
-                                    <p style="margin: -10px 0 10px 0; color: #222222; font-size: 13px">
-                                        You have no messages in your inbox to show.
-                                    </p>
+                                    {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!}
 
                                 </main>
                             </div>

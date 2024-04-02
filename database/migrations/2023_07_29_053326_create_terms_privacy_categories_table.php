@@ -11,22 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_items', function (Blueprint $table) {
+        Schema::create('terms_privacy_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('product_id');
-            $table->string('color')->nullable();
-            $table->string('size')->nullable();
-            $table->double('price', 10, 2);
-            $table->integer('quantity')->unsigned();
+            $table->string('name', 200);
+            $table->string('slug')->unique();
+            $table->enum('type', ['terms_condition', 'privacy_policy'])->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('terms_privacy_categories');
     }
 };
