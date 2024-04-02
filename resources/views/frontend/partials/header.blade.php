@@ -570,8 +570,8 @@
             </div>
         </div>
         <div class="col text-center">
-            <a href="#">
-                <img src="https://i.ibb.co/0mDg7cF/consultent-house.png" class="" alt="logo">
+            <a href="{{ route('home') }}">
+                <img src="{{ !empty($data['site']->logo) ? asset('storage/' . $data['site']->logo) : asset('admin/assets/images/no_image.jpg') }}" class="" alt="logo">
             </a>
         </div>
         <div class="col text-end">
@@ -585,8 +585,8 @@
         <div class="row align-items-center no-gutters">
             <div class="col-lg-2 col-md-5 col-sm-4">
                 <div class="logo transition-4">
-                    <a href="#">
-                        <img src="https://i.ibb.co/0mDg7cF/consultent-house.png" class="transition-4" alt="logo">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ !empty($data['site']->logo) ? asset('storage/' . $data['site']->logo) : asset('admin/assets/images/no_image.jpg') }}" class="transition-4" alt="logo">
                     </a>
                 </div>
             </div>

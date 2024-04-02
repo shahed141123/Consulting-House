@@ -4,7 +4,7 @@
             <div class="col-lg-4 z-5">
                 <div class="contact-area relative h-100 mr-lg-20 mr-md-00">
                     <div class="footer-logo mb-35">
-                        <img src="https://i.ibb.co/0mDg7cF/consultent-house.png" alt="">
+                        <img src="{{ !empty($data['site']->logo) ? asset('storage/' . $data['site']->logo) : asset('admin/assets/images/no_image.jpg') }}" alt="">
                     </div>
                     <div class="contact-options mb-35">
                         <ul>
@@ -42,12 +42,12 @@
                 <div class="footer-links pt-85 pt-md-50 mb-sm-70">
                     <h5 class="text-white f-700 mb-35">Businesses</h5>
                     <ul class="links-list">
-                        <li><a href="#">Businesses For Sale</a></li>
+                        {{-- <li><a href="#">Businesses For Sale</a></li>
                         <li><a href="#">Investment Opp</a></li>
                         <li><a href="#">Businesses Seeking</a></li>
                         <li><a href="#">Business Assets</a></li>
                         <li><a href="#">Career</a></li>
-                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="#">Portfolio</a></li> --}}
                     </ul>
                 </div>
             </div>
@@ -55,12 +55,12 @@
                 <div class="footer-links pt-85 pt-md-50 mb-sm-70">
                     <h5 class="text-white f-700 mb-35">Investors</h5>
                     <ul class="links-list">
-                        <li><a href="#">Businesses For Sale</a></li>
+                        {{-- <li><a href="#">Businesses For Sale</a></li>
                         <li><a href="#">Investment Opp</a></li>
                         <li><a href="#">Businesses Seeking</a></li>
                         <li><a href="#">Business Assets</a></li>
                         <li><a href="#">Career</a></li>
-                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="#">Portfolio</a></li> --}}
                     </ul>
                 </div>
             </div>
@@ -68,12 +68,12 @@
                 <div class="footer-links pt-85 pt-md-50 mb-50">
                     <h5 class="text-white f-700 mb-35">Consultant</h5>
                     <ul class="links-list">
-                        <li><a href="#">Businesses For Sale</a></li>
+                        {{-- <li><a href="#">Businesses For Sale</a></li>
                         <li><a href="#">Investment Opp</a></li>
                         <li><a href="#">Businesses Seeking</a></li>
                         <li><a href="#">Business Assets</a></li>
                         <li><a href="#">Career</a></li>
-                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="#">Portfolio</a></li> --}}
                     </ul>
                 </div>
             </div>
@@ -82,12 +82,12 @@
                 <div class="footer-links pt-85 pt-md-50 mb-sm-70">
                     <h5 class="text-white f-700 mb-35">Get Started</h5>
                     <ul class="links-list">
-                        <li><a href="#">Businesses For Sale</a></li>
-                        <li><a href="#">Investment Opp</a></li>
-                        <li><a href="#">Businesses Seeking</a></li>
-                        <li><a href="#">Business Assets</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="{{ route('aboutUs') }}">About Us</a></li>
+                        <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                        <li><a href="{{ route('pricing') }}">Subscription Plans</a></li>
+                        <li><a href="{{ route('bidding.index') }}">Bidding</a></li>
+                        <li><a href="{{ route('faq') }}">FAQ</a></li>
+                        <li><a href="{{ route('all.blog') }}">Blogs</a></li>
                     </ul>
                 </div>
             </div>
@@ -102,11 +102,11 @@
                 <div class="col-xl-6 text-end">
                     <div>
                         <ul class="d-flex align-items-center justify-content-end">
-                            <li><a class="ms-1 text-white" href="">Privacy Policy.</a></li>
-                            <li><a class="ms-1 text-white" href="">Terms of Use.</a></li>
-                            <li><a class="ms-1 text-white" href="">Refund Policy.</a></li>
-                            <li><a class="ms-1 text-white" href="">Best Practices.</a></li>
-                            <li><a class="ms-1 text-white" href="">Sitemap.</a></li>
+                            <li><a class="ms-1 text-white" href="{{ route('privacy') }}">Privacy Policy.</a></li>
+                            <li><a class="ms-1 text-white" href="{{ route('terms-condition') }}">Terms of Use.</a></li>
+                            <li><a class="ms-1 text-white" href="{{ route('faq') }}">FAQ.</a></li>
+                            {{-- <li><a class="ms-1 text-white" href="">Best Practices.</a></li> --}}
+                            {{-- <li><a class="ms-1 text-white" href="">Sitemap.</a></li> --}}
                         </ul>
                     </div>
                     <div>
@@ -114,18 +114,18 @@
                             <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
                                         src="https://www.smergers.com/static/images/32x20xvisa_icon.png.pagespeed.ic.OmmqobtMUj.webp"></a>
                             </li>
+                            {{-- <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
+                                        src="https://www.smergers.com/static/images/32x20xvisa_icon.png.pagespeed.ic.OmmqobtMUj.webp"></a>
+                            </li> --}}
+                            <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
+                                        src="https://www.smergers.com/static/images/32x20xmastercard_icon.png.pagespeed.ic.U0Snvjkx7R.webp"></a>
+                            {{-- </li>
                             <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
                                         src="https://www.smergers.com/static/images/32x20xvisa_icon.png.pagespeed.ic.OmmqobtMUj.webp"></a>
                             </li>
                             <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
                                         src="https://www.smergers.com/static/images/32x20xmastercard_icon.png.pagespeed.ic.U0Snvjkx7R.webp"></a>
-                            </li>
-                            <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
-                                        src="https://www.smergers.com/static/images/32x20xvisa_icon.png.pagespeed.ic.OmmqobtMUj.webp"></a>
-                            </li>
-                            <li><a class="ms-1" href=""><img height="20" width="32" alt="Visa"
-                                        src="https://www.smergers.com/static/images/32x20xmastercard_icon.png.pagespeed.ic.U0Snvjkx7R.webp"></a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
