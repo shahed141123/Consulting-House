@@ -194,8 +194,8 @@
                                                     <div class="col-lg-2">
                                                         <img id="preview-image"
                                                             src="{{ asset('admin/assets/images/no_image.jpg') }}"
-                                                            class="border" width="44" height="35" style="margin-top:25px;"
-                                                            alt="">
+                                                            class="border" width="44" height="35"
+                                                            style="margin-top:25px;" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,6 +279,7 @@
                                                         <label class="ms-1" for="short_description">Header</label>
                                                         <textarea name="header" class="form-control" id="short_desc" rows="3" placeholder="Enter Your Header">
 @isset($blogPost)
+@isset($blogPost)
 {{ $blogPost->header }}
 @endisset
 </textarea>
@@ -290,6 +291,7 @@
                                                         <textarea class="form-control" name="short_description" id="overview" rows="3"
                                                             placeholder="Enter Your Short Description">
 @isset($blogPost)
+@isset($blogPost)
 {{ $blogPost->short_description }}
 @endisset
 </textarea>
@@ -300,6 +302,7 @@
                                                         <label class="ms-1" for="content">Content <span
                                                                 class="text-danger">*</span></label>
                                                         <textarea class="form-control" name="content" id="overview" rows="3" placeholder="Enter Your Content">
+@isset($blogPost)
 @isset($blogPost)
 {{ $blogPost->content }}
 @endisset

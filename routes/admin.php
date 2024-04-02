@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\AdminChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FaqController;
@@ -173,6 +174,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         'newsletter'                => NewsletterController::class,
         'bulk-email'                => BulkEmailController::class,
         'chat-messages'             => AdminChatController::class,
+        'about-us'                  => AboutUsController::class,
     ], [
         'except' => ['brand',  'create', 'show', 'edit'],
         'except' => ['profile_type',  'create', 'show', 'edit'],

@@ -12,9 +12,6 @@
             <a href="#"
                 class="nav-link {{ Route::is('admin.client_type_category.index', 'admin.profile_type.index', 'admin.client_type.index', 'admin.entity_type.index', 'admin.transaction_type.index') ? 'active' : '' }}">
                 <i class="ph ph-chalkboard-teacher"></i>
-            <a href="#"
-                class="nav-link {{ Route::is('admin.client_type_category.index', 'admin.profile_type.index', 'admin.client_type.index', 'admin.entity_type.index', 'admin.transaction_type.index') ? 'active' : '' }}">
-                <i class="ph ph-chalkboard-teacher"></i>
                 <span>{{ __('Types') }}</span>
             </a>
             <ul
@@ -220,6 +217,13 @@
             <ul
                 class="nav-group-sub collapse {{ Route::is('admin.blog-category.index', 'admin.blog-post.index', 'admin.faq.index') ? 'show' : '' }}">
                 <li class="nav-item">
+                    <a href="{{ route('admin.about-us.index') }}"
+                        class="nav-link {{ Route::is('admin.about-us.index') ? 'active' : '' }}">
+                        <i class="ph ph-article"></i>
+                        {{ __('About Us Page') }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.blog-category.index') }}"
                         class="nav-link {{ Route::is('admin.blog-category.index') ? 'active' : '' }}">
                         <i class="ph ph-newspaper-clipping"></i>
@@ -352,5 +356,3 @@
 
     </ul>
 </div>
-
-
